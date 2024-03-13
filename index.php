@@ -1,5 +1,5 @@
 <?php
-echo 'test';
+
 $action = "accueil";
 
 if (isset($_GET['action'])) $action = $_GET['action'];
