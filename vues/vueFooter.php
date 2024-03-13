@@ -1,4 +1,4 @@
-<?php if($action != 'accueil') { ?>
+<?php if($action != 'accueil' && $action != 'connexion') { ?>
     <footer>
         <br><br>
         <a href="index.php"><button class="btn btn-secondary">Retour à l'accueil</button></a>
