@@ -1,0 +1,17 @@
+body {
+    --bleu : #3C4FA0;
+    font-family: 'Calibri';
+}
+
+.formConnexion {
+    background-color: var(--bleu);
+    color: white;
+    border-radius: 10px;
+    width: 50%;
+}
+
+@media screen and (max-width: 992px) {
+    .formConnexion {
+        width: 100%;
+    }
+}
