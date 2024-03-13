@@ -1,13 +1,28 @@
 body {
-    --bleu : #3C4FA0;
+    --bleuFonce : #3C4FA0;
+    --bleuMoyen : #4488C5;
+    --bleuClair : #8FC1E6;
     font-family: 'Calibri';
+    background-image: url("../Images/background.png");
+    background-size: cover;
+}
+
+.maNav {
+    background-color: var(--bleuFonce);
 }
 
 .formConnexion {
-    background-color: var(--bleu);
+    background-color: var(--bleuFonce);
     color: white;
+    border: solid 3px white;
     border-radius: 10px;
     width: 50%;
+}
+
+.inputText {
+    border-radius: 5px;
+    border: none;
+    color: var(--bleuMoyen);
 }
 
 @media screen and (max-width: 992px) {

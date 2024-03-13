@@ -10,7 +10,7 @@ var_dump($action);
 // switch sur si pas de connexion trouvé -> formulaire connexion
 switch ($action) {
     case "connexion":
-        $titre = "Accueil";
+        $titre = "Connexion";
         require "./vues/vueHeader.php";
         require "./vues/vueConnexion.php";
         break;
