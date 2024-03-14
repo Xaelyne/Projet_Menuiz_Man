@@ -13,4 +13,15 @@
         return new PDO($dsn, $login, $password,array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
     }
 
+    function getUtilisateurs() : array {
+
+        $connexion = getConnexion();
+
+        $sql = "SELECT * FROM utilisateurs";
+
+        $resultat = $connexion->query($sql);
+
+        return $resultat->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 ?>

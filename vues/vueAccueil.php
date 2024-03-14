@@ -10,24 +10,14 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            </tr>
-            <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-            </tr>
-            <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>Thor</td>
-            <td>@twitter</td>
-            </tr>
+            <?php foreach ($utilisateurs as $utilisateur) { ?>
+                <tr>
+                    <th scope="row"><?= $utilisateur['idUtilisateur']; ?></th>
+                    <td><?= $utilisateur['nomUtilisateur']; ?></td>
+                    <td><?= $utilisateur['prenomUtilisateur']; ?></td>
+                    <td><?= $utilisateur['roleUtilisateur']; ?></td>
+                </tr>
+            <?php } ?>
         </tbody>
         </table>
 <?php   } ?>
