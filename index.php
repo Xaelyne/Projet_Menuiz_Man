@@ -108,5 +108,3 @@ switch ($action) {
 }
 
 require "./vues/vueFooter.php";
-
-
