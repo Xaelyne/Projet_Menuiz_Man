@@ -11,7 +11,7 @@
                         </div>
                     </form>
                 </div>
-                
+                <?php if (!is_null($resultats_recherche) && count($resultats_recherche) > 0) { ?>
                 <table class="container table table-striped border maTableAdmin">
                     <thead>
                         <tr>
@@ -27,12 +27,17 @@
                                 <th scope="row"><?= $utilisateur['idUtilisateur']; ?></th>
                                 <td><?= $utilisateur['nomUtilisateur']; ?></td>
                                 <td><?= $utilisateur['prenomUtilisateur']; ?></td>
-                                <td><?= $utilisateur['roleUtilisateur']; ?></td>
+                                <?php $role = $utilisateur['roleUtilisateur']; ?>
+                                <td><?= afficheRoleUtilisateur($role); ?></td>
                             </tr>
                         <?php } ?>
                     </tbody>
                 </table>
-            
+                <?php } else { ?>
+                    <p class="d-flex justify-content-center text-white">Aucun résultat trouvé.</p>
+                <?php } ?>
+                <?php if($resultats_recherche) { ?>      
                 <p class="d-flex justify-content-center text-white">Nombre d'utilisateurs trouvés : <?= count($resultats_recherche); ?></p>
+                <?php }  ?>
             </div>
         </div> 

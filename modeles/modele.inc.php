@@ -25,32 +25,31 @@
     }
 
 
-    function rechercheUtilisateur() {
-        if(isset($_POST['search'])) {
+    function rechercheUtilisateur()  {
+
+        $resultats = [];
+
+        if(isset($_POST['search']) && !empty(trim($_POST['search']))) {
             $recherche = $_POST['search'];
         
-        $connexion = getConnexion();
+            $connexion = getConnexion();
 
-        $sql = "SELECT * FROM utilisateurs WHERE nomUtilisateur LIKE :search_term OR prenomUtilisateur LIKE :search_term OR idUtilisateur LIKE :search_term OR roleUtilisateur LIKE :search_term";
+            $sql = "SELECT * FROM utilisateurs WHERE nomUtilisateur LIKE :search_term OR prenomUtilisateur LIKE :search_term OR idUtilisateur LIKE :search_term OR roleUtilisateur LIKE :search_term";
 
-        $curseur = $connexion->prepare($sql);
+            $curseur = $connexion->prepare($sql);
 
-        $curseur->execute(['search_term' => "%$recherche%"]);
+            $curseur->execute(['search_term' => "%$recherche%"]);
 
-        $resultats = $curseur->fetchAll(PDO::FETCH_ASSOC);
+            $resultats = $curseur->fetchAll(PDO::FETCH_ASSOC);
 
-        return $resultats;
-
-        } else {
-            echo "Veuillez entrer une recherche";
+            return $resultats;
         }
     }
 
-    function getRoleUtilisateur($role) {
+    function afficheRoleUtilisateur($role) {
         if ($role == 1) return "Administrateur";
         else if ($role == 2)  return "Technicien Hotline";
         else return "Technicien SAV";
-
     }
 
 ?>
