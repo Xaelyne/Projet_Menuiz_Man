@@ -47,7 +47,7 @@ INSERT INTO `utilisateurs` (`idUtilisateur`, `nomUtilisateur`, `prenomUtilisateu
 (4, 'Terrieur', 'Alex', 'alexterrieur', '123456', 2),
 (5, 'Iron', 'Man', 'ironman', '123456', 3),
 (6, 'Spider', 'Man', 'spiderman', '123456', 3),
-(7, 'Arrya', 'Stark', 'ironman', '123456', 3);
+(7, 'Arrya', 'Stark', 'arryastark', '123456', 3);
 
 --
 -- Index pour les tables déchargées

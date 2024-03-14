@@ -16,7 +16,7 @@
                     <td><?= $utilisateur['nomUtilisateur']; ?></td>
                     <td><?= $utilisateur['prenomUtilisateur']; ?></td>
                     <?php $role = $utilisateur['roleUtilisateur']; ?>
-                    <td><?= getRoleUtilisateur($role); ?></td>
+                    <td><?= afficheRoleUtilisateur($role); ?></td>
                 </tr>
             <?php } ?>
         </tbody>
