@@ -15,7 +15,8 @@
                     <th scope="row"><?= $utilisateur['idUtilisateur']; ?></th>
                     <td><?= $utilisateur['nomUtilisateur']; ?></td>
                     <td><?= $utilisateur['prenomUtilisateur']; ?></td>
-                    <td><?= $utilisateur['roleUtilisateur']; ?></td>
+                    <?php $role = $utilisateur['roleUtilisateur']; ?>
+                    <td><?= getRoleUtilisateur($role); ?></td>
                 </tr>
             <?php } ?>
         </tbody>
