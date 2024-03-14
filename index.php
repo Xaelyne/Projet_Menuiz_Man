@@ -16,6 +16,17 @@ switch ($action) {
         require "./vues/vueHeader.php";
         require "./vues/vueConnexion.php";
         break;
+    case "connexionMaj":
+        $nomUtilisateur = $_GET['user'];
+        $mdpUtilisateur = $_GET['pass'];
+var_dump($nomUtilisateur, $mdpUtilisateur);
+        require "./modeles/modele.inc.php";
+        //getUtilisateurs();
+
+        $titre = "Connexion";
+        require "./vues/vueHeader.php";
+        require "./vues/vueConnexion.php";
+        break;
     case "accueilAdmin":
         $titre = "Bonjour $nom, vous êtes connecté en tant qu'$role";
         require "./vues/vueHeader.php";
