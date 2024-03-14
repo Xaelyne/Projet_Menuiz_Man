@@ -14,6 +14,11 @@ switch ($action) {
         require "./vues/vueHeader.php";
         require "./vues/vueConnexion.php";
         break;
+    case "testQuentin":
+        $titre = "Accueil Admin";
+        require "./vues/vueHeader.php";
+        require "./vues/vueAccueil.php";
+        break;
 }
 
 require "./vues/vueFooter.php";
