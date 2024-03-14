@@ -29,10 +29,12 @@
                     <td><?= $utilisateur['nomUtilisateur']; ?></td>
                     <td><?= $utilisateur['prenomUtilisateur']; ?></td>
                     <?php $role = $utilisateur['roleUtilisateur']; ?>
-                    <td><?= getRoleUtilisateur($role); ?></td>
+                    <td><?= afficheRoleUtilisateur($role); ?></td>
                 </tr>
             <?php } ?>
         </tbody>
         </table>
+
+        <p class="d-flex justify-content-center text-white">Nombre d'utilisateurs trouvés : <?= count($utilisateurs); ?></p>
 
 <?php   } ?>
