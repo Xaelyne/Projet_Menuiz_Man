@@ -1,5 +1,5 @@
 <form action="index.php" class="container p-5 formConnexion text-start">
-    <input type="hidden" name="action" value="connexion">
+    <input type="hidden" name="action" value="connexionMaj">
     <div class="row">
         <label for="user">Nom d'utilisateur :</label>
         <input type="text" name="user" class="inputText">
