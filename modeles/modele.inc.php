@@ -24,4 +24,10 @@
         return $resultat->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    function getRoleUtilisateur($role) {
+        if ($role == 1) return "Administrateur";
+        else if ($role == 2)  return "Technicien Hotline";
+        else return "Technicien SAV";
+    }
+
 ?>
