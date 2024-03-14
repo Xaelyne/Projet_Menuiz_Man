@@ -11,7 +11,7 @@
     <title><?= $titre ?></title>
 </head>
 
-<body class="text-center">
+<body>
 
     <!-- Les alerts -->
     <div class="col-12 alert alert-danger d-block d-sm-none text-center" role="alert">Screen X-Small</div>
@@ -21,21 +21,24 @@
     <div class="col-xl-12 alert alert-dark d-none d-xl-block d-xxl-none text-center" role="alert">Screen X-Large ≥1200px</div>
     <div class="col-xxl-12 alert alert-secondary d-none d-xxl-block text-center" role="alert">Screen XX-Large ≥1400px</div>
 
-
     <!-- Nav Barre -->
     <nav class="navbar navbar-expand-lg maNav">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <img src="../Images/Menuiz Man.png" alt="Logo" class="logonav">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarNav">
+
                 <ul class="navbar-nav">
                     <li>
                         <a class="nav-link mx-3" aria-current="page" href="index.php">
                             <img src="../Images/Menuiz Man.png" alt="Logo" class="logonav d-md-none d-lg-block">
                         </a>
                     </li>
+
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
@@ -50,5 +53,4 @@
         </div>
     </nav>
 
-
-    <h1 class="my-3"><?= $titre ?></h1>
+    <h1 class="my-3 text-center"><?= $titre ?></h1>
