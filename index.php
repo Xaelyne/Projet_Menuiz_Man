@@ -14,7 +14,10 @@ switch ($action) {
         require "./vues/vueHeader.php";
         require "./vues/vueConnexion.php";
         break;
-    
+    case "accueilAdmin":
+        $titre = "Bonjour $nom, vous êtes connecté en tant qu'$role";
+        require "./vues/vueHeader.php";
+        require "./vues/vueAccueil.php";
 }
 
 require "./vues/vueFooter.php";
