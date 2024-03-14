@@ -32,6 +32,16 @@ var_dump($nomUtilisateur, $mdpUtilisateur);
         require "./vues/vueHeader.php";
         $utilisateurs = getUtilisateurs();
         require "./vues/vueAccueil.php";
+        break;
+    case "accueilAdminMAJ":
+        $titre = "Résultat de votre recherche";
+        require "./vues/vueHeader.php";
+        if(isset($_POST['search'])) {
+            $resultats_recherche = rechercheUtilisateur();
+        }
+        require "./vues/vueResultat.php";
+        break;
+
 }
 
 require "./vues/vueFooter.php";

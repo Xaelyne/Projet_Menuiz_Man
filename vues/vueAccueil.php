@@ -1,4 +1,17 @@
 <?php if($action === 'accueilAdmin')  {?>
+
+    <div class="contourAdmin container d-flex justify-content-center align-items-center" >
+        <div class="col-md-6">
+            <div class="container my-3">
+                <form class="form-inline" action="index.php?action=accueilAdminMAJ" method="post">
+                    <div class="input-group col-auto maRecherche">
+                        <input class="form-control form-control-sm espaceBouton" type="search" name="search" placeholder="Rechercher" aria-label="Rechercher">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-outline-primary" type="submit">Rechercher</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
             
     <table class="container table table-striped border maTableAdmin">
         <thead>
@@ -21,4 +34,5 @@
             <?php } ?>
         </tbody>
         </table>
+
 <?php   } ?>

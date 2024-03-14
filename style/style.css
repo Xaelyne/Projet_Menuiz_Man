@@ -29,8 +29,18 @@ body {
     color: var(--bleuMoyen);
 }
 
-.maTableAdmin {
-    border: solid 10px blue;
+.contourAdmin {
+    background-color: var(--bleuFonce);
+    border: solid 3px white;
+}
+
+
+.maRecherche {
+    width: 500px;
+}
+
+.espaceBouton {
+    margin-right: 20px;
 }
 
 @media screen and (max-width: 992px) {
