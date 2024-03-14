@@ -25,6 +25,10 @@ body {
     color: var(--bleuMoyen);
 }
 
+.maTableAdmin {
+    border: solid 10px blue;
+}
+
 @media screen and (max-width: 992px) {
     .formConnexion {
         width: 100%;
