@@ -11,6 +11,10 @@ body {
     background-color: var(--bleuFonce);
 }
 
+.logonav {
+    width: 50%;
+}
+
 .formConnexion {
     background-color: var(--bleuFonce);
     color: white;
