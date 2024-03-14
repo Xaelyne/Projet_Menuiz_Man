@@ -24,4 +24,25 @@
         return $resultat->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    function rechercheUtilisateur() {
+        if(isset($_POST['search'])) {
+            $recherche = $_POST['search'];
+        
+        $connexion = getConnexion();
+
+        $sql = "SELECT * FROM utilisateurs WHERE nomUtilisateur LIKE :search_term OR prenomUtilisateur LIKE :search_term OR idUtilisateur LIKE :search_term OR roleUtilisateur LIKE :search_term";
+
+        $curseur = $connexion->prepare($sql);
+
+        $curseur->execute(['search_term' => "%$recherche%"]);
+
+        $resultats = $curseur->fetchAll(PDO::FETCH_ASSOC);
+
+        return $resultats;
+
+        } else {
+            echo "Veuillez entrer une recherche";
+        }
+    }
+
 ?>
