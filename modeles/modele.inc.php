@@ -28,8 +28,8 @@
 
         $resultats = [];
 
-        if(isset($_POST['search']) && !empty(trim($_POST['search']))) {
-            $recherche = $_POST['search'];
+        if(isset($_GET['search']) && !empty(trim($_GET['search']))) {
+            $recherche = $_GET['search'];
         
             $connexion = getConnexion();
 

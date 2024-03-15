@@ -3,7 +3,7 @@
     <div class="contourAdmin container d-flex justify-content-center align-items-center" >
             <div class="col-md-6">
                 <div class="container my-3 ">
-                    <form class="form-inline" action="index.php?action=accueilAdminMAJ" method="post">
+                    <form class="form-inline" action="index.php?action=accueilAdminMAJ">
                         <div class="input-group col-auto maRecherche" >
                             <input class="form-control form-control-sm espaceBouton" type="search" name="search" placeholder="Rechercher" aria-label="Rechercher">
                             <div class="input-group-prepend ">
