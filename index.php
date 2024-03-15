@@ -7,7 +7,7 @@ if (!isset($_GET['action'])) $action = "connexion";
 
 require("./modeles/modele.inc.php");
 
-var_dump($action);
+var_dump("action -> ".$action);
 
 // switch sur si pas de connexion trouvé -> formulaire connexion
 switch ($action) {
@@ -17,14 +17,27 @@ switch ($action) {
         require "./vues/vueConnexion.php";
         break;
     case "accueilTechnicienSAV":
-        // $titre = "Bonjour $nom, vous êtes connecté en tant que $role";
-        $titre = "Bonjour, vous êtes connecté en tant que";
+        // récupération des infos utilisateurs
+        $id = $_GET['id'];
+        $utilisateur = getUtilisateur($id);
+        $nom = $utilisateur['nomUtilisateur'];
+        $prenom = $utilisateur['prenomUtilisateur'];
+        $role = afficheRoleUtilisateur($utilisateur['roleUtilisateur']);
+
+        $titre = "Bonjour $nom $prenom, vous êtes connecté en tant que $role";
         require "./vues/vueHeader.php";
         require "./vues/vueAccueil.php";
         break;
     case "accueilTechnicienHOT":
-        // $titre = "Bonjour $nom, vous êtes connecté en tant que $role";
-        $titre = "Bonjour, vous êtes connecté en tant que";
+        // récupération des infos utilisateurs
+        $id = $_GET['id'];
+        $utilisateur = getUtilisateur($id);
+        $nom = $utilisateur['nomUtilisateur'];
+        $prenom = $utilisateur['prenomUtilisateur'];
+        $role = afficheRoleUtilisateur($utilisateur['roleUtilisateur']);
+
+        $titre = "Bonjour $nom $prenom, vous êtes connecté en tant que $role";
+
         require "./vues/vueHeader.php";
         require "./vues/vueAccueil.php";
         break;
@@ -76,15 +89,16 @@ switch ($action) {
             if($role == 1) {
                 $action = "accueilAdmin";
             } else if ($role == 2) {
-                $action = "accueilHotline";
+                $action = "accueilTechnicienHOT";
             } else {
-                $action = "accueilSAV";   
+                $action = "accueilTechnicienSAV";   
             }
 
             header("Location: index.php?action=$action&id=$id");
         }
         break;
     case "accueilAdmin":
+        // récupération des infos utilisateurs
         $id = $_GET['id'];
         $utilisateur = getUtilisateur($id);
         $nom = $utilisateur['nomUtilisateur'];
