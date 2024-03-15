@@ -84,4 +84,4 @@
     }
     ?>
 
-    <h1 class="my-3 text-center"><?= $titre ?></h1>
+    <h1 class="my-5 text-center"><?= $titre ?></h1>

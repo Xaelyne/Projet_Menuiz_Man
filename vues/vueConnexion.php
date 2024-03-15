@@ -8,7 +8,7 @@
         <label for="pass">Mot de passe :</label>
         <input type="password" name="pass"  class="inputText">
     </div>
-    <div class="text-center mt-3">
+    <div class="text-center mt-5">
         <input type="submit" value="Valider" class="btn bouton">
     </div>
 </form>
