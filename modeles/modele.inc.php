@@ -101,6 +101,7 @@ var_dump("fonction role : " . $role);
     }
 
 
+
     function ajoutUtilisateur($pseudoUtilisateur, $nom, $prenom, $mdpUtilisateur, $role) {
         try {
             
@@ -127,6 +128,37 @@ var_dump("fonction role : " . $role);
         } catch (PDOException $e) {
             
             throw new ModeleException("Erreur lors de l'insertion de l'utilisateur : " . $e->getMessage());
+
+    function getClients() : array {
+
+        $connexion = getConnexion();
+
+        $sql = "SELECT * FROM client";
+
+        $resultat = $connexion->query($sql);
+
+        return $resultat->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    function rechercheClient()  {
+
+        $resultats = [];
+
+        if(isset($_GET['search']) && !empty(trim($_GET['search']))) {
+            $recherche = $_GET['search'];
+        
+            $connexion = getConnexion();
+
+            $sql = "SELECT * FROM client WHERE nomClient LIKE :search_term OR prenomClient LIKE :search_term";
+
+            $curseur = $connexion->prepare($sql);
+
+            $curseur->execute(['search_term' => "%$recherche%"]);
+
+            $resultats = $curseur->fetchAll(PDO::FETCH_ASSOC);
+
+            return $resultats;
+
         }
     }
 

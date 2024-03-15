@@ -44,12 +44,25 @@ switch ($action) {
         require "./vues/vueAccueil.php";
         break;
     case "nouveauDossier":
-        $titre = "Créer un nouveau dossier";
+        $id = $_GET['id'];
+        $titre = "Créer un nouveau dossier"; // à modifier par une recherche client
         $roleHeader = afficheHeader();
         require "./vues/vueHeader.php";
-        require "./vues/vueAccueil.php";
+        $clients = getClients();
+        require "./vues/vueCreerDossier.php";
         break;
-    case "rechercherDossier":
+    case "nouveauDossierRechercheClient":
+        $id = $_GET['id'];
+        $titre = "Créer un nouveau dossier"; // à modifier par une recherche client
+        $roleHeader = afficheHeader();
+        require "./vues/vueHeader.php";
+        $clients = getClients();
+        if(isset($_GET['search'])) {
+            $recherche = rechercheClient();
+        }
+        require "./vues/vueCreerDossier.php";
+        break;
+    case "rechercherDossier": 
         $titre = "Rechercher un dossier";
         $roleHeader = afficheHeader();
         require "./vues/vueHeader.php";

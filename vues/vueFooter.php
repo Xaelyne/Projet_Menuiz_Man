@@ -1,5 +1,5 @@
 <?php 
-    if($action != 'accueil' && $action != 'connexion' && $action != 'accueilAdmin' && $action != 'accueilTechnicienHOT' && $action != 'accueilTechnicienSAV') { 
+    if($action != 'accueil' && $action != 'connexion' && $action != 'connexionMaj' && $action != 'accueilAdmin' && $action != 'accueilTechnicienHOT' && $action != 'accueilTechnicienSAV') { 
         // récupération du rôle utilisateur grâce à son id
         $id = $_GET['id'];
         $user = getUtilisateur($id);
@@ -11,9 +11,9 @@
         else if ($role == 3) $retourAccueil = "accueilTechnicienSAV";
         
 ?>
-    <footer>
+    <footer class="text-center">
         <br><br>
-        <a href="index.php?action=<?=$retourAccueil?>&id=<?=$id?>"><button class="btn btn-secondary">Retour à l'accueil</button></a>
+        <a href="index.php?action=<?=$retourAccueil?>&id=<?=$id?>"><button class="btn bouton">Retour à l'accueil</button></a>
     </footer>
 <?php
     } 

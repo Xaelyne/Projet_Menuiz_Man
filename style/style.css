@@ -6,6 +6,10 @@ body {
     background-image: url("../Images/background.png");
     background-size: cover;
 }
+.alignTable {
+    vertical-align: middle;
+    text-align: center;
+}
 
 .maNav {
     background-color: var(--bleuFonce);
@@ -21,6 +25,7 @@ body {
     border: solid 3px white;
     border-radius: 10px;
     width: 50%;
+    max-width: 500px;
 }
 
 .inputText {
@@ -28,6 +33,9 @@ body {
     border: none;
     color: var(--bleuMoyen);
     font-weight: 600;
+}
+.inputText:focus {
+    outline-color: var(--bleuMoyen);
 }
 
 
@@ -74,9 +82,11 @@ body {
 .bouton {
     background-color: var(--bleuMoyen);
     color: white;
+    border: solid 3px white;
 }
 .bouton:hover {
     background-color: var(--bleuClair);
+    border: solid 3px white;
 }
 
 .boutonPopup {
