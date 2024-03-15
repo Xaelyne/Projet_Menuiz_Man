@@ -121,6 +121,7 @@ switch ($action) {
         require "./vues/vueAccueil.php";
         break;
     case "accueilAdminMAJ":
+        $id = $_POST['id'];
         $titre = "Résultat de votre recherche";
         $roleHeader = afficheHeader();
         require "./vues/vueHeader.php";
