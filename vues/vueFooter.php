@@ -1,5 +1,5 @@
 <?php 
-    if($action != 'accueil' && $action != 'connexion' && $action != 'accueilAdmin' && $action != 'accueilTechnicienHOT' && $action != 'accueilTechnicienSAV') { 
+    if($action != 'accueil' && $action != 'connexion' && $action != 'connexionMaj' && $action != 'accueilAdmin' && $action != 'accueilTechnicienHOT' && $action != 'accueilTechnicienSAV') { 
         // récupération du rôle utilisateur grâce à son id
         $id = $_GET['id'];
         $user = getUtilisateur($id);

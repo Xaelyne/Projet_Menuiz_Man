@@ -6,6 +6,10 @@ body {
     background-image: url("../Images/background.png");
     background-size: cover;
 }
+.alignTable {
+    vertical-align: middle;
+    text-align: center;
+}
 
 .maNav {
     background-color: var(--bleuFonce);
@@ -21,6 +25,7 @@ body {
     border: solid 3px white;
     border-radius: 10px;
     width: 50%;
+    max-width: 500px;
 }
 
 .inputText {

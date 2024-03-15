@@ -100,4 +100,36 @@ var_dump("fonction role : " . $role);
         return $result;
     }
 
+    function getClients() : array {
+
+        $connexion = getConnexion();
+
+        $sql = "SELECT * FROM client";
+
+        $resultat = $connexion->query($sql);
+
+        return $resultat->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    function rechercheClient()  {
+
+        $resultats = [];
+
+        if(isset($_GET['search']) && !empty(trim($_GET['search']))) {
+            $recherche = $_GET['search'];
+        
+            $connexion = getConnexion();
+
+            $sql = "SELECT * FROM client WHERE nomClient LIKE :search_term OR prenomClient LIKE :search_term";
+
+            $curseur = $connexion->prepare($sql);
+
+            $curseur->execute(['search_term' => "%$recherche%"]);
+
+            $resultats = $curseur->fetchAll(PDO::FETCH_ASSOC);
+
+            return $resultats;
+        }
+    }
+
 ?>

@@ -4,7 +4,7 @@ if ($action === "accueilTechnicienSAV") {
     ?>
     <div class="container">
         <div class="d-flex flex-lg-row flex-column justify-content-center align-items-center flex-wrap">
-            <a href="index.php?action=nouveauDossier" class="lienCarte">
+            <a href="index.php?action=nouveauDossier&id=<?=$id?>" class="lienCarte">
                 <div class='card m-2 maCarte' style='width: 18rem;'>
                 <img src='../Images/nouveau-dossier.png' class='card-img-top m-auto mt-1 pt-3' style='width: 50%;' alt='nouveauDossier'>
                     <div class='card-body'>
@@ -12,7 +12,7 @@ if ($action === "accueilTechnicienSAV") {
                     </div>
                 </div>
             </a>
-            <a href="index.php?action=rechercherDossier" class="lienCarte">
+            <a href="index.php?action=rechercherDossier&id=<?=$id?>" class="lienCarte">
                 <div class='card m-2 maCarte' style='width: 18rem;'>
                 <img src='Images\rechercheDossier.png' class='card-img-top m-auto mt-1 pt-3' style='width: 50%;' alt='nouveauDossier'>
                     <div class='card-body'>
@@ -20,7 +20,7 @@ if ($action === "accueilTechnicienSAV") {
                     </div>
                 </div>
             </a>
-            <a href="index.php?action=dossierTermine" class="lienCarte">
+            <a href="index.php?action=dossierTermine&id=<?=$id?>" class="lienCarte">
                 <div class='card m-2 maCarte' style='width: 18rem;'>
                 <img src='Images\verifie.png' class='card-img-top m-auto mt-1 pt-3' style='width: 50%;' alt='nouveauDossier'>
                     <div class='card-body'>
@@ -32,7 +32,7 @@ if ($action === "accueilTechnicienSAV") {
     </div>
     <div class="container">
         <div class="d-flex flex-lg-row flex-column justify-content-center align-items-center flex-wrap">
-            <a href="index.php?action=nouveauDossier" class="lienCarte">
+            <a href="index.php?action=nouveauDossier&id=<?=$id?>" class="lienCarte">
                 <div class='card m-2 maCarte' style='width: 18rem;'>
                 <img src='Images\parametre.png' class='card-img-top m-auto mt-1 pt-3' style='width: 50%;' alt='nouveauDossier'>
                     <div class='card-body'>
@@ -40,7 +40,7 @@ if ($action === "accueilTechnicienSAV") {
                     </div>
                 </div>
             </a>
-            <a href="index.php?action=rechercherDossier" class="lienCarte">
+            <a href="index.php?action=rechercherDossier&id=<?=$id?>" class="lienCarte">
                 <div class='card m-2 maCarte' style='width: 18rem;'>
                 <img src='Images\livraison-rapide.png' class='card-img-top m-auto mt-1 pt-3' style='width: 50%;' alt='nouveauDossier'>
                     <div class='card-body'>
@@ -58,7 +58,7 @@ if ($action === "accueilTechnicienHOT") {
     ?>
     <div class="container">
         <div class="d-flex flex-lg-row flex-column justify-content-center align-items-center flex-wrap">
-            <a href="index.php?action=nouveauDossier" class="lienCarte">
+            <a href="index.php?action=nouveauDossier&id=<?=$id?>" class="lienCarte">
                 <div class='card m-2 maCarte' style='width: 18rem;'>
                 <img src='Images\nouveau-dossier.png' class='card-img-top m-auto mt-1 ' style='width: 50%;' alt='nouveauDossier'>
                     <div class='card-body'>
@@ -66,7 +66,7 @@ if ($action === "accueilTechnicienHOT") {
                     </div>
                 </div>
             </a>
-            <a href="index.php?action=rechercherDossier" class="lienCarte">
+            <a href="index.php?action=rechercherDossier&id=<?=$id?>" class="lienCarte">
                 <div class='card m-2 maCarte' style='width: 18rem;'>
                 <img src='Images\rechercheDossier.png' class='card-img-top m-auto mt-1' style='width: 50%;' alt='nouveauDossier'>
                     <div class='card-body'>
