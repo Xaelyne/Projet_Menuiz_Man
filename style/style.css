@@ -27,6 +27,7 @@ body {
     border-radius: 5px;
     border: none;
     color: var(--bleuMoyen);
+    font-weight: 600;
 }
 
 
@@ -70,9 +71,21 @@ body {
 }
 
 
+.bouton {
+    background-color: var(--bleuMoyen);
+    color: white;
+}
+.bouton:hover {
+    background-color: var(--bleuClair);
+}
+
+
 .btnDeconnexion {
     color: white;
     text-decoration: none;
+}
+.btnDeconnexion:hover {
+    color: var(--bleuMoyen);
 }
 .imgDeconnexion {
     width: 40px;

@@ -51,6 +51,17 @@
         else return "Technicien SAV";
     }
 
+    function afficheHeader () {
+        $role = 0;
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+            $user = getUtilisateur($id);
+            $role = $user['roleUtilisateur'];
+var_dump("fonction role : " . $role);
+        }
+        return $role;
+    }
+
 
     function controleConnexion($pseudoUtilisateur, $mdpUtilisateur, $users) {
         $idUser = 0;

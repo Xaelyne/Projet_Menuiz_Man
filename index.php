@@ -13,6 +13,7 @@ var_dump("action -> ".$action);
 switch ($action) {
     case "connexion":
         $titre = "Connexion";
+        $roleHeader = afficheHeader();
         require "./vues/vueHeader.php";
         require "./vues/vueConnexion.php";
         break;
@@ -25,6 +26,7 @@ switch ($action) {
         $role = afficheRoleUtilisateur($utilisateur['roleUtilisateur']);
 
         $titre = "Bonjour $nom $prenom, vous êtes connecté en tant que $role";
+        $roleHeader = afficheHeader();
         require "./vues/vueHeader.php";
         require "./vues/vueAccueil.php";
         break;
@@ -37,32 +39,37 @@ switch ($action) {
         $role = afficheRoleUtilisateur($utilisateur['roleUtilisateur']);
 
         $titre = "Bonjour $nom $prenom, vous êtes connecté en tant que $role";
-
+        $roleHeader = afficheHeader();
         require "./vues/vueHeader.php";
         require "./vues/vueAccueil.php";
         break;
     case "nouveauDossier":
         $titre = "Créer un nouveau dossier";
+        $roleHeader = afficheHeader();
         require "./vues/vueHeader.php";
         require "./vues/vueAccueil.php";
         break;
     case "rechercherDossier":
         $titre = "Rechercher un dossier";
+        $roleHeader = afficheHeader();
         require "./vues/vueHeader.php";
         require "./vues/vueAccueil.php";
         break;
     case "dossierTermine":
         $titre = "Dossier terminé";
+        $roleHeader = afficheHeader();
         require "./vues/vueHeader.php";
         require "./vues/vueAccueil.php";
         break;
     case "diagnostics":
         $titre = "Diagnostics";
+        $roleHeader = afficheHeader();
         require "./vues/vueHeader.php";
         require "./vues/vueAccueil.php";
         break;
     case "expedition":
         $titre = "Expedition";
+        $roleHeader = afficheHeader();
         require "./vues/vueHeader.php";
         require "./vues/vueAccueil.php";
         break;
@@ -76,10 +83,12 @@ switch ($action) {
 
         if ($id == 0) { // utilisateur introuvable
             $titre = "Connexion<br><h2 class='text-center'>Utilisateur introuvable</h2>";
+            $roleHeader = afficheHeader();
             require "./vues/vueHeader.php";
             require "./vues/vueConnexion.php";
         } else if ($id == -1) { // mot de passe incorrect
             $titre = "Connexion<br><h2 class='text-center'>Mot de passe incorrect</h2>";
+            $roleHeader = afficheHeader();
             require "./vues/vueHeader.php";
             require "./vues/vueConnexion.php";
         } else { // connexion validée
@@ -106,6 +115,7 @@ switch ($action) {
         $role = afficheRoleUtilisateur($utilisateur['roleUtilisateur']);
 
         $titre = "Bonjour $nom $prenom, vous êtes connecté en tant que $role";
+        $roleHeader = afficheHeader();
         require "./vues/vueHeader.php";
         $utilisateurs = getUtilisateurs();
         require "./vues/vueAccueil.php";
@@ -113,6 +123,7 @@ switch ($action) {
     case "accueilAdminMAJ":
         $id = $_POST['id'];
         $titre = "Résultat de votre recherche";
+        $roleHeader = afficheHeader();
         require "./vues/vueHeader.php";
         if(isset($_POST['search'])) {
             $resultats_recherche = rechercheUtilisateur();
