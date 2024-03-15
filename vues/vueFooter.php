@@ -13,7 +13,7 @@
 ?>
     <footer>
         <br><br>
-        <a href="index.php?action=<?=$retourAccueil?>"><button class="btn btn-secondary">Retour à l'accueil</button></a>
+        <a href="index.php?action=<?=$retourAccueil?>&id=<?=$id?>"><button class="btn btn-secondary">Retour à l'accueil</button></a>
     </footer>
 <?php
     } 
