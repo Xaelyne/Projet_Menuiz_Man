@@ -132,6 +132,21 @@ switch ($action) {
         require "./vues/vueHeader.php";
         $utilisateurs = getUtilisateurs();
         require "./vues/vueAccueil.php";
+        
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $pseudo = $_POST["pseudo"];
+            $nom = $_POST["nom"];
+            $prenom = $_POST["prenom"];
+            $mot_de_passe = $_POST["mot_de_passe"];
+            $confirmer_mot_de_passe = $_POST["confirmer_mot_de_passe"];
+            $role_utilisateur = $_POST["role_utilisateur"];
+
+            try {
+                $id_utilisateur = ajoutUtilisateur($pseudo, $nom, $prenom, $mot_de_passe, $role_utilisateur);
+            } catch (ModeleException $e) {
+                echo "Erreur : " . $e->getMessage();
+            }
+        }
         break;
     case "accueilAdminMAJ":
         $id = $_GET['id'];
@@ -143,7 +158,6 @@ switch ($action) {
         }
         require "./vues/vueResultat.php";
         break;
-
 }
 
 require "./vues/vueFooter.php";

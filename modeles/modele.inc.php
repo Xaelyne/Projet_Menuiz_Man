@@ -100,6 +100,35 @@ var_dump("fonction role : " . $role);
         return $result;
     }
 
+
+
+    function ajoutUtilisateur($pseudoUtilisateur, $nom, $prenom, $mdpUtilisateur, $role) {
+        try {
+            
+            $connexion = getConnexion();
+    
+
+            $sql = "INSERT INTO utilisateurs (pseudoUtilisateur, nomUtilisateur, prenomUtilisateur, mdpUtilisateur, roleUtilisateur) 
+                    VALUES (:pseudo, :nom, :prenom, :motDePasse, :role)";
+    
+            $requete = $connexion->prepare($sql);
+    
+            
+            $requete->bindParam(':pseudo', $pseudoUtilisateur);
+            $requete->bindParam(':nom', $nom);
+            $requete->bindParam(':prenom', $prenom);
+            $requete->bindParam(':motDePasse', $mdpUtilisateur);
+            $requete->bindParam(':role', $role);
+    
+            $requete->execute();
+    
+            
+            return $connexion->lastInsertId();
+
+        } catch (PDOException $e) {
+            
+            throw new ModeleException("Erreur lors de l'insertion de l'utilisateur : " . $e->getMessage());
+
     function getClients() : array {
 
         $connexion = getConnexion();
@@ -129,6 +158,7 @@ var_dump("fonction role : " . $role);
             $resultats = $curseur->fetchAll(PDO::FETCH_ASSOC);
 
             return $resultats;
+
         }
     }
 

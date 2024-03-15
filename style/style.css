@@ -89,6 +89,15 @@ body {
     border: solid 3px white;
 }
 
+.boutonPopup {
+    background-color: var(--bleuMoyen);
+    color: white;
+}
+
+.boutonPopup:hover {
+    background-color: var(--bleuClair);
+}
+
 
 .btnDeconnexion {
     color: white;

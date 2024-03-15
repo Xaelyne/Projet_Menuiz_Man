@@ -39,6 +39,67 @@
                     <a class="nav-link mx-3" aria-current="page" href="index.php">
                         <img src="../Images/Menuiz Man.png" alt="Logo" class="logonav d-none d-lg-block">
                     </a>
+                    <div class="d-flex flex-grow-1 justify-content-center">
+                        <button type="button" class="btn btn-primary mx-2 boutonPopup" data-role="1" data-title="Ajouter un nouvel administrateur">Ajouter un nouvel administrateur</button>
+                        <button type="button" class="btn btn-primary mx-2 boutonPopup" data-role="3" data-title="Ajouter un nouveau technicien SAV">Ajouter un nouveau technicien SAV</button>
+                        <button type="button" class="btn btn-primary mx-2 boutonPopup" data-role="2" data-title="Ajouter un nouveau technicien Hotline">Ajouter un nouveau technicien Hotline</button>
+                    </div>
+                    <div class="modal fade" id="ajoutUtilisateurModal" tabindex="-1" aria-labelledby="ajoutUtilisateurModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="ajoutUtilisateurModalLabel">Ajouter un nouvel utilisateur</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="ajoutUtilisateurForm" method="POST">
+                                        <input type="hidden" name="action" value="accueilAdmin">
+                                        <input type="hidden" name="id" value="<?=$id?>">
+                                        <div class="mb-3">
+                                            <label for="pseudo" class="form-label">Pseudo</label>
+                                            <input type="text" class="form-control" id="pseudo" name="pseudo">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="nom" class="form-label">Nom</label>
+                                            <input type="text" class="form-control" id="nom" name="nom">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="prenom" class="form-label">Prénom</label>
+                                            <input type="text" class="form-control" id="prenom" name="prenom">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="mot_de_passe" class="form-label">Mot de passe</label>
+                                            <input type="password" class="form-control" id="mot_de_passe" name="mot_de_passe">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="confirmer_mot_de_passe" class="form-label">Confirmer le mot de passe</label>
+                                            <input type="password" class="form-control" id="confirmer_mot_de_passe" name="confirmer_mot_de_passe">
+                                        </div>
+                                        <!-- Champ caché pour stocker le rôle -->
+                                        <input type="hidden" id="role_utilisateur" name="role_utilisateur">
+                                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Enregistrer</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="succesModal" tabindex="-1" aria-labelledby="succesModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="succesModalLabel">Succès</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Utilisateur ajouté avec succès.
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <!-- BOUTON DECONNEXION -->
                     <?php if ($action != "connexion") {
                     ?>
