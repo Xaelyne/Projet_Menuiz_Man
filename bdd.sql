@@ -1,31 +1,4 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Hôte : localhost:3306
--- Généré le : jeu. 14 mars 2024 à 10:29
--- Version du serveur : 8.0.30
--- Version de PHP : 8.1.10
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Base de données : `sav`
---
-
--- --------------------------------------------------------
-
---
--- Structure de la table `utilisateurs`
---
 
 CREATE TABLE `utilisateurs` (
   `idUtilisateur` int NOT NULL,
@@ -40,36 +13,39 @@ CREATE TABLE `utilisateurs` (
 -- Déchargement des données de la table `utilisateurs`
 --
 
-INSERT INTO `utilisateurs` (`idUtilisateur`, `nomUtilisateur`, `prenomUtilisateur`, `pseudoUtilisateur`, `mdpUtilisateur`, `roleUtilisateur`) VALUES
-(1, 'Tarten', 'Pion', 'tartenpion', '123456', 1),
-(2, 'Nemar', 'Jean', 'jeannemar', '123456', 2),
-(3, 'Position', 'Paul', 'paulposition', '123456', 2),
-(4, 'Terrieur', 'Alex', 'alexterrieur', '123456', 2),
-(5, 'Iron', 'Man', 'ironman', '123456', 3),
-(6, 'Spider', 'Man', 'spiderman', '123456', 3),
-(7, 'Arrya', 'Stark', 'arryastark', '123456', 3);
 
---
--- Index pour les tables déchargées
---
+-- UTILISATEURS
+INSERT INTO `utilisateurs` (`nomUtilisateur`, `prenomUtilisateur`, `pseudoUtilisateur`, `mdpUtilisateur`, `roleUtilisateur`) VALUES
+('Tarten', 'Pion', 'tartenpion', '123456', 1),
+('Nemar', 'Jean', 'jeannemar', '123456', 2),
+('Position', 'Paul', 'paulposition', '123456', 2),
+('Terrieur', 'Alex', 'alexterrieur', '123456', 2),
+('Iron', 'Man', 'ironman', '123456', 3),
+('Spider', 'Man', 'spiderman', '123456', 3),
+('Arrya', 'Stark', 'arryastark', '123456', 3);
 
---
--- Index pour la table `utilisateurs`
---
-ALTER TABLE `utilisateurs`
-  ADD PRIMARY KEY (`idUtilisateur`);
 
---
--- AUTO_INCREMENT pour les tables déchargées
---
+-- CLIENTS
+INSERT INTO `client`(`nomClient`, `prenomClient`, `codePostalClient`, `villeClient`) VALUES 
+('Troijour','Adam','69000','Lyon'),
+('Hénette','Claire','13000','Marseille'),
+('Stourne','Henri','75000','Paris');
 
---
--- AUTO_INCREMENT pour la table `utilisateurs`
---
-ALTER TABLE `utilisateurs`
-  MODIFY `idUtilisateur` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+-- ARTICLE
+INSERT INTO `article`(`libelleArticle`, `garantieArticle`, `qteStockPrincipal`, `qteStockSAV`, `qteStockRebus`) VALUES 
+('Portail','10','5','0','0'),
+('Portillon','2','5','1','0'),
+('Grillage','1','20','2','2');
+
+-- KIT
+INSERT INTO `kit`(`nomKit`) VALUES 
+('Portail et Portillon'),
+('Grillage et Portillon');
+
+-- CREATION DES KITS
+INSERT INTO `composer`(`codeArticle`, `codeKit`) VALUES 
+('1','1'),
+('2','1'),
+('2','2'),
+('3','2');
