@@ -1,3 +1,4 @@
+<?php if($action === 'accueilAdminMAJ')  { ?>
 
     <div class="contourAdmin container d-flex justify-content-center align-items-center" >
             <div class="col-md-6">
@@ -41,3 +42,5 @@
                 <?php }  ?>
             </div>
         </div> 
+
+<?php   } ?>

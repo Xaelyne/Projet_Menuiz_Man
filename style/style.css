@@ -51,6 +51,15 @@ body {
     border: solid 3px white;
 }
 
+.maTableAdmin {
+    border-radius: 30px;
+}
+
+.table-striped>tbody>tr:nth-child(even)>td, 
+.table-striped>tbody>tr:nth-child(even)>th,
+.table-striped>thead>tr:nth-child(odd)>th {
+   background-color: var(--bleuClair);
+ }
 
 .maRecherche {
     width: 500px;
@@ -59,6 +68,7 @@ body {
 .espaceBouton {
     margin-right: 20px;
 }
+
 
 .btnDeconnexion {
     color: white;

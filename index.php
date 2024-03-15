@@ -111,6 +111,7 @@ switch ($action) {
         require "./vues/vueAccueil.php";
         break;
     case "accueilAdminMAJ":
+        $id = $_POST['id'];
         $titre = "Résultat de votre recherche";
         require "./vues/vueHeader.php";
         if(isset($_POST['search'])) {
