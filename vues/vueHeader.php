@@ -31,24 +31,13 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarNav">
-
-                <ul class="navbar-nav">
-                    <li>
-                        <a class="nav-link mx-3" aria-current="page" href="index.php">
-                            <img src="../Images/Menuiz Man.png" alt="Logo" class="logonav d-md-none d-lg-block">
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Features</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
-                    </li>
-                </ul>
+                <a class="nav-link mx-3" aria-current="page" href="index.php">
+                    <img src="../Images/Menuiz Man.png" alt="Logo" class="logonav d-none d-lg-block">
+                </a>
+                <a href="" class="d-flex ms-auto align-items-center btnDeconnexion">
+                    <h4 class="mt-1 me-1">Déconnexion</h4>
+                    <img src="../Images/se-deconnecter.png" alt="imgDeconnexion" class="imgDeconnexion">
+                </a>
             </div>
         </div>
     </nav>
