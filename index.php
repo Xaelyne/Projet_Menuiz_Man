@@ -121,11 +121,11 @@ switch ($action) {
         require "./vues/vueAccueil.php";
         break;
     case "accueilAdminMAJ":
-        $id = $_POST['id'];
+        $id = $_GET['id'];
         $titre = "Résultat de votre recherche";
         $roleHeader = afficheHeader();
         require "./vues/vueHeader.php";
-        if(isset($_POST['search'])) {
+        if(isset($_GET['search'])) {
             $resultats_recherche = rechercheUtilisateur();
         }
         require "./vues/vueResultat.php";

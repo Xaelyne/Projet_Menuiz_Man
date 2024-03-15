@@ -85,8 +85,9 @@ if ($action === "accueilTechnicienHOT") {
     
         <div class="contourAdmin container d-flex justify-content-center align-items-center flex-column rounded-3">
             <div class="container my-3">
-                <form class="form-inline" action="index.php?action=accueilAdminMAJ" method="post">
+                <form class="form-inline" action="index.php">
                     <div class="input-group col-auto maRecherche">
+                        <input type="hidden" name="action" value="accueilAdminMAJ">
                         <input type="hidden" name="id" value="<?=$id?>">
                         <input class="form-control form-control-sm espaceBouton rounded-5" type="search" name="search" placeholder="Rechercher" aria-label="Rechercher">
                         <div class="input-group-prepend">
