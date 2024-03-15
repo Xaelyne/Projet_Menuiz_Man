@@ -1,9 +1,23 @@
-<?php if($action != 'accueil' && $action != 'connexion' && $action != 'accueilAdmin') { ?>
+<?php 
+    if($action != 'accueil' && $action != 'connexion' && $action != 'accueilAdmin' && $action != 'accueilTechnicienHOT' && $action != 'accueilTechnicienSAV') { 
+        // récupération du rôle utilisateur grâce à son id
+        $id = $_GET['id'];
+        $user = getUtilisateur($id);
+        $role = $user['roleUtilisateur']; // 1 2 3
+//var_dump($role); // OK !
+
+        if($role == 1) $retourAccueil = "accueilAdmin";
+        else if ($role == 2) $retourAccueil = "accueilTechnicienHOT";
+        else if ($role == 3) $retourAccueil = "accueilTechnicienSAV";
+        
+?>
     <footer>
         <br><br>
-        <a href="index.php"><button class="btn btn-secondary">Retour à l'accueil</button></a>
+        <a href="index.php?action=<?=$retourAccueil?>"><button class="btn btn-secondary">Retour à l'accueil</button></a>
     </footer>
-<?php } ?>
+<?php
+    } 
+?>
 
 <!-- TEST -->
 <div class="container">

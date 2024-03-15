@@ -9,6 +9,6 @@
         <input type="password" name="pass"  class="inputText">
     </div>
     <div class="text-center mt-3">
-        <input type="submit" value="Valider" class="bouton">
+        <input type="submit" value="Valider" class="btn bouton">
     </div>
 </form>
