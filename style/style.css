@@ -29,6 +29,9 @@ body {
     color: var(--bleuMoyen);
     font-weight: 600;
 }
+.inputText:focus {
+    outline-color: var(--bleuMoyen);
+}
 
 
 .maCarte{
@@ -74,9 +77,11 @@ body {
 .bouton {
     background-color: var(--bleuMoyen);
     color: white;
+    border: solid 3px white;
 }
 .bouton:hover {
     background-color: var(--bleuClair);
+    border: solid 3px white;
 }
 
 
