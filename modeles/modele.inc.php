@@ -53,8 +53,8 @@
 
     function afficheHeader () {
         $role = 0;
-        if (isset($_GET['id'])) {
-            $id = $_GET['id'];
+        if (isset($_SESSION['id'])) {
+            $id = $_SESSION['id'];
             $user = getUtilisateur($id);
             $role = $user['roleUtilisateur'];
 //var_dump("fonction role : " . $role);

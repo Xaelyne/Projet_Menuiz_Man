@@ -2,10 +2,12 @@
 
 $action = "accueil";
 
-if (isset($_GET['action'])) $action = $_GET['action'];
-if (!isset($_GET['action'])) $action = "connexion";
+if (isset ($_GET['action']))
+    $action = $_GET['action'];
+if (!isset ($_GET['action']))
+    $action = "connexion";
 
-require("./modeles/modele.inc.php");
+require ("./modeles/modele.inc.php");
 
 var_dump("action -> " . $action);
 
@@ -21,7 +23,7 @@ switch ($action) {
     case "accueilTechnicienSAV":
         // récupération ID et ROLE
         session_start();
-        if (isset($_SESSION['id'])) {
+        if (isset ($_SESSION['id'])) {
             // récupération ID et ROLE
             $id = $_SESSION['id'];
             $roleUser = $_SESSION['role'];
@@ -46,7 +48,7 @@ switch ($action) {
         break;
     case "accueilTechnicienHOT":
         session_start();
-        if (isset($_SESSION['id'])) {
+        if (isset ($_SESSION['id'])) {
             // récupération ID et ROLE
             $id = $_SESSION['id'];
             $roleUser = $_SESSION['role'];
@@ -71,7 +73,7 @@ switch ($action) {
         break;
     case "nouveauDossier":
         session_start();
-        if (isset($_SESSION['id'])) {
+        if (isset ($_SESSION['id'])) {
             // récupération ID et ROLE
             $id = $_SESSION['id'];
             $roleUser = $_SESSION['role'];
@@ -91,7 +93,7 @@ switch ($action) {
         break;
     case "nouveauDossierRechercheClient":
         session_start();
-        if (isset($_SESSION['id'])) {
+        if (isset ($_SESSION['id'])) {
             // récupération ID et ROLE
             $id = $_SESSION['id'];
             $roleUser = $_SESSION['role'];
@@ -102,13 +104,13 @@ switch ($action) {
 
             if ($_GET['optionRechercheNouveauDossier'] == 'nom') {
                 $clients = getClients();
-                if (isset($_GET['search'])) {
+                if (isset ($_GET['search'])) {
                     $search = $_GET['search'];
                     $recherche = rechercheClient($search);
                 }
             } else if ($_GET['optionRechercheNouveauDossier'] == 'com') {
                 $commandes = getCommandes();
-                if (isset($_GET['search'])) {
+                if (isset ($_GET['search'])) {
                     $search = $_GET['search'];
                     //$recherche = rechercheCommande($search);
                     $recherche = rechercheClientCommande($search);
@@ -125,7 +127,7 @@ switch ($action) {
         }
     case "rechercherDossier":
         session_start();
-        if (isset($_SESSION['id'])) {
+        if (isset ($_SESSION['id'])) {
             // récupération ID et ROLE
             $id = $_SESSION['id'];
             $roleUser = $_SESSION['role'];
@@ -144,7 +146,7 @@ switch ($action) {
         break;
     case "dossierTermine":
         session_start();
-        if (isset($_SESSION['id'])) {
+        if (isset ($_SESSION['id'])) {
             // récupération ID et ROLE
             $id = $_SESSION['id'];
             $roleUser = $_SESSION['role'];
@@ -163,7 +165,7 @@ switch ($action) {
         break;
     case "diagnostics":
         session_start();
-        if (isset($_SESSION['id'])) {
+        if (isset ($_SESSION['id'])) {
             // récupération ID et ROLE
             $id = $_SESSION['id'];
             $roleUser = $_SESSION['role'];
@@ -182,7 +184,7 @@ switch ($action) {
         break;
     case "expedition":
         session_start();
-        if (isset($_SESSION['id'])) {
+        if (isset ($_SESSION['id'])) {
             // récupération ID et ROLE
             $id = $_SESSION['id'];
             $roleUser = $_SESSION['role'];
@@ -240,7 +242,7 @@ switch ($action) {
     case "accueilAdmin":
         session_start();
 
-        if (isset($_SESSION['id'])) {
+        if (isset ($_SESSION['id'])) {
 
             // récupération ID et ROLE
             $id = $_SESSION['id'];
@@ -257,7 +259,7 @@ switch ($action) {
             require "./vues/vueHeader.php";
             $utilisateurs = getUtilisateurs();
             require "./vues/vueAccueil.php";
-          
+
             $pseudoValide = true;
 
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -267,32 +269,33 @@ switch ($action) {
                 $mot_de_passe = $_POST["mot_de_passe"];
                 $confirmer_mot_de_passe = $_POST["confirmer_mot_de_passe"];
                 $role_utilisateur = $_POST["role_utilisateur"];
-              
-             if (!pseudoUnique($pseudo)) {
-                $pseudoValide = false; 
-             } else {
-                $pseudoValide = true;
-             }
 
-             if ($pseudoValide) {
-                try {
-                    $id_utilisateur = ajoutUtilisateur($pseudo, $nom, $prenom, $mot_de_passe, $role_utilisateur);
-                } catch (ModeleException $e) {
-                    echo "Erreur : " . $e->getMessage();
+                if (!pseudoUnique($pseudo)) {
+                    $pseudoValide = false;
+                } else {
+                    $pseudoValide = true;
                 }
+
+                if ($pseudoValide) {
+                    try {
+                        $id_utilisateur = ajoutUtilisateur($pseudo, $nom, $prenom, $mot_de_passe, $role_utilisateur);
+                    } catch (ModeleException $e) {
+                        echo "Erreur : " . $e->getMessage();
+                    }
+                }
+            }} else {
+                $roleHeader = 0;
+                $titre = "Erreur";
+                $action = "erreur";
+                require "./vues/vueHeader.php";
+                require "vues/vueErreur.php";
             }
-        } else {
-            $roleHeader = 0;
-            $titre = "Erreur";
-            $action = "erreur";
-            require "./vues/vueHeader.php";
-            require "vues/vueErreur.php";
-        }
+        
         break;
 
     case "accueilAdminMAJ":
         session_start();
-        if (isset($_SESSION['id'])) {
+        if (isset ($_SESSION['id'])) {
 
             // récupération ID et ROLE
             $id = $_SESSION['id'];
@@ -301,7 +304,7 @@ switch ($action) {
             $titre = "Résultat de votre recherche";
             $roleHeader = afficheHeader();
             require "./vues/vueHeader.php";
-            if (isset($_GET['search'])) {
+            if (isset ($_GET['search'])) {
                 $resultats_recherche = rechercheUtilisateur();
             }
             require "./vues/vueResultat.php";
@@ -316,7 +319,7 @@ switch ($action) {
 
     case "voirCommande":
         session_start();
-        if (isset($_SESSION['id'])) {
+        if (isset ($_SESSION['id'])) {
             // récupération ID et ROLE
             $id = $_SESSION['id'];
             $roleUser = $_SESSION['role'];
@@ -348,7 +351,7 @@ switch ($action) {
     // Exemple a copier pour les actions
     case "EXEMPLE BASE ACTION":
         session_start();
-        if (isset($_SESSION['id'])) {
+        if (isset ($_SESSION['id'])) {
             // récupération ID et ROLE
             $id = $_SESSION['id'];
             $roleUser = $_SESSION['role'];
