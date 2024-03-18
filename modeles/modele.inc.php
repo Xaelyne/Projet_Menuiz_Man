@@ -57,7 +57,7 @@
             $id = $_GET['id'];
             $user = getUtilisateur($id);
             $role = $user['roleUtilisateur'];
-var_dump("fonction role : " . $role);
+//var_dump("fonction role : " . $role);
         }
         return $role;
     }
@@ -142,30 +142,92 @@ var_dump("fonction role : " . $role);
         return $resultat->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    function rechercheClient()  {
+    function getCommandes() {
+        $connexion = getConnexion();
 
-        $resultats = [];
+        $sql = "SELECT * FROM commande";
 
-        if(isset($_GET['search']) && !empty(trim($_GET['search']))) {
-            $recherche = $_GET['search'];
-        
-            $connexion = getConnexion();
+        $resultat = $connexion->query($sql);
 
-            $sql = "SELECT * FROM client WHERE nomClient LIKE :search_term OR prenomClient LIKE :search_term";
-
-            $curseur = $connexion->prepare($sql);
-
-            $curseur->execute(['search_term' => "%$recherche%"]);
-
-            $resultats = $curseur->fetchAll(PDO::FETCH_ASSOC);
-
-            return $resultats;
-
-        }
+        return $resultat->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    function deconnexionSession() {
+
+    function getCommande($recherche) {
+        $connexion = getConnexion();
+
+        $sql = "SELECT com.numCommande, com.dateCommande, cont.codeArticle, libelleArticle, garantieArticle, idDiag, com.idClient, nomClient, prenomClient, codePostalClient, villeClient 
+        FROM commande com 
+        JOIN client c ON c.idClient = com.idClient 
+        JOIN contenir cont ON cont.numCommande = com.numCommande 
+        JOIN article art ON art.codeArticle = cont.codeArticle 
+        WHERE com.numCommande = :search_term";
+
+        $curseur = $connexion->prepare($sql);
+
+        $curseur->execute(['search_term' => $recherche]);
+
+        $resultats = $curseur->fetchAll(PDO::FETCH_ASSOC);
+var_dump($resultats);
+        return $resultats;
+    }
+
+    function rechercheClient($recherche)  {
+
+        $resultats = [];
         
+        $connexion = getConnexion();
+
+        $sql = "SELECT * FROM client WHERE nomClient LIKE :search_term OR prenomClient LIKE :search_term";
+
+        $curseur = $connexion->prepare($sql);
+
+        $curseur->execute(['search_term' => "%$recherche%"]);
+
+        $resultats = $curseur->fetchAll(PDO::FETCH_ASSOC);
+
+        return $resultats;
+
+    }
+
+    function rechercheCommande($recherche)  {
+
+        $resultats = [];
+        
+        $connexion = getConnexion();
+
+        $sql = "SELECT * FROM commande WHERE numcommande LIKE :search_term";
+
+        $curseur = $connexion->prepare($sql);
+
+        $curseur->execute(['search_term' => "%$recherche%"]);
+
+        $resultats = $curseur->fetchAll(PDO::FETCH_ASSOC);
+
+        return $resultats;
+
+    }
+
+    function rechercheClientCommande($recherche)  {
+
+        //$resultats = [];
+
+        //$recherche = intval($recherche);
+        
+        $connexion = getConnexion();
+
+        $sql = "SELECT * FROM commande com JOIN client c ON c.idClient = com.idClient WHERE com.numCommande = :search_term";
+
+        //$sql = "SELECT * FROM client WHERE commande LIKE :search_term OR prenomClient LIKE :search_term";
+
+        $curseur = $connexion->prepare($sql);
+
+        $curseur->execute(['search_term' => $recherche]);
+
+        $resultats = $curseur->fetchAll(PDO::FETCH_ASSOC);
+
+        return $resultats;
+
     }
 
 

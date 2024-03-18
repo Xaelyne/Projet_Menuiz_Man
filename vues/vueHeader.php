@@ -104,7 +104,7 @@
                     <!-- BOUTON DECONNEXION -->
                     <?php if ($action != "connexion") {
                     ?>
-                        <a href="index.php?action=connexion" class="d-flex ms-auto align-items-center btnDeconnexion">
+                        <a href="index.php?action=deconnexion" class="d-flex ms-auto align-items-center btnDeconnexion">
                             <h4 class="mt-1 me-1 ">Déconnexion</h4>
                             <img src="Images/se-deconnecter.png" alt="imgDeconnexion" class="imgDeconnexion ">
                         </a>
@@ -134,7 +134,7 @@
                     <!-- BOUTON DECONNEXION -->
                     <?php if ($action != "connexion") {
                     ?>
-                        <a href="index.php?action=connexion" class="d-flex ms-auto align-items-center btnDeconnexion">
+                        <a href="index.php?action=deconnexion" class="d-flex ms-auto align-items-center btnDeconnexion">
                             <h4 class="mt-1 me-1 ">Déconnexion</h4>
                             <img src="Images/se-deconnecter.png" alt="imgDeconnexion" class="imgDeconnexion ">
                         </a>
