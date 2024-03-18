@@ -143,6 +143,8 @@ switch ($action) {
         require "./vues/vueHeader.php";
         $utilisateurs = getUtilisateurs();
         require "./vues/vueAccueil.php";
+
+        $pseudoValide = true;
         
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $pseudo = $_POST["pseudo"];
@@ -152,10 +154,18 @@ switch ($action) {
             $confirmer_mot_de_passe = $_POST["confirmer_mot_de_passe"];
             $role_utilisateur = $_POST["role_utilisateur"];
 
-            try {
-                $id_utilisateur = ajoutUtilisateur($pseudo, $nom, $prenom, $mot_de_passe, $role_utilisateur);
-            } catch (ModeleException $e) {
-                echo "Erreur : " . $e->getMessage();
+            if (!pseudoUnique($pseudo)) {
+                $pseudoValide = false; 
+            } else {
+                $pseudoValide = true;
+            }
+
+            if ($pseudoValide) {
+                try {
+                    $id_utilisateur = ajoutUtilisateur($pseudo, $nom, $prenom, $mot_de_passe, $role_utilisateur);
+                } catch (ModeleException $e) {
+                    echo "Erreur : " . $e->getMessage();
+                }
             }
         }
         break;

@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('ajoutUtilisateurForm');
     form.addEventListener('submit', function(event) {
         event.preventDefault();
-        
+
         // Soumettre le formulaire via AJAX
         fetch('index.php?action=accueilAdmin&id=1', {
             method: 'POST',
@@ -27,11 +27,10 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => {
             if (response.ok) {
                 // Afficher le modal de succès
-                const modal = new bootstrap.Modal(document.getElementById('ajoutUtilisateurModal'));
                 const successModal = new bootstrap.Modal(document.getElementById('succesModal'));
-                modal.hide(); 
                 successModal.show();
-                
+                form.reset();
+                window.location.reload(); 
             } else {
                 // Gérer les erreurs si le formulaire n'a pas pu être soumis avec succès
                 console.error('Erreur lors de la soumission du formulaire');
@@ -40,11 +39,6 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => {
             console.error('Erreur lors de la soumission du formulaire : ', error);
         });
-    });
-
-    // Fonction pour rafraîchir la page après avoir fermé le deuxième modal
-    const succesModal = document.getElementById('succesModal');
-    succesModal.addEventListener('hidden.bs.modal', function () {
-        window.location.reload(); 
+        
     });
 });
