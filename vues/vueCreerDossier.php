@@ -4,7 +4,7 @@
             <div class="input-group col-auto maRecherche">
                 <input type="hidden" name="action" value="nouveauDossierRechercheClient">
                 <input type="hidden" name="id" value="<?= $id ?>">
-                <select name="optionRechercheCommande" class="rounded-5 me-1">
+                <select name="optionRechercheNouveauDossier" class="rounded-5 me-1">
                     <option value="com">Numéro Commande</option>
                     <option value="nom">Nom Prénom</option>
                 </select>
@@ -17,43 +17,84 @@
     </div>
 
     <?php
-    if ($action === 'nouveauDossierRechercheClient') { ?>
+    if ($action === 'nouveauDossierRechercheClient') {
+        if ($_GET['optionRechercheNouveauDossier'] == 'nom') { ?>
 
 
-        <?php if (!is_null($recherche) && count($recherche) > 0) { ?>
-            <div class="table-responsive w-100">
+            <?php if (!is_null($recherche) && count($recherche) > 0) { ?>
+                <div class="table-responsive w-100">
 
-                <table class="container table table-striped border alignTable">
-                    <thead>
-                        <tr>
-                            <th scope="col">Nom</th>
-                            <th scope="col">Prénom</th>
-                            <th scope="col">Code Postal</th>
-                            <th scope="col">Ville</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($recherche as $client) { ?>
+                    <table class="container table table-striped border alignTable">
+                        <thead>
                             <tr>
-                                <th scope="row"><?= $client['nomClient']; ?></th>
-                                <td><?= $client['prenomClient']; ?></td>
-                                <td><?= $client['codePostalClient']; ?></td>
-                                <td><?= $client['villeClient']; ?></td>
-                                <td><a href=""><button class="btn bouton">Voir les commandes</button></a></td>
+                                <th scope="col">Nom</th>
+                                <th scope="col">Prénom</th>
+                                <th scope="col">Code Postal</th>
+                                <th scope="col">Ville</th>
+                                <th scope="col"></th>
                             </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($recherche as $client) { ?>
+                                <tr>
+                                    <th scope="row"><?= $client['nomClient']; ?></th>
+                                    <td><?= $client['prenomClient']; ?></td>
+                                    <td><?= $client['codePostalClient']; ?></td>
+                                    <td><?= $client['villeClient']; ?></td>
+                                    <td><a href=""><button class="btn bouton">Voir les commandes</button></a></td>
+                                </tr>
                             <?php } ?>
                         </tbody>
                     </table>
                 </div>
-        <?php } else { ?>
-            <p class="d-flex justify-content-center text-white">Aucun résultat trouvé.</p>
-        <?php } ?>
-        <?php if ($recherche) { ?>
-            <p class="d-flex justify-content-center text-white">Nombre de clients trouvés : <?= count($recherche); ?></p>
-        <?php }  ?>
+            <?php } else { ?>
+                <p class="d-flex justify-content-center text-white">Aucun résultat trouvé.</p>
+            <?php } ?>
+            <?php if ($recherche) { ?>
+                <p class="d-flex justify-content-center text-white">Nombre de clients trouvés : <?= count($recherche); ?></p>
+            <?php }  ?>
 
     <?php
+        } if ($_GET['optionRechercheNouveauDossier'] == 'com') { ?>
+
+
+            <?php if (!is_null($recherche) && count($recherche) > 0) { ?>
+                <div class="table-responsive w-100">
+
+                    <table class="container table table-striped border alignTable">
+                        <thead>
+                            <tr>
+                                <th scope="col">Numéro</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Nom</th>
+                                <th scope="col">Prénom</th>
+                                <th scope="col">Code Postal</th>
+                                <th scope="col">Ville</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                <tr>
+                                    <th scope="row"><?= $recherche[0]['numCommande']; ?></th>
+                                    <td><?= $recherche[0]['dateCommande']; ?></td>
+                                    <td><?= $recherche[0]['nomClient']; ?></td>
+                                    <td><?= $recherche[0]['prenomClient']; ?></td>
+                                    <td><?= $recherche[0]['codePostalClient']; ?></td>
+                                    <td><?= $recherche[0]['villeClient']; ?></td>
+                                    <td><a href="index.php?action=voirCommande&commande=<?= $recherche[0]['numCommande']; ?>"><button class="btn bouton">Voir la commande</button></a></td>
+                                </tr>
+                        </tbody>
+                    </table>
+                </div>
+            <?php } else { ?>
+                <p class="d-flex justify-content-center text-white">Aucun résultat trouvé.</p>
+            <?php } ?>
+            <?php if ($recherche) { ?>
+                <p class="d-flex justify-content-center text-white">Nombre de clients trouvés : <?= count($recherche); ?></p>
+            <?php }  ?>
+
+    <?php
+        }
     } ?>
 
 </div>

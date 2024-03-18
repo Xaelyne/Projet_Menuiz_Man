@@ -2,97 +2,212 @@
 
 $action = "accueil";
 
-if (isset($_GET['action'])) $action = $_GET['action'];
-if (!isset($_GET['action'])) $action = "connexion";
+if (isset ($_GET['action']))
+    $action = $_GET['action'];
+if (!isset ($_GET['action']))
+    $action = "connexion";
 
-require("./modeles/modele.inc.php");
+require ("./modeles/modele.inc.php");
 
-var_dump("action -> ".$action);
+var_dump("action -> " . $action);
 
 // switch sur si pas de connexion trouvé -> formulaire connexion
 switch ($action) {
     case "connexion":
+        session_start();
         $titre = "Connexion";
         $roleHeader = afficheHeader();
         require "./vues/vueHeader.php";
         require "./vues/vueConnexion.php";
         break;
     case "accueilTechnicienSAV":
-        // récupération des infos utilisateurs
-        $id = $_GET['id'];
-        $utilisateur = getUtilisateur($id);
-        $nom = $utilisateur['nomUtilisateur'];
-        $prenom = $utilisateur['prenomUtilisateur'];
-        $role = afficheRoleUtilisateur($utilisateur['roleUtilisateur']);
+        // récupération ID et ROLE
+        session_start();
+        if (isset ($_SESSION['id'])) {
+            // récupération ID et ROLE
+            $id = $_SESSION['id'];
+            $roleUser = $_SESSION['role'];
 
-        $titre = "Bonjour $nom $prenom, vous êtes connecté en tant que $role";
-        $roleHeader = afficheHeader();
-        require "./vues/vueHeader.php";
-        require "./vues/vueAccueil.php";
+            // récupération des infos utilisateurs
+            $utilisateur = getUtilisateur($id);
+            $nom = $utilisateur['nomUtilisateur'];
+            $prenom = $utilisateur['prenomUtilisateur'];
+            $role = afficheRoleUtilisateur($utilisateur['roleUtilisateur']);
+
+            $titre = "Bonjour $nom $prenom, vous êtes connecté en tant que $role";
+            $roleHeader = afficheHeader();
+            require "./vues/vueHeader.php";
+            require "./vues/vueAccueil.php";
+        } else {
+            $roleHeader = 0;
+            $titre = "Erreur";
+            $action = "erreur";
+            require "./vues/vueHeader.php";
+            require "vues/vueErreur.php";
+        }
         break;
     case "accueilTechnicienHOT":
-        // récupération des infos utilisateurs
-        $id = $_GET['id'];
-        $utilisateur = getUtilisateur($id);
-        $nom = $utilisateur['nomUtilisateur'];
-        $prenom = $utilisateur['prenomUtilisateur'];
-        $role = afficheRoleUtilisateur($utilisateur['roleUtilisateur']);
+        session_start();
+        if (isset ($_SESSION['id'])) {
+            // récupération ID et ROLE
+            $id = $_SESSION['id'];
+            $roleUser = $_SESSION['role'];
 
-        $titre = "Bonjour $nom $prenom, vous êtes connecté en tant que $role";
-        $roleHeader = afficheHeader();
-        require "./vues/vueHeader.php";
-        require "./vues/vueAccueil.php";
+            // récupération des infos utilisateurs
+            $utilisateur = getUtilisateur($id);
+            $nom = $utilisateur['nomUtilisateur'];
+            $prenom = $utilisateur['prenomUtilisateur'];
+            $role = afficheRoleUtilisateur($utilisateur['roleUtilisateur']);
+
+            $titre = "Bonjour $nom $prenom, vous êtes connecté en tant que $role";
+            $roleHeader = afficheHeader();
+            require "./vues/vueHeader.php";
+            require "./vues/vueAccueil.php";
+        } else {
+            $roleHeader = 0;
+            $titre = "Erreur";
+            $action = "erreur";
+            require "./vues/vueHeader.php";
+            require "vues/vueErreur.php";
+        }
         break;
     case "nouveauDossier":
-        $id = $_GET['id'];
-        $titre = "Créer un nouveau dossier"; // à modifier par une recherche client
-        $roleHeader = afficheHeader();
-        require "./vues/vueHeader.php";
-        $clients = getClients();
-        require "./vues/vueCreerDossier.php";
+        session_start();
+        if (isset ($_SESSION['id'])) {
+            // récupération ID et ROLE
+            $id = $_SESSION['id'];
+            $roleUser = $_SESSION['role'];
+
+            $titre = "Créer un nouveau dossier"; // à modifier par une recherche client
+            $roleHeader = afficheHeader();
+            require "./vues/vueHeader.php";
+            $clients = getClients();
+            require "./vues/vueCreerDossier.php";
+        } else {
+            $roleHeader = 0;
+            $titre = "Erreur";
+            $action = "erreur";
+            require "./vues/vueHeader.php";
+            require "vues/vueErreur.php";
+        }
         break;
     case "nouveauDossierRechercheClient":
-        $id = $_GET['id'];
-        $titre = "Créer un nouveau dossier"; // à modifier par une recherche client
-        $roleHeader = afficheHeader();
-        require "./vues/vueHeader.php";
-        $clients = getClients();
-        if(isset($_GET['search'])) {
-            $recherche = rechercheClient();
+        session_start();
+        if (isset ($_SESSION['id'])) {
+            // récupération ID et ROLE
+            $id = $_SESSION['id'];
+            $roleUser = $_SESSION['role'];
+
+            $titre = "Créer un nouveau dossier"; // à modifier par une recherche client
+            $roleHeader = afficheHeader();
+            require "./vues/vueHeader.php";
+
+            if ($_GET['optionRechercheNouveauDossier'] == 'nom') {
+                $clients = getClients();
+                if (isset ($_GET['search'])) {
+                    $search = $_GET['search'];
+                    $recherche = rechercheClient($search);
+                }
+            } else if ($_GET['optionRechercheNouveauDossier'] == 'com') {
+                $commandes = getCommandes();
+                if (isset ($_GET['search'])) {
+                    $search = $_GET['search'];
+                    //$recherche = rechercheCommande($search);
+                    $recherche = rechercheClientCommande($search);
+                }
+            }
+            require "./vues/vueCreerDossier.php";
+            break;
+        } else {
+            $roleHeader = 0;
+            $titre = "Erreur";
+            $action = "erreur";
+            require "./vues/vueHeader.php";
+            require "vues/vueErreur.php";
         }
-        require "./vues/vueCreerDossier.php";
-        break;
     case "rechercherDossier":
-        $id = $_GET['id']; 
-        $titre = "Rechercher un dossier";
-        $roleHeader = afficheHeader();
-        require "./vues/vueHeader.php";
-        $dossiers = getDossier();
-        require "./vues/vueRechercherDossier.php";
+        session_start();
+        if (isset ($_SESSION['id'])) {
+            // récupération ID et ROLE
+            $id = $_SESSION['id'];
+            $roleUser = $_SESSION['role'];
+
+            $titre = "Rechercher un dossier";
+            $roleHeader = afficheHeader();
+            require "./vues/vueHeader.php";
+            $dossiers = getDossier();
+            require "./vues/vueRechercherDossier.php";
+           
+        } else {
+            $roleHeader = 0;
+            $titre = "Erreur";
+            $action = "erreur";
+            require "./vues/vueHeader.php";
+            require "vues/vueErreur.php";
+        }
         break;
     case "dossierTermine":
-        $titre = "Dossier terminé";
-        $roleHeader = afficheHeader();
-        require "./vues/vueHeader.php";
-        require "./vues/vueAccueil.php";
+        session_start();
+        if (isset ($_SESSION['id'])) {
+            // récupération ID et ROLE
+            $id = $_SESSION['id'];
+            $roleUser = $_SESSION['role'];
+
+            $titre = "Dossier terminé";
+            $roleHeader = afficheHeader();
+            require "./vues/vueHeader.php";
+            require "./vues/vueAccueil.php";
+        } else {
+            $roleHeader = 0;
+            $titre = "Erreur";
+            $action = "erreur";
+            require "./vues/vueHeader.php";
+            require "vues/vueErreur.php";
+        }
         break;
     case "diagnostics":
-        $titre = "Diagnostics";
-        $roleHeader = afficheHeader();
-        require "./vues/vueHeader.php";
-        require "./vues/vueAccueil.php";
+        session_start();
+        if (isset ($_SESSION['id'])) {
+            // récupération ID et ROLE
+            $id = $_SESSION['id'];
+            $roleUser = $_SESSION['role'];
+
+            $titre = "Diagnostics";
+            $roleHeader = afficheHeader();
+            require "./vues/vueHeader.php";
+            require "./vues/vueAccueil.php";
+        } else {
+            $roleHeader = 0;
+            $titre = "Erreur";
+            $action = "erreur";
+            require "./vues/vueHeader.php";
+            require "vues/vueErreur.php";
+        }
         break;
     case "expedition":
-        $titre = "Expedition";
-        $roleHeader = afficheHeader();
-        require "./vues/vueHeader.php";
-        require "./vues/vueAccueil.php";
+        session_start();
+        if (isset ($_SESSION['id'])) {
+            // récupération ID et ROLE
+            $id = $_SESSION['id'];
+            $roleUser = $_SESSION['role'];
+
+            $titre = "Expedition";
+            $roleHeader = afficheHeader();
+            require "./vues/vueHeader.php";
+            require "./vues/vueAccueil.php";
+        } else {
+            $roleHeader = 0;
+            $titre = "Erreur";
+            $action = "erreur";
+            require "./vues/vueHeader.php";
+            require "vues/vueErreur.php";
+        }
         break;
     case "connexionMaj":
         $pseudoUtilisateur = $_GET['user'];
         $mdpUtilisateur = $_GET['pass'];
-        
-        $users = getUtilisateurs();// liste des utilisateurs
+
+        $users = getUtilisateurs(); // liste des utilisateurs
 
         $id = controleConnexion($pseudoUtilisateur, $mdpUtilisateur, $users);
 
@@ -115,62 +230,147 @@ switch ($action) {
             $_SESSION['id'] = $id;
             $_SESSION['role'] = $role;
 
-            if($role == 1) {
+            if ($role == 1) {
                 $action = "accueilAdmin";
             } else if ($role == 2) {
                 $action = "accueilTechnicienHOT";
             } else {
-                $action = "accueilTechnicienSAV";   
+                $action = "accueilTechnicienSAV";
             }
 
-            header("Location: index.php?action=$action&id=$id");
+            header("Location: index.php?action=$action");
         }
         break;
     case "accueilAdmin":
-        // récupération ID et ROLE
         session_start();
-        $id = $_SESSION['id'];
-        $roleUser = $_SESSION['role'];
 
-        //$id = $_GET['id'];
-        
-        // infos utilisateur
-        $utilisateur = getUtilisateur($id);
-        $nom = $utilisateur['nomUtilisateur'];
-        $prenom = $utilisateur['prenomUtilisateur'];
-        $role = afficheRoleUtilisateur($utilisateur['roleUtilisateur']);
+        if (isset ($_SESSION['id'])) {
 
-        $titre = "Bonjour $nom $prenom, vous êtes connecté en tant que $role";
-        $roleHeader = afficheHeader();
-        require "./vues/vueHeader.php";
-        $utilisateurs = getUtilisateurs();
-        require "./vues/vueAccueil.php";
-        
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $pseudo = $_POST["pseudo"];
-            $nom = $_POST["nom"];
-            $prenom = $_POST["prenom"];
-            $mot_de_passe = $_POST["mot_de_passe"];
-            $confirmer_mot_de_passe = $_POST["confirmer_mot_de_passe"];
-            $role_utilisateur = $_POST["role_utilisateur"];
+            // récupération ID et ROLE
+            $id = $_SESSION['id'];
+            $roleUser = $_SESSION['role'];
 
-            try {
-                $id_utilisateur = ajoutUtilisateur($pseudo, $nom, $prenom, $mot_de_passe, $role_utilisateur);
-            } catch (ModeleException $e) {
-                echo "Erreur : " . $e->getMessage();
+            // infos utilisateur
+            $utilisateur = getUtilisateur($id);
+            $nom = $utilisateur['nomUtilisateur'];
+            $prenom = $utilisateur['prenomUtilisateur'];
+            $role = afficheRoleUtilisateur($utilisateur['roleUtilisateur']);
+
+            $titre = "Bonjour $nom $prenom, vous êtes connecté en tant que $role";
+            $roleHeader = afficheHeader();
+            require "./vues/vueHeader.php";
+            $utilisateurs = getUtilisateurs();
+            require "./vues/vueAccueil.php";
+
+            $pseudoValide = true;
+
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $pseudo = $_POST["pseudo"];
+                $nom = $_POST["nom"];
+                $prenom = $_POST["prenom"];
+                $mot_de_passe = $_POST["mot_de_passe"];
+                $confirmer_mot_de_passe = $_POST["confirmer_mot_de_passe"];
+                $role_utilisateur = $_POST["role_utilisateur"];
+
+                if (!pseudoUnique($pseudo)) {
+                    $pseudoValide = false;
+                } else {
+                    $pseudoValide = true;
+                }
+
+                if ($pseudoValide) {
+                    try {
+                        $id_utilisateur = ajoutUtilisateur($pseudo, $nom, $prenom, $mot_de_passe, $role_utilisateur);
+                    } catch (ModeleException $e) {
+                        echo "Erreur : " . $e->getMessage();
+                    }
+                }
+            }} else {
+                $roleHeader = 0;
+                $titre = "Erreur";
+                $action = "erreur";
+                require "./vues/vueHeader.php";
+                require "vues/vueErreur.php";
             }
-        }
+        
         break;
+
     case "accueilAdminMAJ":
-        $id = $_GET['id'];
-        $titre = "Résultat de votre recherche";
-        $roleHeader = afficheHeader();
-        require "./vues/vueHeader.php";
-        if(isset($_GET['search'])) {
-            $resultats_recherche = rechercheUtilisateur();
+        session_start();
+        if (isset ($_SESSION['id'])) {
+
+            // récupération ID et ROLE
+            $id = $_SESSION['id'];
+            $roleUser = $_SESSION['role'];
+
+            $titre = "Résultat de votre recherche";
+            $roleHeader = afficheHeader();
+            require "./vues/vueHeader.php";
+            if (isset ($_GET['search'])) {
+                $resultats_recherche = rechercheUtilisateur();
+            }
+            require "./vues/vueResultat.php";
+        } else {
+            $roleHeader = 0;
+            $titre = "Erreur";
+            $action = "erreur";
+            require "./vues/vueHeader.php";
+            require "vues/vueErreur.php";
         }
-        require "./vues/vueResultat.php";
         break;
+
+    case "voirCommande":
+        session_start();
+        if (isset ($_SESSION['id'])) {
+            // récupération ID et ROLE
+            $id = $_SESSION['id'];
+            $roleUser = $_SESSION['role'];
+
+            $titre = "Commande";
+            $roleHeader = afficheHeader();
+            require "./vues/vueHeader.php";
+
+            $numCom = $_GET['commande'];
+            $commande = getCommande($numCom);
+
+            require "vues/vueCommande.php";
+        } else {
+            $roleHeader = 0;
+            $titre = "Erreur";
+            $action = "erreur";
+            require "./vues/vueHeader.php";
+            require "vues/vueErreur.php";
+        }
+        break;
+
+    case "deconnexion":
+        session_start();
+        session_destroy();
+        header("Location: index.php");
+        break;
+
+
+    // Exemple a copier pour les actions
+    case "EXEMPLE BASE ACTION":
+        session_start();
+        if (isset ($_SESSION['id'])) {
+            // récupération ID et ROLE
+            $id = $_SESSION['id'];
+            $roleUser = $_SESSION['role'];
+
+            $titre = "A MODIFIER";
+            $roleHeader = afficheHeader();
+            require "./vues/vueHeader.php";
+
+            //affichage
+
+        } else {
+            $roleHeader = 0;
+            $titre = "Erreur";
+            $action = "erreur";
+            require "./vues/vueHeader.php";
+            require "vues/vueErreur.php";
+        }
 }
 
 require "./vues/vueFooter.php";
