@@ -59,7 +59,7 @@ CREATE TABLE DOSSIER_RECLAMATION(
    dateDossier DATE NOT NULL,
    typeDossier INT NOT NULL,
    dateClotureDossier DATE,
-   dossierEnCours BOOLEAN NOT NULL,
+   statutDossier INT NOT NULL,
    numCommande INT,
    idDiag INT NOT NULL,
    idUtilisateur INT NOT NULL,
@@ -173,3 +173,7 @@ INSERT INTO `contenir`(`codeArticle`, `numCommande`, `quantitéArticleCommande`)
 ('1','3','2'),
 ('2','3','1'),
 ('3','3','1');
+
+-- CREATION D'UN DOSSIER
+INSERT INTO `dossier_reclamation`(`numDossier`, `dateDossier`, `typeDossier`, `statutDossier`, `numCommande`, `idUtilisateur`) VALUES 
+('1',CURRENT_DATE(),'5','1','1','2')

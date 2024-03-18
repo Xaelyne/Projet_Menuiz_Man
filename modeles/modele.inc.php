@@ -24,6 +24,17 @@
         return $resultat->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    function getDossier() : array{
+
+        $connexion = getConnexion();
+
+        $sql = "SELECT * FROM dossier_reclamation";
+
+        $resultat = $connexion->query($sql);
+
+        return $resultat->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     function rechercheUtilisateur()  {
 
         $resultats = [];
@@ -50,6 +61,7 @@
         else if ($role == 2)  return "Technicien Hotline";
         else return "Technicien SAV";
     }
+    
 
     function afficheHeader () {
         $role = 0;
@@ -62,6 +74,19 @@ var_dump("fonction role : " . $role);
         return $role;
     }
 
+    function afficherTypeDossier($typeDossier){
+        if($typeDossier == 1)return "NPAI";
+        else if($typeDossier == 2)return "NP";
+        else if ($typeDossier == 3)return "EC";
+        else if ($typeDossier == 4)return "EP";
+        else return "SAV";
+    }
+    function afficherStatutDossier($statutDossier){
+        if($statutDossier == 1) return "En cours de traitement";
+        else if ($statutDossier == 2) return "En cours de réexpedition";
+        else return "Terminer";
+    }
+    
 
     function controleConnexion($pseudoUtilisateur, $mdpUtilisateur, $users) {
         $idUser = 0;

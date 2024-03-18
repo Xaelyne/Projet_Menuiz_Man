@@ -62,11 +62,13 @@ switch ($action) {
         }
         require "./vues/vueCreerDossier.php";
         break;
-    case "rechercherDossier": 
+    case "rechercherDossier":
+        $id = $_GET['id']; 
         $titre = "Rechercher un dossier";
         $roleHeader = afficheHeader();
         require "./vues/vueHeader.php";
-        require "./vues/vueAccueil.php";
+        $dossiers = getDossier();
+        require "./vues/vueRechercherDossier.php";
         break;
     case "dossierTermine":
         $titre = "Dossier terminé";
