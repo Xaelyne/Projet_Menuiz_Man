@@ -58,6 +58,7 @@
                                         <div class="mb-3">
                                             <label for="pseudo" class="form-label">Pseudo</label>
                                             <input type="text" class="form-control" id="pseudo" name="pseudo">
+                                            <span id="pseudoErreur" style="color: red;"></span>
                                         </div>
                                         <div class="mb-3">
                                             <label for="nom" class="form-label">Nom</label>
@@ -77,7 +78,7 @@
                                         </div>
                                         <!-- Champ caché pour stocker le rôle -->
                                         <input type="hidden" id="role_utilisateur" name="role_utilisateur">
-                                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Enregistrer</button>
+                                        <button type="submit" id="enregistrerBtn" class="btn btn-primary" data-bs-dismiss="modal">Enregistrer</button>
                                     </form>
                                 </div>
                             </div>

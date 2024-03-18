@@ -229,4 +229,24 @@ var_dump($resultats);
         return $resultats;
 
     }
+
+
+
+    function pseudoUnique(string $pseudo) {
+
+        $connexion = getConnexion();
+
+        $sql = "SELECT COUNT(*) AS count FROM utilisateurs WHERE pseudoUtilisateur = ?";
+
+        $curseur = $connexion->prepare($sql);
+
+        $curseur->execute([$pseudo]);
+
+        $result = $curseur->fetch(PDO::FETCH_ASSOC);
+    
+        return $result['count'] == 0; 
+    }
+
+
+
 ?>
