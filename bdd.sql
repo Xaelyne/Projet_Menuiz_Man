@@ -1,17 +1,125 @@
 
+CREATE TABLE UTILISATEURS(
+   idUtilisateur INT AUTO_INCREMENT,
+   nomUtilisateur VARCHAR(50)  NOT NULL,
+   prenomUtilisateur VARCHAR(50)  NOT NULL,
+   pseudoUtilisateur VARCHAR(50)  NOT NULL,
+   mdpUtilisateur VARCHAR(50)  NOT NULL,
+   roleUtilisateur INT NOT NULL,
+   PRIMARY KEY(idUtilisateur)
+);
 
-CREATE TABLE `utilisateurs` (
-  `idUtilisateur` int NOT NULL,
-  `nomUtilisateur` varchar(50) NOT NULL,
-  `prenomUtilisateur` varchar(50) NOT NULL,
-  `pseudoUtilisateur` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `mdpUtilisateur` varchar(50) NOT NULL,
-  `roleUtilisateur` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE CLIENT(
+   idClient INT AUTO_INCREMENT,
+   nomClient VARCHAR(50)  NOT NULL,
+   prenomClient VARCHAR(50)  NOT NULL,
+   codePostalClient INT NOT NULL,
+   villeClient VARCHAR(50)  NOT NULL,
+   PRIMARY KEY(idClient)
+);
 
---
--- Déchargement des données de la table `utilisateurs`
---
+CREATE TABLE ARTICLE(
+   codeArticle INT AUTO_INCREMENT,
+   libelleArticle VARCHAR(50) ,
+   garantieArticle INT,
+   qteStockPrincipal INT,
+   qteStockSAV INT,
+   qteStockRebus VARCHAR(50) ,
+   PRIMARY KEY(codeArticle)
+);
+
+CREATE TABLE KIT(
+   codeKit INT AUTO_INCREMENT,
+   nomKit VARCHAR(50)  NOT NULL,
+   PRIMARY KEY(codeKit)
+);
+
+CREATE TABLE DIAGNOSTIC(
+   idDiag INT AUTO_INCREMENT,
+   PRIMARY KEY(idDiag)
+);
+
+CREATE TABLE FACTURE(
+   idFacture INT AUTO_INCREMENT,
+   PRIMARY KEY(idFacture)
+);
+
+CREATE TABLE COMMANDE(
+   numCommande INT AUTO_INCREMENT,
+   dateCommande DATE NOT NULL,
+   idDiag INT,
+   idClient INT NOT NULL,
+   PRIMARY KEY(numCommande),
+   FOREIGN KEY(idDiag) REFERENCES DIAGNOSTIC(idDiag),
+   FOREIGN KEY(idClient) REFERENCES CLIENT(idClient)
+);
+
+CREATE TABLE DOSSIER_RECLAMATION(
+   numDossier INT AUTO_INCREMENT,
+   dateDossier DATE NOT NULL,
+   typeDossier INT NOT NULL,
+   dateClotureDossier DATE,
+   dossierEnCours BOOLEAN NOT NULL,
+   numCommande INT,
+   idDiag INT NOT NULL,
+   idUtilisateur INT NOT NULL,
+   PRIMARY KEY(numDossier),
+   FOREIGN KEY(numCommande) REFERENCES COMMANDE(numCommande),
+   FOREIGN KEY(idDiag) REFERENCES DIAGNOSTIC(idDiag),
+   FOREIGN KEY(idUtilisateur) REFERENCES UTILISATEURS(idUtilisateur)
+);
+
+CREATE TABLE EXPEDITION(
+   numExpedition INT AUTO_INCREMENT,
+   quantiteExpedie INT NOT NULL,
+   dateExpedition DATE NOT NULL,
+   numDossier INT NOT NULL,
+   numCommande INT NOT NULL,
+   PRIMARY KEY(numExpedition),
+   FOREIGN KEY(numDossier) REFERENCES DOSSIER_RECLAMATION(numDossier),
+   FOREIGN KEY(numCommande) REFERENCES COMMANDE(numCommande)
+);
+
+CREATE TABLE APPELER(
+   idUtilisateur INT,
+   idClient INT,
+   PRIMARY KEY(idUtilisateur, idClient),
+   FOREIGN KEY(idUtilisateur) REFERENCES UTILISATEURS(idUtilisateur),
+   FOREIGN KEY(idClient) REFERENCES CLIENT(idClient)
+);
+
+CREATE TABLE COMPOSER(
+   codeArticle INT,
+   codeKit INT,
+   PRIMARY KEY(codeArticle, codeKit),
+   FOREIGN KEY(codeArticle) REFERENCES ARTICLE(codeArticle),
+   FOREIGN KEY(codeKit) REFERENCES KIT(codeKit)
+);
+
+CREATE TABLE CONTENIR(
+   codeArticle INT,
+   numCommande INT,
+   quantitéArticleCommande INT NOT NULL,
+   PRIMARY KEY(codeArticle, numCommande),
+   FOREIGN KEY(codeArticle) REFERENCES ARTICLE(codeArticle),
+   FOREIGN KEY(numCommande) REFERENCES COMMANDE(numCommande)
+);
+
+CREATE TABLE CONCERNER(
+   codeArticle INT,
+   numDossier INT,
+   PRIMARY KEY(codeArticle, numDossier),
+   FOREIGN KEY(codeArticle) REFERENCES ARTICLE(codeArticle),
+   FOREIGN KEY(numDossier) REFERENCES DOSSIER_RECLAMATION(numDossier)
+);
+
+CREATE TABLE ENGENDRER(
+   numCommande INT,
+   idFacture INT,
+   PRIMARY KEY(numCommande, idFacture),
+   FOREIGN KEY(numCommande) REFERENCES COMMANDE(numCommande),
+   FOREIGN KEY(idFacture) REFERENCES FACTURE(idFacture)
+);
 
 
 -- UTILISATEURS
@@ -50,12 +158,11 @@ INSERT INTO `composer`(`codeArticle`, `codeKit`) VALUES
 ('2','2'),
 ('3','2');
 
-
 -- COMMANDE
 INSERT INTO `commande`(`dateCommande`,`idClient`) VALUES 
 ('2024/03/18','1'),
 ('2024/03/18','2'),
-('2024/03/18','3')
+('2024/03/18','3');
 
 -- CONTENU COMMANDE
 INSERT INTO `contenir`(`codeArticle`, `numCommande`, `quantitéArticleCommande`) VALUES 
@@ -65,7 +172,4 @@ INSERT INTO `contenir`(`codeArticle`, `numCommande`, `quantitéArticleCommande`)
 ('3','2','2'),
 ('1','3','2'),
 ('2','3','1'),
-('3','3','1')
-
--- FACTURE
-INSERT INTO `facture`(`numCommande`) VALUES ('1')
+('3','3','1');
