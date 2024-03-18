@@ -164,10 +164,7 @@ var_dump("fonction role : " . $role);
         }
     }
 
-    function connexionSession() {
-        session_start();
-        $id = $_GET['id'];
-        $_SESSION['id'] = $id;
+    function deconnexionSession() {
+        
     }
-
 ?>
