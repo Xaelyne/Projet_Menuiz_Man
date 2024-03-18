@@ -6,7 +6,7 @@ if ($action === "accueilTechnicienSAV") {
         <div class="d-flex flex-lg-row flex-column justify-content-center align-items-center flex-wrap">
             <a href="index.php?action=nouveauDossier&id=<?=$id?>" class="lienCarte">
                 <div class='card m-2 maCarte' style='width: 18rem;'>
-                <img src='../Images/nouveau-dossier.png' class='card-img-top m-auto mt-1 pt-3' style='width: 50%;' alt='nouveauDossier'>
+                <img src='Images/nouveau-dossier.png' class='card-img-top m-auto mt-1 pt-3' style='width: 50%;' alt='nouveauDossier'>
                     <div class='card-body'>
                         <h4 class='card-title d-flex justify-content-center'>Créer un nouveau dossier</h4>
                     </div>
@@ -22,7 +22,7 @@ if ($action === "accueilTechnicienSAV") {
             </a>
             <a href="index.php?action=dossierTermine&id=<?=$id?>" class="lienCarte">
                 <div class='card m-2 maCarte' style='width: 18rem;'>
-                <img src='Images\verifie.png' class='card-img-top m-auto mt-1 pt-3' style='width: 50%;' alt='nouveauDossier'>
+                <img src='Images/verifie.png' class='card-img-top m-auto mt-1 pt-3' style='width: 50%;' alt='nouveauDossier'>
                     <div class='card-body'>
                         <h4 class='card-title d-flex justify-content-center'>Dossier terminés</h4>
                     </div>
@@ -34,7 +34,7 @@ if ($action === "accueilTechnicienSAV") {
         <div class="d-flex flex-lg-row flex-column justify-content-center align-items-center flex-wrap">
             <a href="index.php?action=nouveauDossier&id=<?=$id?>" class="lienCarte">
                 <div class='card m-2 maCarte' style='width: 18rem;'>
-                <img src='Images\parametre.png' class='card-img-top m-auto mt-1 pt-3' style='width: 50%;' alt='nouveauDossier'>
+                <img src='Images/parametre.png' class='card-img-top m-auto mt-1 pt-3' style='width: 50%;' alt='nouveauDossier'>
                     <div class='card-body'>
                         <h4 class='card-title d-flex justify-content-center'>Diagnostics</h4>
                     </div>

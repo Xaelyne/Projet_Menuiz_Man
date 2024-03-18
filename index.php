@@ -95,18 +95,22 @@ switch ($action) {
         $id = controleConnexion($pseudoUtilisateur, $mdpUtilisateur, $users);
 
         if ($id == 0) { // utilisateur introuvable
-            $titre = "Connexion<br><h2 class='text-center'>Utilisateur introuvable</h2>";
+            $titre = "Connexion<br><h2 class='text-center'>Pseudo ou Mot de passe incorrect</h2>";
             $roleHeader = afficheHeader();
             require "./vues/vueHeader.php";
             require "./vues/vueConnexion.php";
         } else if ($id == -1) { // mot de passe incorrect
-            $titre = "Connexion<br><h2 class='text-center'>Mot de passe incorrect</h2>";
+            $titre = "Connexion<br><h2 class='text-center'>Pseudo ou Mot de passe incorrect</h2>";
             $roleHeader = afficheHeader();
             require "./vues/vueHeader.php";
             require "./vues/vueConnexion.php";
         } else { // connexion validée
             $role = getUtilisateur($id);
             $role = $role['roleUtilisateur'];
+
+            // stocker en session
+            $_SESSION['id'] = $id;
+            $_SESSION['role'] = $role;
 
             if($role == 1) {
                 $action = "accueilAdmin";

@@ -128,6 +128,8 @@ var_dump("fonction role : " . $role);
         } catch (PDOException $e) {
             
             throw new ModeleException("Erreur lors de l'insertion de l'utilisateur : " . $e->getMessage());
+        }
+    }
 
     function getClients() : array {
 
@@ -160,6 +162,12 @@ var_dump("fonction role : " . $role);
             return $resultats;
 
         }
+    }
+
+    function connexionSession() {
+        session_start();
+        $id = $_GET['id'];
+        $_SESSION['id'] = $id;
     }
 
 ?>
