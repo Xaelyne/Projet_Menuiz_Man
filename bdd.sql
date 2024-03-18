@@ -49,3 +49,23 @@ INSERT INTO `composer`(`codeArticle`, `codeKit`) VALUES
 ('2','1'),
 ('2','2'),
 ('3','2');
+
+
+-- COMMANDE
+INSERT INTO `commande`(`dateCommande`,`idClient`) VALUES 
+('2024/03/18','1'),
+('2024/03/18','2'),
+('2024/03/18','3')
+
+-- CONTENU COMMANDE
+INSERT INTO `contenir`(`codeArticle`, `numCommande`, `quantitéArticleCommande`) VALUES 
+('1','1','2'),
+('2','1','2'),
+('1','2','1'),
+('3','2','2'),
+('1','3','2'),
+('2','3','1'),
+('3','3','1')
+
+-- FACTURE
+INSERT INTO `facture`(`numCommande`) VALUES ('1')

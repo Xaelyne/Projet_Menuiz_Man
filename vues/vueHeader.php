@@ -26,7 +26,7 @@
     if ($roleHeader == 1) {
     ?>
 <!-- DEBUG -->
-<p>HEADER ADMIN</p>
+<!-- <p>HEADER ADMIN</p> -->
         <nav class="navbar navbar-expand-lg maNav">
             <div class="container-fluid">
 
@@ -116,7 +116,7 @@
     } else {
     ?>
 <!-- DEBUG -->
-<p>HEADER AUTRE</p>
+<!-- <p>HEADER AUTRE</p> -->
         <!-- Nav Barre Autre Utilisateurs et Accueil -->
         <nav class="navbar navbar-expand-lg maNav">
             <div class="container-fluid">
