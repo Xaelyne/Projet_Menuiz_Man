@@ -146,6 +146,32 @@ switch ($action) {
             require "vues/vueErreur.php";
         }
         break;
+    case "rechercherDossierMAJ":
+        
+        session_start();
+        if (isset ($_SESSION['id'])) {
+
+            // récupération ID et ROLE
+            $id = $_SESSION['id'];
+            $roleUser = $_SESSION['role'];
+
+            $titre = "Résultat de votre recherche";
+            $roleHeader = afficheHeader();
+            require "./vues/vueHeader.php";
+            if (isset ($_GET['search'])) {
+                $resultats_recherche = rechercheDossier();
+            }
+            require "./vues/vueResultat.php";
+        } else {
+            $roleHeader = 0;
+            $titre = "Erreur";
+            $action = "erreur";
+            require "./vues/vueHeader.php";
+            require "vues/vueErreur.php";
+        }
+        break;
+    
+
     case "dossierTermine":
         session_start();
         if (isset ($_SESSION['id'])) {

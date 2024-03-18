@@ -28,12 +28,44 @@
 
         $connexion = getConnexion();
 
-        $sql = "SELECT * FROM dossier_reclamation";
+        $sql = "SELECT dr.*, c.nomClient, u.nomUtilisateur
+        FROM dossier_reclamation dr 
+        INNER JOIN commande cmd ON dr.numCommande = cmd.numCommande 
+        INNER JOIN client c ON cmd.idClient = c.idClient
+        INNER JOIN utilisateurs u ON dr.idUtilisateur = u.idUtilisateur";
 
         $resultat = $connexion->query($sql);
 
         return $resultat->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    function rechercheDossier()  {
+
+        $resultats = [];
+
+        if(isset($_GET['search']) && !empty(trim($_GET['search']))) {
+            $recherche = $_GET['search'];
+        
+            $connexion = getConnexion();
+
+            $sql = "SELECT *
+            FROM dossier_reclamation dr 
+            INNER JOIN commande cmd ON dr.numCommande = cmd.numCommande 
+            INNER JOIN client c ON cmd.idClient = c.idClient
+            INNER JOIN utilisateurs u ON dr.idUtilisateur = u.idUtilisateur
+            WHERE dr.numDossier LIKE :search_term OR dr.dateDossier LIKE :search_term 
+            OR c.nomClient LIKE :search_term OR dr.idUtilisateur LIKE :search_term OR dr.statutDossier LIKE :search_term";
+
+            $curseur = $connexion->prepare($sql);
+
+            $curseur->execute(['search_term' => "%$recherche%"]);
+
+            $resultats = $curseur->fetchAll(PDO::FETCH_ASSOC);
+
+            return $resultats;
+        }
+    }
+
 
     function rechercheUtilisateur()  {
 
