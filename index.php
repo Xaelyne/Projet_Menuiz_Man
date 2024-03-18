@@ -135,7 +135,9 @@ switch ($action) {
             $titre = "Rechercher un dossier";
             $roleHeader = afficheHeader();
             require "./vues/vueHeader.php";
-            require "./vues/vueAccueil.php";
+            $dossiers = getDossier();
+            require "./vues/vueRechercherDossier.php";
+           
         } else {
             $roleHeader = 0;
             $titre = "Erreur";
