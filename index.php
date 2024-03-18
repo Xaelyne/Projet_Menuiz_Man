@@ -109,6 +109,7 @@ switch ($action) {
             $role = $role['roleUtilisateur'];
 
             // stocker en session
+            session_start();
             $_SESSION['id'] = $id;
             $_SESSION['role'] = $role;
 
@@ -124,8 +125,14 @@ switch ($action) {
         }
         break;
     case "accueilAdmin":
-        // récupération des infos utilisateurs
-        $id = $_GET['id'];
+        // récupération ID et ROLE
+        session_start();
+        $id = $_SESSION['id'];
+        $roleUser = $_SESSION['role'];
+
+        //$id = $_GET['id'];
+        
+        // infos utilisateur
         $utilisateur = getUtilisateur($id);
         $nom = $utilisateur['nomUtilisateur'];
         $prenom = $utilisateur['prenomUtilisateur'];

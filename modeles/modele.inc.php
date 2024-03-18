@@ -164,11 +164,10 @@ var_dump("fonction role : " . $role);
         }
     }
 
-    function connexionSession() {
-        session_start();
-        $id = $_GET['id'];
-        $_SESSION['id'] = $id;
+    function deconnexionSession() {
+        
     }
+
 
 
     function pseudoUnique(string $pseudo) {
@@ -185,5 +184,7 @@ var_dump("fonction role : " . $role);
     
         return $result['count'] == 0; 
     }
+
+
 
 ?>
