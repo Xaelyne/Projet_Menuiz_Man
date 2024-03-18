@@ -31,13 +31,13 @@
             <div class="container-fluid">
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <img src="../Images/Menuiz Man.png" alt="Logo" class="logonav">
+                    <img src="Images/Menuiz Man.png" alt="Logo" class="logonav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <a class="nav-link mx-3" aria-current="page" href="index.php">
-                        <img src="../Images/Menuiz Man.png" alt="Logo" class="logonav d-none d-lg-block">
+                        <img src="Images/Menuiz Man.png" alt="Logo" class="logonav d-none d-lg-block">
                     </a>
                     <div class="d-flex flex-grow-1 justify-content-center">
                         <button type="button" class="btn btn-primary mx-2 boutonPopup" data-role="1" data-title="Ajouter un nouvel administrateur">Ajouter un nouvel administrateur</button>
@@ -105,7 +105,7 @@
                     ?>
                         <a href="index.php?action=connexion" class="d-flex ms-auto align-items-center btnDeconnexion">
                             <h4 class="mt-1 me-1 ">Déconnexion</h4>
-                            <img src="../Images/se-deconnecter.png" alt="imgDeconnexion" class="imgDeconnexion ">
+                            <img src="Images/se-deconnecter.png" alt="imgDeconnexion" class="imgDeconnexion ">
                         </a>
                     <?php } ?>
                 </div>
@@ -122,20 +122,20 @@
             <div class="container-fluid">
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <img src="../Images/Menuiz Man.png" alt="Logo" class="logonav">
+                    <img src="Images/Menuiz Man.png" alt="Logo" class="logonav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <a class="nav-link mx-3" aria-current="page" href="index.php">
-                        <img src="../Images/Menuiz Man.png" alt="Logo" class="logonav d-none d-lg-block">
+                        <img src="Images/Menuiz Man.png" alt="Logo" class="logonav d-none d-lg-block">
                     </a>
                     <!-- BOUTON DECONNEXION -->
                     <?php if ($action != "connexion") {
                     ?>
                         <a href="index.php?action=connexion" class="d-flex ms-auto align-items-center btnDeconnexion">
                             <h4 class="mt-1 me-1 ">Déconnexion</h4>
-                            <img src="../Images/se-deconnecter.png" alt="imgDeconnexion" class="imgDeconnexion ">
+                            <img src="Images/se-deconnecter.png" alt="imgDeconnexion" class="imgDeconnexion ">
                         </a>
                     <?php } ?>
                 </div>
