@@ -179,10 +179,14 @@ switch ($action) {
             $id = $_SESSION['id'];
             $roleUser = $_SESSION['role'];
 
-            $titre = "Dossier terminé";
+            $titre = "Dossiers terminés";
             $roleHeader = afficheHeader();
             require "./vues/vueHeader.php";
-            require "./vues/vueAccueil.php";
+
+            $dossiers = dossierTermine();
+
+            require "./vues/vueDossierTermine.php";
+
         } else {
             $roleHeader = 0;
             $titre = "Erreur";
@@ -191,6 +195,34 @@ switch ($action) {
             require "vues/vueErreur.php";
         }
         break;
+
+    case "dossierTermineMaj":
+        session_start();
+        if (isset ($_SESSION['id'])) {
+            // récupération ID et ROLE
+            $id = $_SESSION['id'];
+            $roleUser = $_SESSION['role'];
+
+            $titre = "Dossiers terminés";
+            $roleHeader = afficheHeader();
+            require "./vues/vueHeader.php";
+
+            if(isset($_GET['search'])) {
+                $recherche = $_GET['search'];
+                $result = rechercheDossierBis($recherche);
+            }
+
+            require "./vues/vueDossierTermine.php";
+
+        } else {
+            $roleHeader = 0;
+            $titre = "Erreur";
+            $action = "erreur";
+            require "./vues/vueHeader.php";
+            require "vues/vueErreur.php";
+        }
+        break;
+
     case "diagnostics":
         session_start();
         if (isset ($_SESSION['id'])) {

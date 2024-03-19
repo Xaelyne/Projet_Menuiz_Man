@@ -61,7 +61,7 @@ CREATE TABLE DOSSIER_RECLAMATION(
    dateClotureDossier DATE,
    statutDossier INT NOT NULL,
    numCommande INT,
-   idDiag INT NOT NULL,
+   idDiag INT,
    idUtilisateur INT NOT NULL,
    PRIMARY KEY(numDossier),
    FOREIGN KEY(numCommande) REFERENCES COMMANDE(numCommande),
@@ -180,7 +180,7 @@ INSERT INTO `diagnostic`(`idDiag`) VALUES
 ('2');
 
 -- CREATION DOSSIERS
-INSERT INTO `dossier_reclamation`(`dateDossier`, `typeDossier`,`statutDossier`, `numCommande`, `idDiag`, `idUtilisateur`) VALUES 
-(CURRENT_DATE(),'5','1','1', '1', '2'),
-(CURRENT_DATE(),'5','1','2', '1', '2'),
-('2024-03-10','2','0','3', '1', '2');
+INSERT INTO `dossier_reclamation`(`dateDossier`, `typeDossier`,`statutDossier`, `numCommande`, `idUtilisateur`) VALUES 
+(CURRENT_DATE(),'5','1','1', '2'),
+(CURRENT_DATE(),'5','1','2', '2'),
+('2024-03-10','2','0','3', '2');
