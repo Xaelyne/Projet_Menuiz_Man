@@ -35,7 +35,7 @@ if ($action === "rechercherDossier") {
                         <td><?= $dossier['nomClient']; ?></td>
                         <td><?= $dossier['nomUtilisateur']; ?></td>
                         <td><?= afficherStatutDossier($dossier['statutDossier']); ?></td>
-                        <td><a href="index.php?action=voirDossier=<?= $dossier['numDossier']; ?>"><button class="btn bouton">Voir le dossier</button></a></td>
+                        <td><a href="index.php?action=voirDossier&numDossier=<?= $dossier['numDossier']; ?>"><button class="btn bouton">Voir le dossier</button></a></td>
                     </tr>
                 <?php } ?>
             </tbody>

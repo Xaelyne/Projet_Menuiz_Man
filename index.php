@@ -137,6 +137,10 @@ switch ($action) {
             require "./vues/vueHeader.php";
             $dossiers = getDossier();
             require "./vues/vueRechercherDossier.php";
+            if (isset ($_GET['search'])) {
+                $resultats_recherche = rechercheDossier($recherche);
+            }
+
            
         } else {
             $roleHeader = 0;
@@ -159,7 +163,8 @@ switch ($action) {
             $roleHeader = afficheHeader();
             require "./vues/vueHeader.php";
             if (isset ($_GET['search'])) {
-                $resultats_recherche = rechercheDossier();
+                $recherche = $_GET['search'];
+                $resultats_recherche = rechercheDossier($recherche);
             }
             require "./vues/vueResultat.php";
         } else {
@@ -170,8 +175,26 @@ switch ($action) {
             require "vues/vueErreur.php";
         }
         break;
-    
+    case "voirDossier":
+        session_start();
+        if (isset ($_SESSION['id'])) {
+            // récupération ID et ROLE
+            $id = $_SESSION['id'];
+            $roleUser = $_SESSION['role'];
 
+            $titre = "Dossier";
+            $roleHeader = afficheHeader();
+            require "./vues/vueHeader.php";
+
+            require "vues/vueDossier.php";
+        } else {
+            $roleHeader = 0;
+            $titre = "Erreur";
+            $action = "erreur";
+            require "./vues/vueHeader.php";
+            require "vues/vueErreur.php";
+        }
+        break;  
     case "dossierTermine":
         session_start();
         if (isset ($_SESSION['id'])) {

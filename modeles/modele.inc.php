@@ -39,12 +39,7 @@
         return $resultat->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    function rechercheDossier()  {
-
-        $resultats = [];
-
-        if(isset($_GET['search']) && !empty(trim($_GET['search']))) {
-            $recherche = $_GET['search'];
+    function rechercheDossier($recherche)  {
         
             $connexion = getConnexion();
 
@@ -63,8 +58,8 @@
             $resultats = $curseur->fetchAll(PDO::FETCH_ASSOC);
 
             return $resultats;
-        }
     }
+    
 
 
     function rechercheUtilisateur()  {
