@@ -67,6 +67,7 @@
                 <th scope="col">Nom du client</th>
                 <th scope="col">Gérant du dossier</th>
                 <th scope="col">Statut</th>
+                <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -77,7 +78,7 @@
                         <td><?= $dossier['nomClient']; ?></td>
                         <td><?= $dossier['nomUtilisateur']; ?></td>
                         <td><?= afficherStatutDossier($dossier['statutDossier']); ?></td>
-                        
+                        <td><a href="index.php?action=voirDossier&numDossier=<?= $dossier['numDossier']; ?>"><button class="btn bouton">Voir le dossier</button></a></td>
                     </tr>
                 <?php } ?>
             </tbody>
