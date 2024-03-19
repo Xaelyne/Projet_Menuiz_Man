@@ -174,6 +174,13 @@ INSERT INTO `contenir`(`codeArticle`, `numCommande`, `quantitéArticleCommande`)
 ('2','3','1'),
 ('3','3','1');
 
--- CREATION D'UN DOSSIER
-INSERT INTO `dossier_reclamation`(`numDossier`, `dateDossier`, `typeDossier`, `statutDossier`, `numCommande`, `idUtilisateur`) VALUES 
-('1',CURRENT_DATE(),'5','1','1','2')
+-- DIAGNOSTIC
+INSERT INTO `diagnostic`(`idDiag`) VALUES 
+('1'),
+('2');
+
+-- CREATION DOSSIERS
+INSERT INTO `dossier_reclamation`(`dateDossier`, `typeDossier`,`statutDossier`, `numCommande`, `idDiag`, `idUtilisateur`) VALUES 
+(CURRENT_DATE(),'5','1','1', '1', '2'),
+(CURRENT_DATE(),'5','1','2', '1', '2'),
+('2024-03-10','2','0','3', '1', '2');
