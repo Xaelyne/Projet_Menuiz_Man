@@ -8,7 +8,7 @@ if (!isset ($_GET['action']))
     $action = "connexion";
 
 require ("./modeles/modele.inc.php");
-require ("./vues/popup.php");
+
 
 var_dump("action -> " . $action);
 
@@ -351,6 +351,7 @@ switch ($action) {
 
                 try {
                     $id_utilisateur = ajoutUtilisateur($pseudo, $nomForm, $prenomForm, $mot_de_passe, $role_utilisateur);
+                    header("Location: index.php?action=accueilAdmin");
                 } catch (ModeleException $e) {
                     echo "Erreur : " . $e->getMessage();
                 }
@@ -360,6 +361,7 @@ switch ($action) {
             $titre = "Bonjour $nom $prenom, vous êtes connecté en tant que $role";
             $roleHeader = afficheHeader();
             require "./vues/vueHeader.php";
+            require ("./vues/popup.php");
             $utilisateurs = getUtilisateurs();
             require "./vues/vueAccueil.php";
 

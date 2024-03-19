@@ -173,7 +173,7 @@
 
 
 
-    function ajoutUtilisateur($pseudoUtilisateur, $nom, $prenom, $mdpUtilisateur, $role) {
+    function ajoutUtilisateur(string $pseudoUtilisateur, string $nom, string $prenom, string $mdpUtilisateur, int $role) {
         try {
             
             $connexion = getConnexion();
