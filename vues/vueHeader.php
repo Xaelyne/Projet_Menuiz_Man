@@ -78,7 +78,7 @@
                                         </div>
                                         <!-- Champ caché pour stocker le rôle -->
                                         <input type="hidden" id="role_utilisateur" name="role_utilisateur">
-                                        <button type="submit" id="enregistrerBtn" class="btn btn-primary" data-bs-dismiss="modal">Enregistrer</button>
+                                        <button type="button" id="enregistrerBtn" class="btn btn-primary">Enregistrer</button>
                                     </form>
                                 </div>
                             </div>

@@ -8,6 +8,7 @@ if (!isset ($_GET['action']))
     $action = "connexion";
 
 require ("./modeles/modele.inc.php");
+require ("./vues/popup.php");
 
 var_dump("action -> " . $action);
 
@@ -254,36 +255,34 @@ switch ($action) {
             $prenom = $utilisateur['prenomUtilisateur'];
             $role = afficheRoleUtilisateur($utilisateur['roleUtilisateur']);
 
+            $pseudoValide = true;
+
+
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $pseudo = $_POST["pseudo"];
+                $nomForm = $_POST["nom"];
+                $prenomForm = $_POST["prenom"];
+                $mot_de_passe = $_POST["mot_de_passe"];
+                $confirmer_mot_de_passe = $_POST["confirmer_mot_de_passe"];
+                $role_utilisateur = $_POST["role_utilisateur"];
+
+                try {
+                    $id_utilisateur = ajoutUtilisateur($pseudo, $nomForm, $prenomForm, $mot_de_passe, $role_utilisateur);
+                } catch (ModeleException $e) {
+                    echo "Erreur : " . $e->getMessage();
+                }
+            }
+
+
             $titre = "Bonjour $nom $prenom, vous êtes connecté en tant que $role";
             $roleHeader = afficheHeader();
             require "./vues/vueHeader.php";
             $utilisateurs = getUtilisateurs();
             require "./vues/vueAccueil.php";
 
-            $pseudoValide = true;
+            
 
-            if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                $pseudo = $_POST["pseudo"];
-                $nom = $_POST["nom"];
-                $prenom = $_POST["prenom"];
-                $mot_de_passe = $_POST["mot_de_passe"];
-                $confirmer_mot_de_passe = $_POST["confirmer_mot_de_passe"];
-                $role_utilisateur = $_POST["role_utilisateur"];
-
-                if (!pseudoUnique($pseudo)) {
-                    $pseudoValide = false;
-                } else {
-                    $pseudoValide = true;
-                }
-
-                if ($pseudoValide) {
-                    try {
-                        $id_utilisateur = ajoutUtilisateur($pseudo, $nom, $prenom, $mot_de_passe, $role_utilisateur);
-                    } catch (ModeleException $e) {
-                        echo "Erreur : " . $e->getMessage();
-                    }
-                }
-            }} else {
+            } else {
                 $roleHeader = 0;
                 $titre = "Erreur";
                 $action = "erreur";
@@ -305,7 +304,8 @@ switch ($action) {
             $roleHeader = afficheHeader();
             require "./vues/vueHeader.php";
             if (isset ($_GET['search'])) {
-                $resultats_recherche = rechercheUtilisateur();
+                $recherche = $_GET['search'];
+                $resultats_recherche = rechercheUtilisateur($recherche);
             }
             require "./vues/vueResultat.php";
         } else {

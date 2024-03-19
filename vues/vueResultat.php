@@ -14,23 +14,27 @@
                 </form>
             </div>
                 <?php if (!is_null($resultats_recherche) && count($resultats_recherche) > 0) { ?>
-                <table class="container table table-striped border maTableAdmin rounded-3 overflow-hidden">
+                <table class="container table table-striped border maTableAdmin rounded-3 overflow-hidden alignTable">
                     <thead>
                         <tr>
-                        <th scope="col">Identifiant</th>
-                        <th scope="col">Nom</th>
-                        <th scope="col">Prénom</th>
-                        <th scope="col">Rôle</th>
+                            <th scope="col">Identifiant</th>
+                            <th scope="col">Pseudo</th>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Prénom</th>
+                            <th scope="col">Rôle</th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($resultats_recherche as $utilisateur) { ?>
                             <tr>
                                 <th scope="row"><?= $utilisateur['idUtilisateur']; ?></th>
+                                <td><?= $utilisateur['pseudoUtilisateur']; ?></td>
                                 <td><?= $utilisateur['nomUtilisateur']; ?></td>
                                 <td><?= $utilisateur['prenomUtilisateur']; ?></td>
                                 <?php $role = $utilisateur['roleUtilisateur']; ?>
                                 <td><?= afficheRoleUtilisateur($role); ?></td>
+                                <td><a href=""><button class="btn bouton">Modifier</button></a><a href=""><button class="btn bouton">Supprimer</button></a></td>
                             </tr>
                         <?php } ?>
                     </tbody>

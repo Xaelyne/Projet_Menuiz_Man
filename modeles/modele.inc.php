@@ -24,25 +24,20 @@
         return $resultat->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    function rechercheUtilisateur()  {
-
-        $resultats = [];
-
-        if(isset($_GET['search']) && !empty(trim($_GET['search']))) {
-            $recherche = $_GET['search'];
+    function rechercheUtilisateur($recherche)  {
         
-            $connexion = getConnexion();
+        $connexion = getConnexion();
 
-            $sql = "SELECT * FROM utilisateurs WHERE nomUtilisateur LIKE :search_term OR prenomUtilisateur LIKE :search_term OR idUtilisateur LIKE :search_term OR roleUtilisateur LIKE :search_term";
+        $sql = "SELECT * FROM utilisateurs WHERE nomUtilisateur LIKE :search_term OR prenomUtilisateur LIKE :search_term OR idUtilisateur LIKE :search_term OR roleUtilisateur LIKE :search_term OR pseudoUtilisateur LIKE :search_term";
 
-            $curseur = $connexion->prepare($sql);
+        $curseur = $connexion->prepare($sql);
 
-            $curseur->execute(['search_term' => "%$recherche%"]);
+        $curseur->execute(['search_term' => "%$recherche%"]);
 
-            $resultats = $curseur->fetchAll(PDO::FETCH_ASSOC);
+        $resultats = $curseur->fetchAll(PDO::FETCH_ASSOC);
 
-            return $resultats;
-        }
+        return $resultats;
+        
     }
 
     function afficheRoleUtilisateur($role) {
@@ -232,21 +227,33 @@ var_dump($resultats);
 
 
 
-    function pseudoUnique(string $pseudo) {
+    // function pseudoUnique(string $pseudo) {
 
+    //     $connexion = getConnexion();
+
+    //     $sql = "SELECT * FROM utilisateurs WHERE pseudoUtilisateur = ?";
+
+    //     $curseur = $connexion->prepare($sql);
+
+    //     $curseur->execute([$pseudo]);
+
+    //     $resultat = $curseur->fetchAll(PDO::FETCH_ASSOC);
+
+    //     return $resultat; 
+    // }
+
+    function getPseudos() {
         $connexion = getConnexion();
 
-        $sql = "SELECT COUNT(*) AS count FROM utilisateurs WHERE pseudoUtilisateur = ?";
+        $sql = "SELECT pseudoUtilisateur FROM utilisateurs";
 
         $curseur = $connexion->prepare($sql);
 
-        $curseur->execute([$pseudo]);
+        $curseur->execute();
 
-        $result = $curseur->fetch(PDO::FETCH_ASSOC);
-    
-        return $result['count'] == 0; 
+        $resultat = $curseur->fetchAll(PDO::FETCH_ASSOC);
+
+        return $resultat;
     }
-
-
 
 ?>
