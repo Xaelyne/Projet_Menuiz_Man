@@ -61,6 +61,28 @@
     }
     
 
+    function rechercheDossierBis($recherche)  {
+        
+            $connexion = getConnexion();
+
+            $sql = "SELECT *
+            FROM dossier_reclamation dr 
+            INNER JOIN commande cmd ON dr.numCommande = cmd.numCommande 
+            INNER JOIN client c ON cmd.idClient = c.idClient
+            INNER JOIN utilisateurs u ON dr.idUtilisateur = u.idUtilisateur
+            WHERE dr.numDossier LIKE :search_term OR dr.dateDossier LIKE :search_term 
+            OR c.nomClient LIKE :search_term OR dr.idUtilisateur LIKE :search_term OR dr.statutDossier LIKE :search_term";
+
+            $curseur = $connexion->prepare($sql);
+
+            $curseur->execute(['search_term' => "%$recherche%"]);
+
+            $resultats = $curseur->fetchAll(PDO::FETCH_ASSOC);
+
+            return $resultats;
+        
+    }
+
 
     function rechercheUtilisateur()  {
 
@@ -208,6 +230,7 @@
     function getCommande($recherche) {
         $connexion = getConnexion();
 
+        //$sql = "SELECT com.numCommande, DATE_FORMAT(com.dateCommande, '%d/%m/%Y') AS 'dateCommande', cont.codeArticle, libelleArticle, garantieArticle, idDiag, com.idClient, nomClient, prenomClient, codePostalClient, villeClient 
         $sql = "SELECT com.numCommande, com.dateCommande, cont.codeArticle, libelleArticle, garantieArticle, idDiag, com.idClient, nomClient, prenomClient, codePostalClient, villeClient 
         FROM commande com 
         JOIN client c ON c.idClient = com.idClient 
@@ -220,7 +243,7 @@
         $curseur->execute(['search_term' => $recherche]);
 
         $resultats = $curseur->fetchAll(PDO::FETCH_ASSOC);
-var_dump($resultats);
+//var_dump($resultats);
         return $resultats;
     }
 
@@ -297,6 +320,17 @@ var_dump($resultats);
         $result = $curseur->fetch(PDO::FETCH_ASSOC);
     
         return $result['count'] == 0; 
+    }
+
+    function dossierTermine() {
+
+        $connexion = getConnexion();
+
+        $sql = "SELECT * FROM dossier_reclamation WHERE statutDossier = 0";
+
+        $resultat = $connexion->query($sql);
+
+        return $resultat->fetchAll(PDO::FETCH_ASSOC);
     }
 
 
