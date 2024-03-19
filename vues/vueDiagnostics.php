@@ -1,12 +1,12 @@
 <?php
-if ($action === "rechercherDossier") {
+if ($action === "diagnostics") {
 ?>
 
 <div class="contourAdmin container d-flex justify-content-center align-items-center flex-column rounded-3">
             <div class="container my-3">
                 <form class="form-inline" action="index.php">
                     <div class="input-group col-auto maRecherche">
-                        <input type="hidden" name="action" value="rechercherDossierMAJ">
+                        <input type="hidden" name="action" value="diagnosticsMAJ">
                         <input type="hidden" name="id" value="<?=$id?>">
                         <input class="form-control form-control-sm espaceBouton rounded-5" type="search" name="search" placeholder="Rechercher" aria-label="Rechercher">
                         <div class="input-group-prepend">
@@ -25,7 +25,6 @@ if ($action === "rechercherDossier") {
                 <th scope="col">Nom du client</th>
                 <th scope="col">Type de dossier</th>
                 <th scope="col">Dossier géré par</th>
-                <th scope="col">Statut du dossier</th>
                 <th scope="col"></th>
                 </tr>
             </thead>
@@ -38,7 +37,6 @@ if ($action === "rechercherDossier") {
                         <td><?= $dossier['nomClient']; ?></td>
                         <td><?= afficherTypeDossier ($dossier['typeDossier']); ?></td>
                         <td><?= $dossier['nomUtilisateur']; ?></td>
-                        <td><?= afficherStatutDossier($dossier['statutDossier']); ?></td>
                         <td><a href="index.php?action=voirDossier&numDossier=<?= $dossier['numDossier']; ?>"><button class="btn bouton">Voir le dossier</button></a></td>
                     </tr>
                 <?php } ?>
