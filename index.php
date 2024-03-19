@@ -79,7 +79,7 @@ switch ($action) {
             $id = $_SESSION['id'];
             $roleUser = $_SESSION['role'];
 
-            $titre = "Créer un nouveau dossier"; // à modifier par une recherche client
+            $titre = "Rechercher une commande"; // à modifier par une recherche client
             $roleHeader = afficheHeader();
             require "./vues/vueHeader.php";
             $clients = getClients();
@@ -136,7 +136,13 @@ switch ($action) {
             $titre = "Rechercher un dossier";
             $roleHeader = afficheHeader();
             require "./vues/vueHeader.php";
-            require "./vues/vueAccueil.php";
+            $dossiers = getDossier();
+            require "./vues/vueRechercherDossier.php";
+            if (isset ($_GET['search'])) {
+                $resultats_recherche = rechercheDossier($recherche);
+            }
+
+           
         } else {
             $roleHeader = 0;
             $titre = "Erreur";
@@ -145,6 +151,51 @@ switch ($action) {
             require "vues/vueErreur.php";
         }
         break;
+    case "rechercherDossierMAJ":
+        
+        session_start();
+        if (isset ($_SESSION['id'])) {
+
+            // récupération ID et ROLE
+            $id = $_SESSION['id'];
+            $roleUser = $_SESSION['role'];
+
+            $titre = "Résultat de votre recherche";
+            $roleHeader = afficheHeader();
+            require "./vues/vueHeader.php";
+            if (isset ($_GET['search'])) {
+                $recherche = $_GET['search'];
+                $resultats_recherche = rechercheDossier($recherche);
+            }
+            require "./vues/vueResultat.php";
+        } else {
+            $roleHeader = 0;
+            $titre = "Erreur";
+            $action = "erreur";
+            require "./vues/vueHeader.php";
+            require "vues/vueErreur.php";
+        }
+        break;
+    case "voirDossier":
+        session_start();
+        if (isset ($_SESSION['id'])) {
+            // récupération ID et ROLE
+            $id = $_SESSION['id'];
+            $roleUser = $_SESSION['role'];
+
+            $titre = "Dossier";
+            $roleHeader = afficheHeader();
+            require "./vues/vueHeader.php";
+
+            require "vues/vueDossier.php";
+        } else {
+            $roleHeader = 0;
+            $titre = "Erreur";
+            $action = "erreur";
+            require "./vues/vueHeader.php";
+            require "vues/vueErreur.php";
+        }
+        break;  
     case "dossierTermine":
         session_start();
         if (isset ($_SESSION['id'])) {
@@ -152,10 +203,14 @@ switch ($action) {
             $id = $_SESSION['id'];
             $roleUser = $_SESSION['role'];
 
-            $titre = "Dossier terminé";
+            $titre = "Dossiers terminés";
             $roleHeader = afficheHeader();
             require "./vues/vueHeader.php";
-            require "./vues/vueAccueil.php";
+
+            $dossiers = dossierTermine();
+
+            require "./vues/vueDossierTermine.php";
+
         } else {
             $roleHeader = 0;
             $titre = "Erreur";
@@ -164,6 +219,34 @@ switch ($action) {
             require "vues/vueErreur.php";
         }
         break;
+
+    case "dossierTermineMaj":
+        session_start();
+        if (isset ($_SESSION['id'])) {
+            // récupération ID et ROLE
+            $id = $_SESSION['id'];
+            $roleUser = $_SESSION['role'];
+
+            $titre = "Dossiers terminés";
+            $roleHeader = afficheHeader();
+            require "./vues/vueHeader.php";
+
+            if(isset($_GET['search'])) {
+                $recherche = $_GET['search'];
+                $result = rechercheDossierBis($recherche);
+            }
+
+            require "./vues/vueDossierTermine.php";
+
+        } else {
+            $roleHeader = 0;
+            $titre = "Erreur";
+            $action = "erreur";
+            require "./vues/vueHeader.php";
+            require "vues/vueErreur.php";
+        }
+        break;
+
     case "diagnostics":
         session_start();
         if (isset ($_SESSION['id'])) {

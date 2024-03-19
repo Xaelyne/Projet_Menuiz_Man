@@ -21,6 +21,19 @@
     <div class="col-xl-12 alert alert-dark d-none d-xl-block d-xxl-none text-center" role="alert">Screen X-Large ≥1200px</div>
     <div class="col-xxl-12 alert alert-secondary d-none d-xxl-block text-center" role="alert">Screen XX-Large ≥1400px</div>
 
+    <!-- Si connexion active -->
+    <?php 
+    if (isset($_SESSION['id'])) {
+        $id = $_SESSION['id'];
+        $role = $_SESSION['role'];
+
+        if ($role == 1) $retourAccueil = "accueilAdmin";
+        else if ($role == 2) $retourAccueil = "accueilTechnicienHOT";
+        else if ($role == 3) $retourAccueil = "accueilTechnicienSAV";
+    } else {
+        $retourAccueil = "connexion";
+    }
+?>
     <!-- Nav Barre Admin-->
     <?php
     if ($roleHeader == 1) {
@@ -36,7 +49,7 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <a class="nav-link mx-3" aria-current="page" href="index.php">
+                    <a class="nav-link mx-3" aria-current="page" href="index.php?action=<?=$retourAccueil?>">
                         <img src="Images/Menuiz Man.png" alt="Logo" class="logonav d-none d-lg-block">
                     </a>
                     <div class="d-flex flex-grow-1 justify-content-center">
@@ -102,7 +115,7 @@
                     </div>
                     
                     <!-- BOUTON DECONNEXION -->
-                    <?php if ($action != "connexion") {
+                    <?php if ($action != "connexion" && $action != "connexionMaj") {
                     ?>
                         <a href="index.php?action=deconnexion" class="d-flex ms-auto align-items-center btnDeconnexion">
                             <h4 class="mt-1 me-1 ">Déconnexion</h4>
@@ -128,11 +141,11 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <a class="nav-link mx-3" aria-current="page" href="index.php">
+                    <a class="nav-link mx-3" aria-current="page" href="index.php?action=<?=$retourAccueil?>">
                         <img src="Images/Menuiz Man.png" alt="Logo" class="logonav d-none d-lg-block">
                     </a>
                     <!-- BOUTON DECONNEXION -->
-                    <?php if ($action != "connexion") {
+                    <?php if ($action != "connexion" && $action != "connexionMaj") {
                     ?>
                         <a href="index.php?action=deconnexion" class="d-flex ms-auto align-items-center btnDeconnexion">
                             <h4 class="mt-1 me-1 ">Déconnexion</h4>

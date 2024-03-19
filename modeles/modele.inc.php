@@ -24,8 +24,70 @@
         return $resultat->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    function rechercheUtilisateur($recherche)  {
+
+    function getDossier() : array{
+
+        $connexion = getConnexion();
+
+        $sql = "SELECT dr.*, c.nomClient, u.nomUtilisateur
+        FROM dossier_reclamation dr 
+        INNER JOIN commande cmd ON dr.numCommande = cmd.numCommande 
+        INNER JOIN client c ON cmd.idClient = c.idClient
+        INNER JOIN utilisateurs u ON dr.idUtilisateur = u.idUtilisateur";
+
+        $resultat = $connexion->query($sql);
+
+        return $resultat->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    function rechercheDossier($recherche)  {
         
+            $connexion = getConnexion();
+
+            $sql = "SELECT *
+            FROM dossier_reclamation dr 
+            INNER JOIN commande cmd ON dr.numCommande = cmd.numCommande 
+            INNER JOIN client c ON cmd.idClient = c.idClient
+            INNER JOIN utilisateurs u ON dr.idUtilisateur = u.idUtilisateur
+            WHERE dr.numDossier LIKE :search_term OR dr.dateDossier LIKE :search_term 
+            OR c.nomClient LIKE :search_term OR dr.idUtilisateur LIKE :search_term OR dr.statutDossier LIKE :search_term";
+
+            $curseur = $connexion->prepare($sql);
+
+            $curseur->execute(['search_term' => "%$recherche%"]);
+
+            $resultats = $curseur->fetchAll(PDO::FETCH_ASSOC);
+
+            return $resultats;
+    }
+    
+
+    function rechercheDossierBis($recherche)  {
+        
+            $connexion = getConnexion();
+
+            $sql = "SELECT *
+            FROM dossier_reclamation dr 
+            INNER JOIN commande cmd ON dr.numCommande = cmd.numCommande 
+            INNER JOIN client c ON cmd.idClient = c.idClient
+            INNER JOIN utilisateurs u ON dr.idUtilisateur = u.idUtilisateur
+            WHERE dr.numDossier LIKE :search_term OR dr.dateDossier LIKE :search_term 
+            OR c.nomClient LIKE :search_term OR dr.idUtilisateur LIKE :search_term OR dr.statutDossier LIKE :search_term";
+
+            $curseur = $connexion->prepare($sql);
+
+            $curseur->execute(['search_term' => "%$recherche%"]);
+
+            $resultats = $curseur->fetchAll(PDO::FETCH_ASSOC);
+
+            return $resultats;
+        
+    }
+
+
+
+    function rechercheUtilisateur($recherche)  {
+   
         $connexion = getConnexion();
 
         $sql = "SELECT * FROM utilisateurs WHERE nomUtilisateur LIKE :search_term OR prenomUtilisateur LIKE :search_term OR idUtilisateur LIKE :search_term OR roleUtilisateur LIKE :search_term OR pseudoUtilisateur LIKE :search_term";
@@ -45,6 +107,7 @@
         else if ($role == 2)  return "Technicien Hotline";
         else return "Technicien SAV";
     }
+    
 
     function afficheHeader () {
         $role = 0;
@@ -57,6 +120,19 @@
         return $role;
     }
 
+    function afficherTypeDossier($typeDossier){
+        if($typeDossier == 1)return "NPAI";
+        else if($typeDossier == 2)return "NP";
+        else if ($typeDossier == 3)return "EC";
+        else if ($typeDossier == 4)return "EP";
+        else return "SAV";
+    }
+    function afficherStatutDossier($statutDossier){
+        if($statutDossier == 1) return "En cours de traitement";
+        else if ($statutDossier == 2) return "En cours de réexpedition";
+        else return "Terminer";
+    }
+    
 
     function controleConnexion($pseudoUtilisateur, $mdpUtilisateur, $users) {
         $idUser = 0;
@@ -151,6 +227,7 @@
     function getCommande($recherche) {
         $connexion = getConnexion();
 
+        //$sql = "SELECT com.numCommande, DATE_FORMAT(com.dateCommande, '%d/%m/%Y') AS 'dateCommande', cont.codeArticle, libelleArticle, garantieArticle, idDiag, com.idClient, nomClient, prenomClient, codePostalClient, villeClient 
         $sql = "SELECT com.numCommande, com.dateCommande, cont.codeArticle, libelleArticle, garantieArticle, idDiag, com.idClient, nomClient, prenomClient, codePostalClient, villeClient 
         FROM commande com 
         JOIN client c ON c.idClient = com.idClient 
@@ -163,7 +240,7 @@
         $curseur->execute(['search_term' => $recherche]);
 
         $resultats = $curseur->fetchAll(PDO::FETCH_ASSOC);
-var_dump($resultats);
+//var_dump($resultats);
         return $resultats;
     }
 
@@ -252,8 +329,23 @@ var_dump($resultats);
         $curseur->execute();
 
         $resultat = $curseur->fetchAll(PDO::FETCH_ASSOC);
-
+        
         return $resultat;
     }
+
+    function dossierTermine() {
+
+        $connexion = getConnexion();
+
+        $sql = "SELECT * FROM dossier_reclamation WHERE statutDossier = 0";
+
+        $resultat = $connexion->query($sql);
+
+        return $resultat->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+
+        
 
 ?>

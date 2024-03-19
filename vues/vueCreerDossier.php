@@ -24,7 +24,7 @@
             <?php if (!is_null($recherche) && count($recherche) > 0) { ?>
                 <div class="table-responsive w-100">
 
-                    <table class="container table table-striped border alignTable">
+                    <table class="container table table-striped border alignTable rounded-3 maTableAdmin overflow-hidden">
                         <thead>
                             <tr>
                                 <th scope="col">Nom</th>
@@ -59,9 +59,10 @@
 
 
             <?php if (!is_null($recherche) && count($recherche) > 0) { ?>
+                <?php $dateCommande = date('d-m-Y', strtotime($recherche[0]['dateCommande'])); ?>
                 <div class="table-responsive w-100">
 
-                    <table class="container table table-striped border alignTable">
+                    <table class="container table table-striped border alignTable rounded-3 maTableAdmin overflow-hidden">
                         <thead>
                             <tr>
                                 <th scope="col">Numéro</th>
@@ -76,7 +77,7 @@
                         <tbody>
                                 <tr>
                                     <th scope="row"><?= $recherche[0]['numCommande']; ?></th>
-                                    <td><?= $recherche[0]['dateCommande']; ?></td>
+                                    <td><?= $dateCommande; ?></td>
                                     <td><?= $recherche[0]['nomClient']; ?></td>
                                     <td><?= $recherche[0]['prenomClient']; ?></td>
                                     <td><?= $recherche[0]['codePostalClient']; ?></td>
@@ -89,9 +90,7 @@
             <?php } else { ?>
                 <p class="d-flex justify-content-center text-white">Aucun résultat trouvé.</p>
             <?php } ?>
-            <?php if ($recherche) { ?>
-                <p class="d-flex justify-content-center text-white">Nombre de clients trouvés : <?= count($recherche); ?></p>
-            <?php }  ?>
+            
 
     <?php
         }

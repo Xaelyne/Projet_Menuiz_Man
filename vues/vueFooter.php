@@ -5,8 +5,9 @@ if (isset($_SESSION['id'])) {
         // récupération du rôle utilisateur grâce à son id
         $id = $_SESSION['id'];
         $role = $_SESSION['role'];
-
+        
         $user = getUtilisateur($id);
+        //var_dump($role); // OK !
 
         if ($role == 1) $retourAccueil = "accueilAdmin";
         else if ($role == 2) $retourAccueil = "accueilTechnicienHOT";
@@ -15,7 +16,7 @@ if (isset($_SESSION['id'])) {
 ?>
         <footer class="text-center">
             <br><br>
-            <a href="index.php?action=<?= $retourAccueil ?>"><button class="btn bouton">Retour à l'accueil</button></a>
+            <a href="index.php?action=<?= $retourAccueil ?>&id=<?= $id ?>"><button class="btn bouton">Retour à l'accueil</button></a>
         </footer>
     <?php
     }
