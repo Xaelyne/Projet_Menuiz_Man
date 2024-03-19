@@ -89,9 +89,7 @@
             <?php } else { ?>
                 <p class="d-flex justify-content-center text-white">Aucun résultat trouvé.</p>
             <?php } ?>
-            <?php if ($recherche) { ?>
-                <p class="d-flex justify-content-center text-white">Nombre de clients trouvés : <?= count($recherche); ?></p>
-            <?php }  ?>
+            
 
     <?php
         }

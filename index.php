@@ -78,7 +78,7 @@ switch ($action) {
             $id = $_SESSION['id'];
             $roleUser = $_SESSION['role'];
 
-            $titre = "Créer un nouveau dossier"; // à modifier par une recherche client
+            $titre = "Rechercher une commande"; // à modifier par une recherche client
             $roleHeader = afficheHeader();
             require "./vues/vueHeader.php";
             $clients = getClients();

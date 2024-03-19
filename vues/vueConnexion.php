@@ -15,8 +15,19 @@
     </div>
 </form>
 
-<?php } else { ?>
+<?php } else { 
+    ?>
+    <h4 class="text-center">Vous êtes déjà connecté</h4>
+    <?php
+    $role = $_SESSION['role'];
 
-    <h4>Vous êtes déja connecté.</h4>
+        if ($role == 1) $retourAccueil = "accueilAdmin";
+        else if ($role == 2) $retourAccueil = "accueilTechnicienHOT";
+        else if ($role == 3) $retourAccueil = "accueilTechnicienSAV";
 
+?>
+        <footer class="text-center">
+            <br><br>
+            <a href="index.php?action=<?= $retourAccueil ?>"><button class="btn bouton">Retour à l'accueil</button></a>
+        </footer>
 <?php }  ?>  
