@@ -159,7 +159,7 @@ switch ($action) {
             $id = $_SESSION['id'];
             $roleUser = $_SESSION['role'];
 
-            $titre = "Résultat de votre recherche";
+            $titre = "Rechercher un dossier";
             $roleHeader = afficheHeader();
             require "./vues/vueHeader.php";
             if (isset ($_GET['search'])) {
@@ -208,6 +208,10 @@ switch ($action) {
 
             $dossiers = dossierTermine();
 
+            if (isset ($_GET['search'])) {
+                $resultats_recherche = rechercheDossierTerm($recherche);
+            }
+
             require "./vues/vueDossierTermine.php";
 
         } else {
@@ -219,7 +223,7 @@ switch ($action) {
         }
         break;
 
-    case "dossierTermineMaj":
+    case "dossierTermineMAJ":
         session_start();
         if (isset ($_SESSION['id'])) {
             // récupération ID et ROLE
@@ -230,12 +234,12 @@ switch ($action) {
             $roleHeader = afficheHeader();
             require "./vues/vueHeader.php";
 
-            if(isset($_GET['search'])) {
+            if (isset ($_GET['search'])) {
                 $recherche = $_GET['search'];
-                $result = rechercheDossierBis($recherche);
+                $resultats_recherche = rechercheDossierTerm($recherche);
             }
 
-            require "./vues/vueDossierTermine.php";
+            require "./vues/vueResultat.php";
 
         } else {
             $roleHeader = 0;
@@ -253,10 +257,41 @@ switch ($action) {
             $id = $_SESSION['id'];
             $roleUser = $_SESSION['role'];
 
-            $titre = "Diagnostics";
+            $titre = "Dossier en cours de diagnostics";
             $roleHeader = afficheHeader();
             require "./vues/vueHeader.php";
-            require "./vues/vueAccueil.php";
+
+            $dossiers = dossierDiagnostic();
+            
+            if (isset ($_GET['search'])) {
+                $resultats_recherche = rechercheDossierDiag($recherche);
+            }
+            require "./vues/vueDiagnostics.php";
+        } else {
+            $roleHeader = 0;
+            $titre = "Erreur";
+            $action = "erreur";
+            require "./vues/vueHeader.php";
+            require "vues/vueErreur.php";
+        }
+        break;
+    case "diagnosticsMAJ":
+        session_start();
+        if (isset ($_SESSION['id'])) {
+            // récupération ID et ROLE
+            $id = $_SESSION['id'];
+            $roleUser = $_SESSION['role'];
+
+            $titre = "Dossier en cours de diagnostics";
+            $roleHeader = afficheHeader();
+            require "./vues/vueHeader.php";
+
+            if (isset ($_GET['search'])) {
+                $recherche = $_GET['search'];
+                $resultats_recherche = rechercheDossierDiag($recherche);
+            }
+            require "./vues/vueResultat.php";
+
         } else {
             $roleHeader = 0;
             $titre = "Erreur";
@@ -272,10 +307,41 @@ switch ($action) {
             $id = $_SESSION['id'];
             $roleUser = $_SESSION['role'];
 
-            $titre = "Expedition";
+            $titre = "En cours d'éxpédition";
             $roleHeader = afficheHeader();
             require "./vues/vueHeader.php";
-            require "./vues/vueAccueil.php";
+
+            $dossiers = dossierExpedition();
+            
+            if (isset ($_GET['search'])) {
+                $resultats_recherche = rechercheDossierExpe($recherche);
+            }
+            require "./vues/vueExpedition.php";
+        } else {
+            $roleHeader = 0;
+            $titre = "Erreur";
+            $action = "erreur";
+            require "./vues/vueHeader.php";
+            require "vues/vueErreur.php";
+        }
+        break;
+    case "expeditionMAJ":
+        session_start();
+        if (isset ($_SESSION['id'])) {
+            // récupération ID et ROLE
+            $id = $_SESSION['id'];
+            $roleUser = $_SESSION['role'];
+
+            $titre = "En cours d'éxpédition";
+            $roleHeader = afficheHeader();
+            require "./vues/vueHeader.php";
+
+            if (isset ($_GET['search'])) {
+                $recherche = $_GET['search'];
+                $resultats_recherche = rechercheDossierExpe($recherche);
+            }
+            require "./vues/vueResultat.php";
+
         } else {
             $roleHeader = 0;
             $titre = "Erreur";

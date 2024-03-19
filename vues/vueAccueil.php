@@ -32,7 +32,7 @@ if ($action === "accueilTechnicienSAV") {
     </div>
     <div class="container">
         <div class="d-flex flex-lg-row flex-column justify-content-center align-items-center flex-wrap">
-            <a href="index.php?action=nouveauDossier" class="lienCarte">
+            <a href="index.php?action=diagnostics" class="lienCarte">
                 <div class='card m-2 maCarte' style='width: 18rem;'>
                 <img src='Images/parametre.png' class='card-img-top m-auto mt-1 pt-3' style='width: 50%;' alt='nouveauDossier'>
                     <div class='card-body'>
@@ -40,7 +40,7 @@ if ($action === "accueilTechnicienSAV") {
                     </div>
                 </div>
             </a>
-            <a href="index.php?action=rechercherDossier" class="lienCarte">
+            <a href="index.php?action=expedition" class="lienCarte">
                 <div class='card m-2 maCarte' style='width: 18rem;'>
                 <img src='Images\livraison-rapide.png' class='card-img-top m-auto mt-1 pt-3' style='width: 50%;' alt='nouveauDossier'>
                     <div class='card-body'>

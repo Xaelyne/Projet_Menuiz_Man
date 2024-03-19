@@ -48,7 +48,7 @@
             INNER JOIN commande cmd ON dr.numCommande = cmd.numCommande 
             INNER JOIN client c ON cmd.idClient = c.idClient
             INNER JOIN utilisateurs u ON dr.idUtilisateur = u.idUtilisateur
-            WHERE dr.numDossier LIKE :search_term OR dr.dateDossier LIKE :search_term 
+            WHERE dr.numDossier LIKE :search_term OR dr.dateDossier LIKE :search_term OR dr.typeDossier LIKE :search_term OR dr.dateClotureDossier LIKE :search_term
             OR c.nomClient LIKE :search_term OR dr.idUtilisateur LIKE :search_term OR dr.statutDossier LIKE :search_term";
 
             $curseur = $connexion->prepare($sql);
@@ -131,7 +131,7 @@
         else return "SAV";
     }
     function afficherStatutDossier($statutDossier){
-        if($statutDossier == 1) return "En cours de traitement";
+        if($statutDossier == 1) return "En cours de diagnostics";
         else if ($statutDossier == 2) return "En cours de réexpedition";
         else return "Terminer";
     }
@@ -326,13 +326,111 @@
 
         $connexion = getConnexion();
 
-        $sql = "SELECT * FROM dossier_reclamation WHERE statutDossier = 0";
+        $sql = "SELECT *
+        FROM dossier_reclamation dr 
+        INNER JOIN commande cmd ON dr.numCommande = cmd.numCommande 
+        INNER JOIN client c ON cmd.idClient = c.idClient
+        INNER JOIN utilisateurs u ON dr.idUtilisateur = u.idUtilisateur
+        WHERE statutDossier = 0";
+
+        $resultat = $connexion->query($sql);
+
+        return $resultat->fetchAll(PDO::FETCH_ASSOC);
+    }
+    function rechercheDossierTerm($recherche)  {
+                
+        $connexion = getConnexion();
+
+        $sql = "SELECT *
+        FROM dossier_reclamation dr 
+        INNER JOIN commande cmd ON dr.numCommande = cmd.numCommande 
+        INNER JOIN client c ON cmd.idClient = c.idClient
+        INNER JOIN utilisateurs u ON dr.idUtilisateur = u.idUtilisateur
+        WHERE dr.statutDossier = 0 AND (dr.numDossier LIKE :search_term OR dr.dateDossier LIKE :search_term OR dr.typeDossier LIKE :search_term 
+        OR c.nomClient LIKE :search_term OR dr.idUtilisateur LIKE :search_term)";
+
+        $curseur = $connexion->prepare($sql);
+
+        $curseur->execute(['search_term' => "%$recherche%"]);
+
+        $resultats = $curseur->fetchAll(PDO::FETCH_ASSOC);
+
+        return $resultats;
+}
+
+    function dossierDiagnostic() {
+
+        $connexion = getConnexion();
+
+        $sql = "SELECT *
+        FROM dossier_reclamation dr 
+        INNER JOIN commande cmd ON dr.numCommande = cmd.numCommande 
+        INNER JOIN client c ON cmd.idClient = c.idClient
+        INNER JOIN utilisateurs u ON dr.idUtilisateur = u.idUtilisateur
+        WHERE statutDossier = 1";
 
         $resultat = $connexion->query($sql);
 
         return $resultat->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    function rechercheDossierDiag($recherche)  {
+                
+        $connexion = getConnexion();
 
+        $sql = "SELECT *
+        FROM dossier_reclamation dr 
+        INNER JOIN commande cmd ON dr.numCommande = cmd.numCommande 
+        INNER JOIN client c ON cmd.idClient = c.idClient
+        INNER JOIN utilisateurs u ON dr.idUtilisateur = u.idUtilisateur
+        WHERE dr.statutDossier = 1 AND (dr.numDossier LIKE :search_term OR dr.dateDossier LIKE :search_term OR dr.typeDossier LIKE :search_term 
+        OR c.nomClient LIKE :search_term OR dr.idUtilisateur LIKE :search_term)";
+
+        $curseur = $connexion->prepare($sql);
+
+        $curseur->execute(['search_term' => "%$recherche%"]);
+
+        $resultats = $curseur->fetchAll(PDO::FETCH_ASSOC);
+
+        return $resultats;
+        }
+
+
+    function dossierExpedition() {
+        $connexion = getConnexion();
+
+        $sql = "SELECT *
+        FROM dossier_reclamation dr 
+        INNER JOIN commande cmd ON dr.numCommande = cmd.numCommande 
+        INNER JOIN client c ON cmd.idClient = c.idClient
+        INNER JOIN utilisateurs u ON dr.idUtilisateur = u.idUtilisateur
+        WHERE statutDossier = 2";
+
+        $resultat = $connexion->query($sql);
+
+        return $resultat->fetchAll(PDO::FETCH_ASSOC);
+    }
+    function rechercheDossierExpe($recherche)  {
+                
+        $connexion = getConnexion();
+
+        $sql = "SELECT *
+        FROM dossier_reclamation dr 
+        INNER JOIN commande cmd ON dr.numCommande = cmd.numCommande 
+        INNER JOIN client c ON cmd.idClient = c.idClient
+        INNER JOIN utilisateurs u ON dr.idUtilisateur = u.idUtilisateur
+        WHERE dr.statutDossier = 2 AND (dr.numDossier LIKE :search_term OR dr.dateDossier LIKE :search_term OR dr.typeDossier LIKE :search_term 
+        OR c.nomClient LIKE :search_term OR dr.idUtilisateur LIKE :search_term)";
+
+        $curseur = $connexion->prepare($sql);
+
+        $curseur->execute(['search_term' => "%$recherche%"]);
+
+        $resultats = $curseur->fetchAll(PDO::FETCH_ASSOC);
+
+        return $resultats;
+        }
+
+   
 
 ?>
