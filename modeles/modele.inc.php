@@ -40,6 +40,25 @@
         return $resultat->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    function getUtilisateurOnDossier() {
+
+        $connexion = getConnexion();
+
+        $sql = "SELECT dr.numDossier, dr.idUtilisateur, u.nomUtilisateur, u.prenomUtilisateur
+        FROM dossier_reclamation dr 
+        INNER JOIN utilisateurs u ON dr.idUtilisateur = u.idUtilisateur";
+
+        $curseur = $connexion->prepare($sql);
+
+        $curseur->execute();
+
+        $resultat = $curseur->fetchAll(PDO::FETCH_ASSOC);
+
+        return $resultat;
+
+    }
+
+
     function rechercheDossier($recherche)  {
         
             $connexion = getConnexion();
@@ -202,6 +221,54 @@
         }
     }
 
+    function getAdmins() {
+
+        $connexion = getConnexion();
+    
+        $sql = "SELECT COUNT(*) AS count FROM utilisateurs WHERE roleUtilisateur = 1";
+
+        $curseur = $connexion->prepare($sql);
+    
+        $curseur->execute();
+    
+        $resultat = $curseur->fetch(PDO::FETCH_ASSOC);
+    
+        return $resultat['count'];
+    
+    }
+
+    function getRoleUtilisateur() {
+
+        $connexion = getConnexion();
+
+        $sql = "SELECT idUtilisateur, roleUtilisateur FROM utilisateurs";
+
+        $curseur = $connexion->prepare($sql);
+
+        $curseur->execute();
+
+        $resultat = $curseur->fetchAll(PDO::FETCH_ASSOC);
+
+        return $resultat;
+    }
+
+
+    function supprimerUtilisateur(int $id_utilisateur) {
+
+        $connexion = getConnexion();
+
+        $sql = "DELETE FROM utilisateurs WHERE idUtilisateur = :idUti";
+
+        $curseur = $connexion->prepare($sql);
+
+        $curseur->execute([':idUti' => $id_utilisateur]);
+
+        $nbSuppr = $curseur->rowCount();
+
+        return $nbSuppr;
+    }
+
+    
     function getClients() : array {
 
         $connexion = getConnexion();
@@ -331,22 +398,6 @@
         return $resultats;
     }
 
-
-
-    // function pseudoUnique(string $pseudo) {
-
-    //     $connexion = getConnexion();
-
-    //     $sql = "SELECT * FROM utilisateurs WHERE pseudoUtilisateur = ?";
-
-    //     $curseur = $connexion->prepare($sql);
-
-    //     $curseur->execute([$pseudo]);
-
-    //     $resultat = $curseur->fetchAll(PDO::FETCH_ASSOC);
-
-    //     return $resultat; 
-    // }
 
     function getPseudos() {
         $connexion = getConnexion();
