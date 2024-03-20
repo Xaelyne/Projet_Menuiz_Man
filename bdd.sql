@@ -181,6 +181,6 @@ INSERT INTO `diagnostic`(`idDiag`) VALUES
 
 -- CREATION DOSSIERS
 INSERT INTO `dossier_reclamation`(`dateDossier`, `typeDossier`,`statutDossier`, `numCommande`, `idUtilisateur`) VALUES 
-(CURRENT_DATE(),'5','1','1', '2'),
+(CURRENT_DATE(),'5','2','1', '2'),
 (CURRENT_DATE(),'5','1','2', '2'),
 ('2024-03-10','2','0','3', '2');

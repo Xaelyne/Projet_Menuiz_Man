@@ -390,7 +390,7 @@ switch ($action) {
         break;
     case "accueilAdmin":
         session_start();
-
+        
         if (isset ($_SESSION['id'])) {
 
             // récupération ID et ROLE
@@ -402,9 +402,6 @@ switch ($action) {
             $nom = $utilisateur['nomUtilisateur'];
             $prenom = $utilisateur['prenomUtilisateur'];
             $role = afficheRoleUtilisateur($utilisateur['roleUtilisateur']);
-
-            $pseudoValide = true;
-
 
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $pseudo = $_POST["pseudo"];
@@ -422,15 +419,30 @@ switch ($action) {
                 }
             }
 
+            if(isset($_GET['id'])) {
+                $id_utilisateur = $_GET['id'];
+                
+                try {
+                    getAdmins();
+                    getRoleUtilisateur();
+                    getUtilisateurOnDossier();
+                    supprimerUtilisateur($id_utilisateur); // Supprimer l'utilisateur
+                } 
+
+                 catch (ModeleException $e) {
+                    echo "Erreur : " . $e->getMessage();
+                }
+            }
+
 
             $titre = "Bonjour $nom $prenom, vous êtes connecté en tant que $role";
             $roleHeader = afficheHeader();
             require "./vues/vueHeader.php";
-            require ("./vues/popup.php");
+            require "./vues/popup.php";
             $utilisateurs = getUtilisateurs();
             require "./vues/vueAccueil.php";
 
-            
+
 
             } else {
                 $roleHeader = 0;
@@ -466,7 +478,6 @@ switch ($action) {
             require "vues/vueErreur.php";
         }
         break;
-
     case "voirCommande":
         session_start();
         if (isset ($_SESSION['id'])) {
