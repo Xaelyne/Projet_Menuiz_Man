@@ -92,12 +92,17 @@ body {
 .boutonPopup {
     background-color: var(--bleuMoyen);
     color: white;
+    border: solid 3px white;
 }
 
 .boutonPopup:hover {
     background-color: var(--bleuClair);
+    border: solid 3px white;
 }
 
+.modal-content {
+    background-color: var(--bleuFonce);
+}
 
 .btnDeconnexion {
     color: white;
