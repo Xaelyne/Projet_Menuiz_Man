@@ -213,6 +213,21 @@
         return $resultat->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    function getClient($idClient) {
+
+        $connexion = getConnexion();
+
+        $sql = "SELECT * FROM client WHERE idClient = :search_term";
+
+        $curseur = $connexion->prepare($sql);
+
+        $curseur->execute(['search_term' => $idClient]);
+
+        $resultats = $curseur->fetchAll(PDO::FETCH_ASSOC);
+
+        return $resultats;
+    }
+
     function getCommandes() {
         $connexion = getConnexion();
 
@@ -300,6 +315,20 @@
 
         return $resultats;
 
+    }
+
+    function rechercheCommandesClient($idClient) {
+        $connexion = getConnexion();
+
+        $sql = "SELECT * FROM commande WHERE idClient = :search_term";
+
+        $curseur = $connexion->prepare($sql);
+
+        $curseur->execute(['search_term' => $idClient]);
+
+        $resultats = $curseur->fetchAll(PDO::FETCH_ASSOC);
+
+        return $resultats;
     }
 
 
