@@ -350,7 +350,7 @@ switch ($action) {
                 $role_utilisateur = $_POST["role_utilisateur"];
 
                 try {
-                    $id_utilisateur = ajoutUtilisateur($pseudo, $nomForm, $prenomForm, $mot_de_passe, $role_utilisateur);
+                    $id_utilisateur = ajoutUtilisateur($pseudo, ucfirst(strtolower($nomForm)), ucfirst(strtolower($prenomForm)), $mot_de_passe, $role_utilisateur);
                     header("Location: index.php?action=accueilAdmin");
                 } catch (ModeleException $e) {
                     echo "Erreur : " . $e->getMessage();
