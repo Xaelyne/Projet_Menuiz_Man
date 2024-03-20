@@ -257,7 +257,7 @@ switch ($action) {
             $id = $_SESSION['id'];
             $roleUser = $_SESSION['role'];
 
-            $titre = "Dossier en cours de diagnostics";
+            $titre = "Dossiers en cours de diagnostics";
             $roleHeader = afficheHeader();
             require "./vues/vueHeader.php";
 
@@ -282,7 +282,7 @@ switch ($action) {
             $id = $_SESSION['id'];
             $roleUser = $_SESSION['role'];
 
-            $titre = "Dossier en cours de diagnostics";
+            $titre = "Dossiers en cours de diagnostics";
             $roleHeader = afficheHeader();
             require "./vues/vueHeader.php";
 
@@ -307,7 +307,7 @@ switch ($action) {
             $id = $_SESSION['id'];
             $roleUser = $_SESSION['role'];
 
-            $titre = "En cours d'éxpédition";
+            $titre = "Dossiers en cours d'expédition";
             $roleHeader = afficheHeader();
             require "./vues/vueHeader.php";
 
@@ -332,7 +332,7 @@ switch ($action) {
             $id = $_SESSION['id'];
             $roleUser = $_SESSION['role'];
 
-            $titre = "En cours d'éxpédition";
+            $titre = "Dossiers en cours d'expédition";
             $roleHeader = afficheHeader();
             require "./vues/vueHeader.php";
 

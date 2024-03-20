@@ -8,7 +8,7 @@ if ($action === "accueilTechnicienSAV") {
                 <div class='card m-2 maCarte' style='width: 18rem;'>
                 <img src='Images/nouveau-dossier.png' class='card-img-top m-auto mt-1 pt-3' style='width: 50%;' alt='nouveauDossier'>
                     <div class='card-body'>
-                        <h4 class='card-title d-flex justify-content-center'>Créer un nouveau dossier</h4>
+                        <h4 class='card-title d-flex justify-content-center text-center'>Créer un nouveau dossier</h4>
                     </div>
                 </div>
             </a>
@@ -16,7 +16,7 @@ if ($action === "accueilTechnicienSAV") {
                 <div class='card m-2 maCarte' style='width: 18rem;'>
                 <img src='Images\rechercheDossier.png' class='card-img-top m-auto mt-1 pt-3' style='width: 50%;' alt='nouveauDossier'>
                     <div class='card-body'>
-                        <h4 class='card-title d-flex justify-content-center'>Rechercher un dossier</h4>
+                        <h4 class='card-title d-flex justify-content-center text-center'>Rechercher un dossier</h4>
                     </div>
                 </div>
             </a>
@@ -24,7 +24,7 @@ if ($action === "accueilTechnicienSAV") {
                 <div class='card m-2 maCarte' style='width: 18rem;'>
                 <img src='Images/verifie.png' class='card-img-top m-auto mt-1 pt-3' style='width: 50%;' alt='nouveauDossier'>
                     <div class='card-body'>
-                        <h4 class='card-title d-flex justify-content-center'>Dossier terminés</h4>
+                        <h4 class='card-title d-flex justify-content-center text-center'>Dossier terminés</h4>
                     </div>
                 </div>
             </a>
@@ -36,7 +36,7 @@ if ($action === "accueilTechnicienSAV") {
                 <div class='card m-2 maCarte' style='width: 18rem;'>
                 <img src='Images/parametre.png' class='card-img-top m-auto mt-1 pt-3' style='width: 50%;' alt='nouveauDossier'>
                     <div class='card-body'>
-                        <h4 class='card-title d-flex justify-content-center'>Diagnostics</h4>
+                        <h4 class='card-title d-flex justify-content-center text-center'>Dossier en cours de diagnostics</h4>
                     </div>
                 </div>
             </a>
@@ -44,7 +44,7 @@ if ($action === "accueilTechnicienSAV") {
                 <div class='card m-2 maCarte' style='width: 18rem;'>
                 <img src='Images\livraison-rapide.png' class='card-img-top m-auto mt-1 pt-3' style='width: 50%;' alt='nouveauDossier'>
                     <div class='card-body'>
-                        <h4 class='card-title d-flex justify-content-center'>Expedition</h4>
+                        <h4 class='card-title d-flex justify-content-center text-center'>Dossier en cours d'expédition</h4>
                     </div>
                 </div>
             </a>
@@ -62,7 +62,7 @@ if ($action === "accueilTechnicienHOT") {
                 <div class='card m-2 maCarte' style='width: 18rem;'>
                 <img src='Images\nouveau-dossier.png' class='card-img-top m-auto mt-1 ' style='width: 50%;' alt='nouveauDossier'>
                     <div class='card-body'>
-                        <h4 class='card-title d-flex justify-content-center'>Créer un nouveau dossier</h4>
+                        <h4 class='card-title d-flex justify-content-center text-center'>Créer un nouveau dossier</h4>
                     </div>
                 </div>
             </a>
@@ -70,7 +70,7 @@ if ($action === "accueilTechnicienHOT") {
                 <div class='card m-2 maCarte' style='width: 18rem;'>
                 <img src='Images\rechercheDossier.png' class='card-img-top m-auto mt-1' style='width: 50%;' alt='nouveauDossier'>
                     <div class='card-body'>
-                        <h4 class='card-title d-flex justify-content-center'>Rechercher un dossier</h4>
+                        <h4 class='card-title d-flex justify-content-center text-center'>Rechercher un dossier</h4>
                     </div>
                 </div>
             </a>
