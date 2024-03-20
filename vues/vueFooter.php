@@ -16,7 +16,7 @@ if (isset($_SESSION['id'])) {
 ?>
         <footer class="text-center">
             <br><br>
-            <a href="index.php?action=<?= $retourAccueil ?>&id=<?= $id ?>"><button class="btn bouton">Retour à l'accueil</button></a>
+            <a href="index.php?action=<?= $retourAccueil ?>"><button class="btn bouton">Retour à l'accueil</button></a>
         </footer>
     <?php
     }

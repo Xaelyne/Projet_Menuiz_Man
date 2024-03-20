@@ -79,7 +79,7 @@ switch ($action) {
             $id = $_SESSION['id'];
             $roleUser = $_SESSION['role'];
 
-            $titre = "Rechercher une commande"; // à modifier par une recherche client
+            $titre = "Créer un dossier de réclamation<br>\nRechercher une commande"; // à modifier par une recherche client
             $roleHeader = afficheHeader();
             require "./vues/vueHeader.php";
             $clients = getClients();
@@ -99,7 +99,7 @@ switch ($action) {
             $id = $_SESSION['id'];
             $roleUser = $_SESSION['role'];
 
-            $titre = "Créer un nouveau dossier"; // à modifier par une recherche client
+            $titre = "Créer un dossier de réclamation"; // à modifier par une recherche client
             $roleHeader = afficheHeader();
             require "./vues/vueHeader.php";
 
@@ -151,8 +151,7 @@ switch ($action) {
             require "vues/vueErreur.php";
         }
         break;
-    case "rechercherDossierMAJ":
-        
+    case "rechercherDossierMAJ":     
         session_start();
         if (isset ($_SESSION['id'])) {
 
@@ -475,7 +474,7 @@ switch ($action) {
             $id = $_SESSION['id'];
             $roleUser = $_SESSION['role'];
 
-            $titre = "Commande";
+            $titre = "Vue de la commande";
             $roleHeader = afficheHeader();
             require "./vues/vueHeader.php";
 
@@ -483,6 +482,113 @@ switch ($action) {
             $commande = getCommande($numCom);
 
             require "vues/vueCommande.php";
+        } else {
+            $roleHeader = 0;
+            $titre = "Erreur";
+            $action = "erreur";
+            require "./vues/vueHeader.php";
+            require "vues/vueErreur.php";
+        }
+        break;
+
+    case "creerNouveauDossier":
+        session_start();
+        if (isset ($_SESSION['id'])) {
+            // récupération ID et ROLE
+            $id = $_SESSION['id'];
+            $roleUser = $_SESSION['role'];
+
+            $titre = "Créer un dossier de réclamation";
+            $roleHeader = afficheHeader();
+            require "./vues/vueHeader.php";
+
+            //affichage
+            $numCom = $_GET['commande'];
+            $commande = getCommande($numCom);
+            require "./vues/vueCreerDossier.php";
+        } else {
+            $roleHeader = 0;
+            $titre = "Erreur";
+            $action = "erreur";
+            require "./vues/vueHeader.php";
+            require "vues/vueErreur.php";
+        }
+        break;
+
+    case "creerNouveauDossierMAJ":
+        session_start();
+        if (isset ($_SESSION['id'])) {
+            // récupération ID et ROLE
+            $id = $_SESSION['id'];
+            $roleUser = $_SESSION['role'];
+
+            $titre = "Créer un dossier de réclamation";
+            $roleHeader = afficheHeader();
+            require "./vues/vueHeader.php";
+
+            //affichage
+            if(isset($_GET['typeSAV'])) $typeSAV = $_GET['typeSAV'];
+            
+            $numCom = $_GET['commande'];
+            $commande = getCommande($numCom);
+            require "./vues/vueCreerDossier.php";
+        } else {
+            $roleHeader = 0;
+            $titre = "Erreur";
+            $action = "erreur";
+            require "./vues/vueHeader.php";
+            require "vues/vueErreur.php";
+        }
+        break;
+
+    case "nouveauDossierValide":
+        session_start();
+        if (isset ($_SESSION['id'])) {
+            // récupération ID et ROLE
+            $id = $_SESSION['id'];
+            $roleUser = $_SESSION['role'];
+
+            $titre = "Nouveau dossier de réclamation créé";
+            $roleHeader = afficheHeader();
+            require "./vues/vueHeader.php";
+
+            //affichage
+            if(isset($_GET['typeSAV'])) $typeSAV = $_GET['typeSAV'];
+            
+            $numCom = $_GET['commande'];
+            $commande = getCommande($numCom);
+            require "./vues/vueCreerDossier.php";
+        } else {
+            $roleHeader = 0;
+            $titre = "Erreur";
+            $action = "erreur";
+            require "./vues/vueHeader.php";
+            require "vues/vueErreur.php";
+        }
+        break;
+    
+    case "voirCommandesClient":
+        session_start();
+        if (isset ($_SESSION['id'])) {
+            // récupération ID et ROLE
+            $id = $_SESSION['id'];
+            $roleUser = $_SESSION['role'];
+
+            $idClient = $_GET['idClient'];
+            $client = getClient($idClient);
+            //var_dump($client);
+            $nomClient = $client[0]['nomClient'];
+            $prenomClient = $client[0]['prenomClient'];
+
+            $titre = "Liste de commandes de $prenomClient $nomClient";
+            $roleHeader = afficheHeader();
+            require "./vues/vueHeader.php";
+
+            //affichage
+            $idClient = $_GET['idClient'];
+            $commandes = rechercheCommandesClient($idClient);
+            require "./vues/vueListeCommandesClient.php";
+
         } else {
             $roleHeader = 0;
             $titre = "Erreur";
@@ -520,6 +626,7 @@ switch ($action) {
             require "./vues/vueHeader.php";
             require "vues/vueErreur.php";
         }
+        break;
 }
 
 require "./vues/vueFooter.php";
