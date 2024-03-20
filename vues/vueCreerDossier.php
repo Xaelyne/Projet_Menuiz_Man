@@ -227,6 +227,8 @@
                 <h4 style="color: white;">Client : <?= $commande[0]['prenomClient'] . " " . $commande[0]['nomClient']; ?></h4>
                 <h4 style="color: white;">Numéro de commande : <?= $commande[0]['numCommande']; ?></h4>
                 <h4 style="color: white;">Date de commande : <?= $dateCommande; ?></h4>
+                <?php $typeDossier = strtoupper($_GET['typeSAV']) ?>
+                <h4 style="color: white;">Type de dossier : <?= $typeDossier; ?></h4>
                 <div class="table-responsive w-100">
 
                     <form action="">
@@ -249,13 +251,11 @@
 
                                         if ($article['codeArticle'] == $checkArticle) {
 
-
-
-
                                             $codeArticle = $article['codeArticle'];
                                             $dureeGarantie = $article['garantieArticle'];
                                             $finGarantie = date('d-m-Y', strtotime($article['dateCommande'] . " + $dureeGarantie year")) // $article['dateCommande'] + $article['dateCommande']
                                 ?>
+                                <input type="hidden" name="checkArticle[]" value="<?=$article['codeArticle']?>">
                                             <tr>
                                                 <td scope="row"><?= $codeArticle; ?></td>
                                                 <td><?= $article['libelleArticle']; ?></td>
@@ -273,10 +273,15 @@
                             <h4 style="color: white;">Description du problème rencontré</h4>
                             <div class="text-center ">
                                 <div class="form-floating container w-75">
-                                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                                    <textarea class="form-control" name="commentaire" style="height: 100px"></textarea>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- INFOS POUR LE INSERT -->
+                        <input type="hidden" name="typeDossier" value="<?=$typeDossier?>">
+                        <input type="hidden" name="numCommande" value="<?= $commande[0]['numCommande']; ?>">
+                        <input type="hidden" name="idUtilisateur" value="<?= $id?>">
 
                         <div class="text-center">
                             <button type="submit" class="btn bouton">Créer un nouveau dossier</button>

@@ -471,8 +471,53 @@
         return $resultats;
         }
 
-   
+        function ajoutDossier($typeDossier, $numCom, $idUtilisateur, $commentaire) {
 
+            try {
+                $connexion = getConnexion();
+
+                $sql = "INSERT INTO dossier_reclamation
+                (dateDossier, typeDossier, statutDossier, numCommande, idUtilisateur, commentaireDossier) 
+                VALUES (CURRENT_DATE(), :typeDossier, 1, :numCommande, :idUtilisateur, :commentaireDossier)";
+
+                $requete = $connexion->prepare($sql);
+
+
+                $requete->bindParam(':typeDossier', $typeDossier);
+                $requete->bindParam(':numCommande', $numCom);
+                $requete->bindParam(':idUtilisateur', $idUtilisateur);
+                $requete->bindParam(':commentaireDossier', $commentaire);
+    
+                $requete->execute();
+             
+            } catch (PDOException $e) {
+                throw new ModeleException("Erreur lors de l'insertion de l'utilisateur : " . $e->getMessage());
+            }
+
+            return $connexion->lastInsertId();
+        }   
         
+        function ajoutDossierArticle($codeArticle, $numDossier) {
+
+            try {
+                $connexion = getConnexion();
+
+                $sql = "INSERT INTO concerner(codeArticle, numDossier) 
+                VALUES (:codeArticle, :numDossier)";
+
+                $requete = $connexion->prepare($sql);
+
+
+                $requete->bindParam(':codeArticle', $codeArticle);
+                $requete->bindParam(':numDossier', $numDossier);
+    
+                $requete->execute();
+             
+            } catch (PDOException $e) {
+                throw new ModeleException("Erreur lors de l'insertion de l'utilisateur : " . $e->getMessage());
+            }
+
+
+        }
 
 ?>

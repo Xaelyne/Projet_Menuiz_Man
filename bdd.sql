@@ -1,4 +1,3 @@
-
 CREATE TABLE UTILISATEURS(
    idUtilisateur INT AUTO_INCREMENT,
    nomUtilisateur VARCHAR(50)  NOT NULL,
@@ -36,6 +35,7 @@ CREATE TABLE KIT(
 
 CREATE TABLE DIAGNOSTIC(
    idDiag INT AUTO_INCREMENT,
+   statutDiag BOOLEAN,
    PRIMARY KEY(idDiag)
 );
 
@@ -60,6 +60,7 @@ CREATE TABLE DOSSIER_RECLAMATION(
    typeDossier INT NOT NULL,
    dateClotureDossier DATE,
    statutDossier INT NOT NULL,
+   commentaireDossier VARCHAR(200) ,
    numCommande INT,
    idDiag INT,
    idUtilisateur INT NOT NULL,
@@ -120,6 +121,7 @@ CREATE TABLE ENGENDRER(
    FOREIGN KEY(numCommande) REFERENCES COMMANDE(numCommande),
    FOREIGN KEY(idFacture) REFERENCES FACTURE(idFacture)
 );
+
 
 
 -- UTILISATEURS

@@ -553,11 +553,35 @@ switch ($action) {
             require "./vues/vueHeader.php";
 
             //affichage
-            if(isset($_GET['typeSAV'])) $typeSAV = $_GET['typeSAV'];
-            
+            $typeDossier = $_GET['typeDossier'];
+            if($typeDossier == 'NPAI') $typeDossier = 1;
+            if($typeDossier == 'NP') $typeDossier = 2;
+            if($typeDossier == 'EC') $typeDossier = 3;
+            if($typeDossier == 'EP') $typeDossier = 4;
+            if($typeDossier == 'SAV') $typeDossier = 5;
+
             $numCom = $_GET['commande'];
+            $commentaire = $_GET['commentaire'];
             $commande = getCommande($numCom);
+            
             require "./vues/vueCreerDossier.php";
+
+            $idUtilisateur = $id;
+
+            $numDossier = ajoutDossier($typeDossier, $numCom, $idUtilisateur, $commentaire);
+
+            $tArticles = [];
+            foreach ($_GET['checkArticle'] as $checkArticle) {
+                array_push($tArticles, $checkArticle);
+            }
+
+            foreach ($tArticles as $article) {
+                var_dump($article);
+                $codeArticle = $article;
+                ajoutDossierArticle($codeArticle, $numDossier);
+            }
+
+
         } else {
             $roleHeader = 0;
             $titre = "Erreur";
