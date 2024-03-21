@@ -6,23 +6,45 @@
     <div class="container my-3">
 
     <!-- entête -->
-    <div class="d-flex mb-5">
-        <div class="text-start me-auto">
-            <h4 style="color: white;">Client : <?= $dossiers [0]['prenomClient'] . " " . $dossiers [0]['nomClient']; ?></h4>
-            <h4 style="color: white;">Statut du dossier : <?= afficherStatutDossier($dossiers[0]['statutDossier']); ?></h4>
-            <h4 style="color: white;">Numéro de dossier : <?= $dossiers [0]['numDossier']; ?></h4>
-        </div>
-        <div class="text-end ms-auto">
-            <h4 style="color: white;">Numéro de commande : <?= $dossiers [0]['numCommande']; ?></h4>
-            <h4 style="color: white;">Date de commande : <?= $dateCommande; ?></h4>
-            <h4 style="color: white;">Dossier géré par : <?= $dossiers [0]['nomUtilisateur']; ?></h4>
-        </div>
-    </div>
+    <table class="container table table-striped border alignTable rounded-3 maTableAdmin overflow-hidden">
+            <thead>
+                <div class="container d-flex justify-content-center my-3" style="color: white">
+                    <h2>Information du dossier du client</h2>
+                </div>    
+                <tr>
+                <th scope="col">Numero de dossier</th>
+                <th scope="col">Numéro de commande</th>
+                <th scope="col">Date de création du dossier</th>
+                <th scope="col">Nom du client</th>
+                <th scope="col">Type de dossier</th>
+                <th scope="col">Dossier géré par</th>
+                <th scope="col">Statut du dossier</th>
+
+                </tr>
+            </thead>
+            <tbody>
+               
+                    <tr>
+                        <th scope="row"><?= $dossiers[0]['numDossier']; ?></th>
+                        <td><?= $dossiers[0]['numCommande']; ?></td>
+                        <td><?= $dossiers[0]['dateDossier']; ?></td>
+                        <td><?= $dossiers[0]['nomClient']; ?></td>
+                        <td><?= afficherTypeDossier ($dossiers[0]['typeDossier']); ?></td>
+                        <td><?= $dossiers[0]['nomUtilisateur']; ?></td>
+                        <td><?= afficherStatutDossier($dossiers[0]['statutDossier']); ?></td>
+                        
+                    </tr>
+                
+            </tbody>
+        </table>
 
 
         <div class="table-responsive w-100">
             <table class="container table table-striped border alignTable rounded-3 maTableAdmin overflow-hidden">
                 <thead>
+                <div class="container d-flex justify-content-center my-3" style="color: white">
+                    <h2>Information de la commande du client</h2>
+                </div> 
                     <tr>
                         <th scope="col">Article</th>
                         <th scope="col">Nom de l'article</th>

@@ -642,9 +642,6 @@ switch ($action) {
                 ajoutDossierArticle($codeArticle, $numDossier);
             }
 
-            var_dump($numDossier);
-
-
         } else {
             $roleHeader = 0;
             $titre = "Erreur";
