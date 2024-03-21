@@ -33,7 +33,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($clients as $client) { ?>
+                        <?php
+                        $nombreClient = 0;
+                        foreach ($clients as $client) { 
+                            $nombreClient = $nombreClient+1?>
                             <tr>
                                 <th scope="row"><?= $client['nomClient']; ?></th>
                                 <td><?= $client['prenomClient']; ?></td>
@@ -48,9 +51,12 @@
                         <?php } ?>
                     </tbody>
                 </table>
+        
+                    <p class="d-flex justify-content-center text-white">Nombre de clients trouvés : <?= $nombreClient; ?></p>
+               
             </div>
             <?php
-
+            
         }
 
         if ($action === 'nouveauDossierRechercheClient') {

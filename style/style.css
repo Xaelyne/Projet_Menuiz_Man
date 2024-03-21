@@ -23,7 +23,14 @@ body {
 }
 
 .logonav {
-    width: 50%;
+    width: 80%;
+    
+}
+.mesBoutonsAjouter{
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    
 }
 
 .formConnexion {
