@@ -17,7 +17,7 @@
 
         $connexion = getConnexion();
 
-        $sql = "SELECT * FROM utilisateurs";
+        $sql = "SELECT idUtilisateur, pseudoUtilisateur, nomUtilisateur, prenomUtilisateur, mdpUtilisateur, roleUtilisateur FROM utilisateurs";
 
         $resultat = $connexion->query($sql);
 
@@ -266,6 +266,36 @@
         $nbSuppr = $curseur->rowCount();
 
         return $nbSuppr;
+    }
+
+    function modifierUtilisateur(int $idUtilisateur,string $pseudo ,string $nom, string $prenom, string $mdp) {
+
+        $connexion = getConnexion();
+
+        $sql = "UPDATE utilisateurs set pseudoUtilisateur = :pseudo,  nomUtilisateur = :nom, prenomUtilisateur = :prenom, mdpUtilisateur  = :mdp where idUtilisateur = :id";
+
+        $curseur = $connexion->prepare($sql);
+
+        $curseur->execute([':pseudo' => $pseudo, ':nom' => $nom, ':prenom' => $prenom , ':mdp' => $mdp, ':id' => $idUtilisateur]);
+
+        $nbContacts = $curseur->rowCount();
+
+        return $nbContacts;
+    }
+
+    function modifierUtilisateurSansMdp(int $idUtilisateur,string $pseudo ,string $nom, string $prenom) {
+
+        $connexion = getConnexion();
+
+        $sql = "UPDATE utilisateurs set pseudoUtilisateur = :pseudo,  nomUtilisateur = :nom, prenomUtilisateur = :prenom where idUtilisateur = :id";
+
+        $curseur = $connexion->prepare($sql);
+
+        $curseur->execute([':pseudo' => $pseudo, ':nom' => $nom, ':prenom' => $prenom , ':id' => $idUtilisateur]);
+
+        $nbContacts = $curseur->rowCount();
+
+        return $nbContacts;
     }
 
     
