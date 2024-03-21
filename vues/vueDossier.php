@@ -5,16 +5,22 @@
 <div class="contourAdmin container d-flex justify-content-center align-items-center flex-column rounded-3">
     <div class="container my-3">
 
-        <h4 style="color: white;">Client : <?= $dossiers [0]['prenomClient'] . " " . $dossiers [0]['nomClient']; ?></h4>
-        <h4 style="color: white;">Statut du dossier : <?= afficherStatutDossier($dossiers[0]['statutDossier']); ?></h4>
-        <h4 style="color: white;">Numéro de dossier : <?= $dossiers [0]['numDossier']; ?></h4>
-        <h4 style="color: white;">Numéro de commande : <?= $dossiers [0]['numCommande']; ?></h4>
-        <h4 style="color: white;">Date de commande : <?= $dateCommande; ?></h4>
-        <h4 style="color: white;">Dossier géré par : <?= $dossiers [0]['nomUtilisateur']; ?></h4>
+    <!-- entête -->
+    <div class="d-flex mb-5">
+        <div class="text-start me-auto">
+            <h4 style="color: white;">Client : <?= $dossiers [0]['prenomClient'] . " " . $dossiers [0]['nomClient']; ?></h4>
+            <h4 style="color: white;">Statut du dossier : <?= afficherStatutDossier($dossiers[0]['statutDossier']); ?></h4>
+            <h4 style="color: white;">Numéro de dossier : <?= $dossiers [0]['numDossier']; ?></h4>
+        </div>
+        <div class="text-end ms-auto">
+            <h4 style="color: white;">Numéro de commande : <?= $dossiers [0]['numCommande']; ?></h4>
+            <h4 style="color: white;">Date de commande : <?= $dateCommande; ?></h4>
+            <h4 style="color: white;">Dossier géré par : <?= $dossiers [0]['nomUtilisateur']; ?></h4>
+        </div>
+    </div>
+
+
         <div class="table-responsive w-100">
-
-
-
             <table class="container table table-striped border alignTable rounded-3 maTableAdmin overflow-hidden">
                 <thead>
                     <tr>
@@ -45,15 +51,15 @@
 
             <?php if ($dossiers[0]['statutDossier'] == 1) {?>
                     <div class="text-center">
-                        <a href="index.php?action=voirDossierMAJ&modifDossier=Expe&numDossier=<?=$numDossier?>">
-                            <button type="button">Passer le dossier en expédition</button>
+                        <a href="index.php?action=voirDossierMAJ&dossierExpe=1&numDossier=<?=$numDossier?>">
+                            <button type="button" class="btn bouton">Passer le dossier en expédition</button>
                         </a>
                     </div>
             <?php } ?>  
             <?php if ($dossiers[0]['statutDossier'] == 2) {?>
                     <div class="text-center">
-                    <a href="index.php?action=voirDossierMAJ&modifDossier=Terminer&numDossier=<?=$numDossier?>">
-                            <button type="button">Passer le dossier en Terminer</button>
+                    <a href="index.php?action=voirDossierMAJ&dossierTerm=1&numDossier=<?=$numDossier?>">
+                            <button type="button" class="btn bouton">Passer le dossier en Terminer</button>
                         </a>
                     </div>
             <?php } ?>    
