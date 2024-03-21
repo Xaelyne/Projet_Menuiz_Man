@@ -10,7 +10,7 @@ if (!isset ($_GET['action']))
 require ("./modeles/modele.inc.php");
 
 
-var_dump("action -> " . $action);
+//var_dump("action -> " . $action);
 
 // switch sur si pas de connexion trouvé -> formulaire connexion
 switch ($action) {
@@ -432,7 +432,7 @@ switch ($action) {
         break;
     case "accueilAdmin":
         session_start();
-
+        
         if (isset ($_SESSION['id'])) {
 
             // récupération ID et ROLE
@@ -444,9 +444,6 @@ switch ($action) {
             $nom = $utilisateur['nomUtilisateur'];
             $prenom = $utilisateur['prenomUtilisateur'];
             $role = afficheRoleUtilisateur($utilisateur['roleUtilisateur']);
-
-            $pseudoValide = true;
-
 
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $pseudo = $_POST["pseudo"];
@@ -464,15 +461,30 @@ switch ($action) {
                 }
             }
 
+            if(isset($_GET['id'])) {
+                $id_utilisateur = $_GET['id'];
+                
+                try {
+                    getAdmins();
+                    getRoleUtilisateur();
+                    getUtilisateurOnDossier();
+                    supprimerUtilisateur($id_utilisateur); // Supprimer l'utilisateur
+                } 
+
+                 catch (ModeleException $e) {
+                    echo "Erreur : " . $e->getMessage();
+                }
+            }
+
 
             $titre = "Bonjour $nom $prenom, vous êtes connecté en tant que $role";
             $roleHeader = afficheHeader();
             require "./vues/vueHeader.php";
-            require ("./vues/popup.php");
+            require "./vues/popup.php";
             $utilisateurs = getUtilisateurs();
             require "./vues/vueAccueil.php";
 
-            
+
 
             } else {
                 $roleHeader = 0;
@@ -508,7 +520,6 @@ switch ($action) {
             require "vues/vueErreur.php";
         }
         break;
-
     case "voirCommande":
         session_start();
         if (isset ($_SESSION['id'])) {
@@ -606,22 +617,30 @@ switch ($action) {
             $commentaire = $_GET['commentaire'];
             $commande = getCommande($numCom);
             
-            require "./vues/vueCreerDossier.php";
+            //require "./vues/vueCreerDossier.php";
 
             $idUtilisateur = $id;
 
-            $numDossier = ajoutDossier($typeDossier, $numCom, $idUtilisateur, $commentaire);
+            if($typeDossier == 1 || $typeDossier == 2) {
+                $statutDossier = 2;
+            } else {
+                $statutDossier = 1;
+            }
 
+            $numDossier = ajoutDossier($typeDossier, $statutDossier, $numCom, $idUtilisateur, $commentaire);
+            require "./vues/vueCreerDossier.php";
             $tArticles = [];
             foreach ($_GET['checkArticle'] as $checkArticle) {
                 array_push($tArticles, $checkArticle);
             }
 
             foreach ($tArticles as $article) {
-                var_dump($article);
+                //var_dump($article);
                 $codeArticle = $article;
                 ajoutDossierArticle($codeArticle, $numDossier);
             }
+
+            var_dump($numDossier);
 
 
         } else {

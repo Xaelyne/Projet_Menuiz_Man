@@ -58,8 +58,28 @@
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    function modifierStatut(int $statutDossier, int $numDossier){
 
+
+    function getUtilisateurOnDossier() {
+
+        $connexion = getConnexion();
+
+        $sql = "SELECT dr.numDossier, dr.idUtilisateur, u.nomUtilisateur, u.prenomUtilisateur
+        FROM dossier_reclamation dr 
+        INNER JOIN utilisateurs u ON dr.idUtilisateur = u.idUtilisateur";
+
+        $curseur = $connexion->prepare($sql);
+
+        $curseur->execute();
+
+        $resultat = $curseur->fetchAll(PDO::FETCH_ASSOC);
+
+        return $resultat;
+
+    }
+
+
+        function modifierStatut(int $statutDossier, int $numDossier){
        
         $connexion = getConnexion();
 
@@ -71,7 +91,7 @@
         // $resultat = $curseur->execute([$statutDossier]);
         // return $resultat;
 
-    }
+        }
 
     function rechercheDossier($recherche)  {
         
@@ -136,10 +156,13 @@
         else if ($typeDossier == 4)return "EP";
         else if ($typeDossier == 5)return "SAV";
     }
+
     function afficherStatutDossier($statutDossier){
         if($statutDossier == 1) return "En cours de diagnostics";
         else if ($statutDossier == 2) return "En cours de réexpedition";
+
         else if($statutDossier == 3) return "Terminer";
+
     }
     
 
@@ -211,6 +234,54 @@
         }
     }
 
+    function getAdmins() {
+
+        $connexion = getConnexion();
+    
+        $sql = "SELECT COUNT(*) AS count FROM utilisateurs WHERE roleUtilisateur = 1";
+
+        $curseur = $connexion->prepare($sql);
+    
+        $curseur->execute();
+    
+        $resultat = $curseur->fetch(PDO::FETCH_ASSOC);
+    
+        return $resultat['count'];
+    
+    }
+
+    function getRoleUtilisateur() {
+
+        $connexion = getConnexion();
+
+        $sql = "SELECT idUtilisateur, roleUtilisateur FROM utilisateurs";
+
+        $curseur = $connexion->prepare($sql);
+
+        $curseur->execute();
+
+        $resultat = $curseur->fetchAll(PDO::FETCH_ASSOC);
+
+        return $resultat;
+    }
+
+
+    function supprimerUtilisateur(int $id_utilisateur) {
+
+        $connexion = getConnexion();
+
+        $sql = "DELETE FROM utilisateurs WHERE idUtilisateur = :idUti";
+
+        $curseur = $connexion->prepare($sql);
+
+        $curseur->execute([':idUti' => $id_utilisateur]);
+
+        $nbSuppr = $curseur->rowCount();
+
+        return $nbSuppr;
+    }
+
+    
     function getClients() : array {
 
         $connexion = getConnexion();
@@ -341,22 +412,6 @@
     }
 
 
-
-    // function pseudoUnique(string $pseudo) {
-
-    //     $connexion = getConnexion();
-
-    //     $sql = "SELECT * FROM utilisateurs WHERE pseudoUtilisateur = ?";
-
-    //     $curseur = $connexion->prepare($sql);
-
-    //     $curseur->execute([$pseudo]);
-
-    //     $resultat = $curseur->fetchAll(PDO::FETCH_ASSOC);
-
-    //     return $resultat; 
-    // }
-
     function getPseudos() {
         $connexion = getConnexion();
 
@@ -480,18 +535,19 @@
         return $resultats;
         }
 
-        function ajoutDossier($typeDossier, $numCom, $idUtilisateur, $commentaire) {
+        function ajoutDossier($typeDossier, $statutDossier, $numCom, $idUtilisateur, $commentaire) {
 
             try {
                 $connexion = getConnexion();
 
                 $sql = "INSERT INTO dossier_reclamation
                 (dateDossier, typeDossier, statutDossier, numCommande, idUtilisateur, commentaireDossier) 
-                VALUES (CURRENT_DATE(), :typeDossier, 1, :numCommande, :idUtilisateur, :commentaireDossier)";
+                VALUES (CURRENT_DATE(), :typeDossier, :statutDossier, :numCommande, :idUtilisateur, :commentaireDossier)";
 
                 $requete = $connexion->prepare($sql);
 
 
+                $requete->bindParam(':statutDossier', $statutDossier);
                 $requete->bindParam(':typeDossier', $typeDossier);
                 $requete->bindParam(':numCommande', $numCom);
                 $requete->bindParam(':idUtilisateur', $idUtilisateur);
@@ -525,8 +581,20 @@
             } catch (PDOException $e) {
                 throw new ModeleException("Erreur lors de l'insertion de l'utilisateur : " . $e->getMessage());
             }
+        }
 
+        function getCommandeReclamation($idCommande) {
+            $connexion = getConnexion();
 
+            $sql = "SELECT * FROM dossier_reclamation WHERE numCommande = :search_term";
+
+            $curseur = $connexion->prepare($sql);
+
+            $curseur->execute(['search_term' => $idCommande]);
+
+            $resultats = $curseur->fetchAll(PDO::FETCH_ASSOC);
+
+            return $resultats;
         }
 
 ?>

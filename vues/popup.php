@@ -1,13 +1,100 @@
 <?php
 $tableau = getPseudos(); 
 $tableau_json = json_encode($tableau);
+
+$tableau_role = getRoleUtilisateur();
+$tableau_json2 =json_encode($tableau_role);
+
+$tableau_dossier = getUtilisateurOnDossier();
+$tableau_json3 = json_encode($tableau_dossier);
 ?>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.4/sweetalert2.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.4/sweetalert2.min.js"></script>
 <script>
-    
+
+    // Alert SUPPRESSION
+    function confirmerSuppression(idUtilisateur) {
+    // Effectuer une requête AJAX pour obtenir le nombre d'administrateurs restants
+    $.ajax({
+        url: 'index.php?action=accueilAdmin',
+        type: 'GET',
+        success: function(response) {
+            var tableauRole = <?php print $tableau_json2; ?>;            
+            var nbAdmins = <?=getAdmins()?>;
+            var tableauDossier = <?php print $tableau_json3; ?>;  
+
+            var roleUtilisateur = tableauRole.find(user => user.idUtilisateur === idUtilisateur).roleUtilisateur;
+            var dossierUtilisateur = tableauDossier.find(function(utilisateur) {
+                return utilisateur.idUtilisateur === idUtilisateur;
+            });
 
 
+            if (nbAdmins === 1 && roleUtilisateur === 1) {
+                // Il ne reste qu'un seul administrateur, afficher un message d'erreur
+                Swal.fire('Erreur', 'Impossible de supprimer l\'utilisateur. Il ne peut pas rester moins d\'un administrateur.', 'error');
+                
+            } else if (dossierUtilisateur) {
+                Swal.fire('Erreur', 'Impossible de supprimer l\'utilisateur. Il est associé à un dossier.', 'error');
+            } else {
+
+                    // Il y a plus d'un administrateur, demander confirmation pour la suppression
+                    Swal.fire({
+                        title: 'Êtes-vous sûr ?',
+                        text: "Vous ne pourrez pas revenir en arrière !",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Oui, supprimer !'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Effectuer la suppression de l'utilisateur
+                            $.ajax({
+                                url: 'index.php?action=accueilAdmin',
+                                type: 'GET',
+                                data: {id: idUtilisateur},
+                                success: function(response) {
+                                    // Afficher un message de succès
+                                    Swal.fire({
+                                        title: 'Supprimé !',
+                                        text: 'L\'utilisateur a été supprimé.',
+                                        icon: 'success',
+                                        showCancelButton: false,
+                                        confirmButtonColor: '#3085d6',
+                                        confirmButtonText: 'Ok'
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            // Actualiser la page
+                                            location.reload();
+                                        }
+                                    });
+                                },
+                                error: function(xhr, status, error) {
+                                    // Gérer les erreurs
+                                    Swal.fire('Erreur', 'Une erreur s\'est produite lors de la suppression de l\'utilisateur.', 'error');
+                                }
+                            });
+                        } else {
+                            // L'utilisateur a annulé la suppression
+                            Swal.fire('Annulé', 'L\'utilisateur n\'a pas été supprimé.', 'info');
+                        }
+                    });
+                
+            }
+        },
+        error: function(xhr, status, error) {
+            // Gérer les erreurs
+            Swal.fire('Erreur', 'Une erreur s\'est produite lors de la récupération du nombre d\'administrateurs.', 'error');
+        }
+    });
+}
+
+
+
+
+
+    // Partie AJOUT
     const boutons = document.querySelectorAll('.boutonPopup');
     const modalTitle = document.querySelector('#ajoutUtilisateurModalLabel');
     var tableauJS = <?php print $tableau_json; ?>;
@@ -156,8 +243,7 @@ $tableau_json = json_encode($tableau);
     erreurConfirmMdp.textContent = "";
     })
 
-    $("#ajoutUtilisateurModal").on('shown.bs.modal', function() {
-
+    $(document).ready(function() {
         $('.modal-content').css('background', '#3C4FA0');
         $('.modal-content').css('color', 'white');
         $('#enregistrerBtn').css('background', '#4488C5');
@@ -174,8 +260,8 @@ $tableau_json = json_encode($tableau);
             $(this).css('background', '#4488C5');
         }
     );
-        
-    });
+         
+});
 
 
 </script>

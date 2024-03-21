@@ -6,6 +6,27 @@
         <h4 style="color: white;">Client : <?= $commande[0]['prenomClient'] . " " . $commande[0]['nomClient']; ?></h4>
         <h4 style="color: white;">Numéro de commande : <?= $commande[0]['numCommande']; ?></h4>
         <h4 style="color: white;">Date de commande : <?= $dateCommande; ?></h4>
+        <?php 
+        $enCours = false;
+            $dossierEnCours = getCommandeReclamation($commande[0]['numCommande']);
+            //var_dump($dossierEnCours);
+            
+            if(count($dossierEnCours) > 0) { 
+                $dateDossier = date('d-m-Y', strtotime($dossierEnCours[0]['dateDossier']));
+                $utilisateurDossier = getUtilisateur($dossierEnCours[0]['idUtilisateur']);
+                $typeDeDossier = afficherTypeDossier($dossierEnCours[0]['typeDossier']);
+                $statutDuDossier = afficherStatutDossier($dossierEnCours[0]['statutDossier']);
+                $enCours = true;
+                ?>
+            
+                <h4 class="mt-4" style="color: white;">ATTENTION,</h4>
+                <h4 style="color: white;">Dossier créé le <?=$dateDossier?> par <?=$utilisateurDossier['prenomUtilisateur'] . " " .$utilisateurDossier['nomUtilisateur']?></h4>
+                <h4 style="color: white;">Type de dossier : <?=$typeDeDossier?></h4>
+                <h4 style="color: white;">Statut du dossier : <?=$statutDuDossier?></h4>
+               
+            <?php
+            }
+        ?>
         <div class="table-responsive w-100">
 
             <form action="">
@@ -39,10 +60,17 @@
                     </tbody>
                 </table>
 
-                <div class="text-center">
-                    <button type="submit" class="btn bouton">Créer un nouveau dossier</button>
-                </div>
-
+                <?php if($enCours == false) { ?>
+                    <div class="text-center">
+                        <button type="submit" class="btn bouton">Créer un nouveau dossier</button>
+                    </div>
+                <?php } else { ?>
+                    <div class="text-center">
+                        <a href="index.php?action=voirDossier&numDossier=<?=$dossierEnCours[0]['numDossier']?>">
+                            <button type="button" class="btn bouton">Voir le dossier</button>
+                        </a>
+                    </div>
+                <?php } ?>
             </form>
             <a href=javascript:history.go(-1)><button class="btn bouton">Retour</button></a>
         </div>

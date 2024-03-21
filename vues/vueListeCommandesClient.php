@@ -1,4 +1,4 @@
-<?php $dateCommande = date('d-m-Y', strtotime($commandes[0]['dateCommande'])); ?>
+
 <div class="contourAdmin container d-flex justify-content-center align-items-center flex-column rounded-3">
     <div class="container my-3">
         <div class="table-responsive w-100">
@@ -16,6 +16,7 @@
                     <?php 
                     //var_dump($commandes);
                     foreach ($commandes as $client) {
+                        $dateCommande = date('d-m-Y', strtotime($client['dateCommande']));
                         $nbrArticles = getCommande($client['numCommande']);
                         $nbrArticles = count($nbrArticles);
                         ?>
@@ -28,6 +29,7 @@
                     <?php } ?>
                 </tbody>
             </table>
+            <a href=javascript:history.go(-1)><button class="btn bouton">Retour</button></a>
         </div>
     </div>
 </div>

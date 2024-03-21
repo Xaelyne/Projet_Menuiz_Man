@@ -20,27 +20,20 @@ if (isset($_SESSION['id'])) {
         </footer>
     <?php
     }
-} else {
-    ?>
-    <footer class="text-center">
-        <br><br>
-        <a href="index.php"><button class="btn bouton">Retour à l'accueil</button></a>
-    </footer>
-<?php
-}
+} 
 ?>
 
 <!-- TEST -->
-<div class="container">
+<!-- <div class="container">
     <p>VUE FOOTER</p>
     <?php
-    if (isset($_SESSION['id'])) {
-        echo "ID Session : " . $_SESSION['id'];
-        echo "<br>";
-        echo "ROLE Session : " . $_SESSION['role'];
-    }
+    //if (isset($_SESSION['id'])) {
+        //echo "ID Session : " . $_SESSION['id'];
+        //echo "<br>";
+        //echo "ROLE Session : " . $_SESSION['role'];
+    //}
 
-    if ($action == 'connexion') { ?>
+    //if ($action == 'connexion') { ?>
         <h6><b>Mot de passe</b> : 123456</h6>
         <h6><b>Les utilisateurs</b> : </h6>
         <div class="container">
@@ -50,8 +43,8 @@ if (isset($_SESSION['id'])) {
         </div>
 </div>
 <?php
-    }
-?>
+    //}
+?> -->
 </body>
 
 </html>

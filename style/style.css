@@ -3,9 +3,11 @@ body {
     --bleuMoyen : #4488C5;
     --bleuClair : #8FC1E6;
     font-family: 'Calibri';
-    background-image: url("../Images/background.png");
+    /* background-image: url("../Images/background.png"); */
     background-size: cover;
+    background-repeat: no-repeat;
 }
+
 .alignTable {
     vertical-align: middle;
     text-align: center;
