@@ -24,12 +24,11 @@
         return $resultat->fetchAll(PDO::FETCH_ASSOC);
     }
 
-
-    function getDossier() : array{
+    function getRechercherDossier() : array{
 
         $connexion = getConnexion();
 
-        $sql = "SELECT dr.*, c.nomClient, u.nomUtilisateur
+        $sql = "SELECT dr.*, c.nomClient, u.nomUtilisateur,c.prenomClient,cmd.dateCommande
         FROM dossier_reclamation dr 
         INNER JOIN commande cmd ON dr.numCommande = cmd.numCommande 
         INNER JOIN client c ON cmd.idClient = c.idClient
@@ -39,6 +38,27 @@
 
         return $resultat->fetchAll(PDO::FETCH_ASSOC);
     }
+    function getDossier($numDossier) {
+        $connexion = getConnexion();
+    
+        $sql = "SELECT dr.*, c.nomClient, c.prenomClient, u.nomUtilisateur, cmd.dateCommande, 
+        article.garantieArticle,article.libelleArticle, contenir.codeArticle
+                FROM dossier_reclamation dr 
+                INNER JOIN commande cmd ON dr.numCommande = cmd.numCommande 
+                INNER JOIN client c ON cmd.idClient = c.idClient
+                INNER JOIN utilisateurs u ON dr.idUtilisateur = u.idUtilisateur
+                INNER JOIN contenir ON cmd.numCommande = contenir.numCommande
+                INNER JOIN article ON contenir.codeArticle = article.codeArticle
+                WHERE dr.numDossier = :numDossier";
+    
+        $stmt = $connexion->prepare($sql);
+        $stmt->bindParam(':numDossier', $numDossier, PDO::PARAM_INT);
+        $stmt->execute();
+    
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
 
     function getUtilisateurOnDossier() {
 
@@ -58,6 +78,20 @@
 
     }
 
+
+        function modifierStatut(int $statutDossier, int $numDossier){
+       
+        $connexion = getConnexion();
+
+        $sql ="UPDATE `dossier_reclamation` SET`statutDossier`='$statutDossier' WHERE numDossier = $numDossier";
+
+        $connexion->query($sql);
+
+        // $curseur = $connexion->prepare($sql);
+        // $resultat = $curseur->execute([$statutDossier]);
+        // return $resultat;
+
+        }
 
     function rechercheDossier($recherche)  {
         
@@ -80,30 +114,6 @@
             return $resultats;
     }
     
-
-    function rechercheDossierBis($recherche)  {
-        
-            $connexion = getConnexion();
-
-            $sql = "SELECT *
-            FROM dossier_reclamation dr 
-            INNER JOIN commande cmd ON dr.numCommande = cmd.numCommande 
-            INNER JOIN client c ON cmd.idClient = c.idClient
-            INNER JOIN utilisateurs u ON dr.idUtilisateur = u.idUtilisateur
-            WHERE dr.numDossier LIKE :search_term OR dr.dateDossier LIKE :search_term 
-            OR c.nomClient LIKE :search_term OR dr.idUtilisateur LIKE :search_term OR dr.statutDossier LIKE :search_term";
-
-            $curseur = $connexion->prepare($sql);
-
-            $curseur->execute(['search_term' => "%$recherche%"]);
-
-            $resultats = $curseur->fetchAll(PDO::FETCH_ASSOC);
-
-            return $resultats;
-        
-    }
-
-
 
     function rechercheUtilisateur($recherche)  {
    
@@ -144,12 +154,15 @@
         else if($typeDossier == 2)return "NP";
         else if ($typeDossier == 3)return "EC";
         else if ($typeDossier == 4)return "EP";
-        else return "SAV";
+        else if ($typeDossier == 5)return "SAV";
     }
+
     function afficherStatutDossier($statutDossier){
         if($statutDossier == 1) return "En cours de diagnostics";
         else if ($statutDossier == 2) return "En cours de réexpedition";
-        else return "Terminé";
+
+        else if($statutDossier == 3) return "Terminer";
+
     }
     
 
@@ -422,7 +435,7 @@
         INNER JOIN commande cmd ON dr.numCommande = cmd.numCommande 
         INNER JOIN client c ON cmd.idClient = c.idClient
         INNER JOIN utilisateurs u ON dr.idUtilisateur = u.idUtilisateur
-        WHERE statutDossier = 0";
+        WHERE statutDossier = 3";
 
         $resultat = $connexion->query($sql);
 
@@ -437,7 +450,7 @@
         INNER JOIN commande cmd ON dr.numCommande = cmd.numCommande 
         INNER JOIN client c ON cmd.idClient = c.idClient
         INNER JOIN utilisateurs u ON dr.idUtilisateur = u.idUtilisateur
-        WHERE dr.statutDossier = 0 AND (dr.numDossier LIKE :search_term OR dr.dateDossier LIKE :search_term OR dr.typeDossier LIKE :search_term 
+        WHERE dr.statutDossier = 3 AND (dr.numDossier LIKE :search_term OR dr.dateDossier LIKE :search_term OR dr.typeDossier LIKE :search_term 
         OR c.nomClient LIKE :search_term OR dr.idUtilisateur LIKE :search_term)";
 
         $curseur = $connexion->prepare($sql);

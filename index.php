@@ -136,7 +136,7 @@ switch ($action) {
             $titre = "Rechercher un dossier";
             $roleHeader = afficheHeader();
             require "./vues/vueHeader.php";
-            $dossiers = getDossier();
+            $dossiers = getRechercherDossier();
             require "./vues/vueRechercherDossier.php";
             if (isset ($_GET['search'])) {
                 $resultats_recherche = rechercheDossier($recherche);
@@ -185,7 +185,49 @@ switch ($action) {
             $titre = "Dossier";
             $roleHeader = afficheHeader();
             require "./vues/vueHeader.php";
+            
+            if (isset($_GET['numDossier'])) {
+                $numDossier = $_GET['numDossier'];
+                $dossiers = getDossier($numDossier);
+            }
 
+            $dossiers = getDossier($numDossier);
+            var_dump($dossiers);
+            
+            require "vues/vueDossier.php";
+        } else {
+            $roleHeader = 0;
+            $titre = "Erreur";
+            $action = "erreur";
+            require "./vues/vueHeader.php";
+            require "vues/vueErreur.php";
+        }
+    break;
+    case "voirDossierMAJ":
+        session_start();
+        if (isset ($_SESSION['id'])) {
+            // récupération ID et ROLE
+            $id = $_SESSION['id'];
+            $roleUser = $_SESSION['role'];
+
+            $titre = "Dossier";
+            $roleHeader = afficheHeader();
+            require "./vues/vueHeader.php";
+            
+            if (isset($_GET['numDossier'])) {
+                $numDossier = $_GET['numDossier'];
+                $dossiers = getDossier($numDossier);
+            }
+
+            $dossiers = getDossier($numDossier);
+
+            if($_GET["modifDossier"]="Expe"){
+                modifierStatut(2, $numDossier);
+            } else if ($_GET["modifDossier"]="Terminer") {
+                modifierStatut(3, $numDossier);
+                var_dump($action);
+            }
+            
             require "vues/vueDossier.php";
         } else {
             $roleHeader = 0;
