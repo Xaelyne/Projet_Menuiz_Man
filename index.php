@@ -10,7 +10,7 @@ if (!isset ($_GET['action']))
 require ("./modeles/modele.inc.php");
 
 
-var_dump("action -> " . $action);
+//var_dump("action -> " . $action);
 
 // switch sur si pas de connexion trouvé -> formulaire connexion
 switch ($action) {
@@ -575,22 +575,30 @@ switch ($action) {
             $commentaire = $_GET['commentaire'];
             $commande = getCommande($numCom);
             
-            require "./vues/vueCreerDossier.php";
+            //require "./vues/vueCreerDossier.php";
 
             $idUtilisateur = $id;
 
-            $numDossier = ajoutDossier($typeDossier, $numCom, $idUtilisateur, $commentaire);
+            if($typeDossier == 1 || $typeDossier == 2) {
+                $statutDossier = 2;
+            } else {
+                $statutDossier = 1;
+            }
 
+            $numDossier = ajoutDossier($typeDossier, $statutDossier, $numCom, $idUtilisateur, $commentaire);
+            require "./vues/vueCreerDossier.php";
             $tArticles = [];
             foreach ($_GET['checkArticle'] as $checkArticle) {
                 array_push($tArticles, $checkArticle);
             }
 
             foreach ($tArticles as $article) {
-                var_dump($article);
+                //var_dump($article);
                 $codeArticle = $article;
                 ajoutDossierArticle($codeArticle, $numDossier);
             }
+
+            var_dump($numDossier);
 
 
         } else {

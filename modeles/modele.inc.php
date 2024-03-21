@@ -149,7 +149,7 @@
     function afficherStatutDossier($statutDossier){
         if($statutDossier == 1) return "En cours de diagnostics";
         else if ($statutDossier == 2) return "En cours de réexpedition";
-        else return "Terminer";
+        else return "Terminé";
     }
     
 
@@ -522,18 +522,19 @@
         return $resultats;
         }
 
-        function ajoutDossier($typeDossier, $numCom, $idUtilisateur, $commentaire) {
+        function ajoutDossier($typeDossier, $statutDossier, $numCom, $idUtilisateur, $commentaire) {
 
             try {
                 $connexion = getConnexion();
 
                 $sql = "INSERT INTO dossier_reclamation
                 (dateDossier, typeDossier, statutDossier, numCommande, idUtilisateur, commentaireDossier) 
-                VALUES (CURRENT_DATE(), :typeDossier, 1, :numCommande, :idUtilisateur, :commentaireDossier)";
+                VALUES (CURRENT_DATE(), :typeDossier, :statutDossier, :numCommande, :idUtilisateur, :commentaireDossier)";
 
                 $requete = $connexion->prepare($sql);
 
 
+                $requete->bindParam(':statutDossier', $statutDossier);
                 $requete->bindParam(':typeDossier', $typeDossier);
                 $requete->bindParam(':numCommande', $numCom);
                 $requete->bindParam(':idUtilisateur', $idUtilisateur);
@@ -567,8 +568,20 @@
             } catch (PDOException $e) {
                 throw new ModeleException("Erreur lors de l'insertion de l'utilisateur : " . $e->getMessage());
             }
+        }
 
+        function getCommandeReclamation($idCommande) {
+            $connexion = getConnexion();
 
+            $sql = "SELECT * FROM dossier_reclamation WHERE numCommande = :search_term";
+
+            $curseur = $connexion->prepare($sql);
+
+            $curseur->execute(['search_term' => $idCommande]);
+
+            $resultats = $curseur->fetchAll(PDO::FETCH_ASSOC);
+
+            return $resultats;
         }
 
 ?>

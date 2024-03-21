@@ -126,12 +126,12 @@ CREATE TABLE ENGENDRER(
 
 -- UTILISATEURS
 INSERT INTO `utilisateurs` (`nomUtilisateur`, `prenomUtilisateur`, `pseudoUtilisateur`, `mdpUtilisateur`, `roleUtilisateur`) VALUES
-('Tarten', 'Pion', 'tartenpion', '123456', 1),
+('Pion', 'Tarten', 'tartenpion', '123456', 1),
 ('Nemar', 'Jean', 'jeannemar', '123456', 2),
 ('Position', 'Paul', 'paulposition', '123456', 2),
 ('Terrieur', 'Alex', 'alexterrieur', '123456', 2),
-('Iron', 'Man', 'ironman', '123456', 3),
-('Spider', 'Man', 'spiderman', '123456', 3),
+('Man', 'Iron', 'ironman', '123456', 3),
+('Man', 'Spider', 'spiderman', '123456', 3),
 ('Arrya', 'Stark', 'arryastark', '123456', 3);
 
 
@@ -146,7 +146,8 @@ INSERT INTO `client`(`nomClient`, `prenomClient`, `codePostalClient`, `villeClie
 INSERT INTO `article`(`libelleArticle`, `garantieArticle`, `qteStockPrincipal`, `qteStockSAV`, `qteStockRebus`) VALUES 
 ('Portail','10','5','0','0'),
 ('Portillon','2','5','1','0'),
-('Grillage','1','20','2','2');
+('Grillage','1','20','2','2'),
+('Piquet','1','20','1','1');
 
 -- KIT
 INSERT INTO `kit`(`nomKit`) VALUES 
@@ -164,17 +165,35 @@ INSERT INTO `composer`(`codeArticle`, `codeKit`) VALUES
 INSERT INTO `commande`(`dateCommande`,`idClient`) VALUES 
 ('2024/03/18','1'),
 ('2024/03/18','2'),
-('2024/03/18','3');
+('2024/03/18','3'),
+('2023/09/10','3'),
+('2023/10/10','3'),
+('2023/12/20','3');
 
 -- CONTENU COMMANDE
 INSERT INTO `contenir`(`codeArticle`, `numCommande`, `quantitéArticleCommande`) VALUES 
+-- commande numéro 1
 ('1','1','2'),
 ('2','1','2'),
+-- commande numéro 2
 ('1','2','1'),
 ('3','2','2'),
+-- commande numéro 3
 ('1','3','2'),
 ('2','3','1'),
-('3','3','1');
+('3','3','1'),
+-- commande numéro 4
+('1','4','2'),
+('4','4','10'),
+('3','4','1'),
+-- commande numéro 5
+('1','5','2'),
+('4','5','10'),
+('3','5','1'),
+-- commande numéro 6
+('1','6','2'),
+('4','6','10'),
+('3','6','1');
 
 -- DIAGNOSTIC
 INSERT INTO `diagnostic`(`idDiag`) VALUES 
@@ -183,6 +202,6 @@ INSERT INTO `diagnostic`(`idDiag`) VALUES
 
 -- CREATION DOSSIERS
 INSERT INTO `dossier_reclamation`(`dateDossier`, `typeDossier`,`statutDossier`, `numCommande`, `idUtilisateur`) VALUES 
-(CURRENT_DATE(),'5','2','1', '2'),
-(CURRENT_DATE(),'5','1','2', '2'),
+('2024-03-15','5','2','1', '2'),
+('2024-02-24','5','1','2', '2'),
 ('2024-03-10','2','0','3', '2');

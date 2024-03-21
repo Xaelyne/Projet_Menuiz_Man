@@ -40,7 +40,7 @@
                                 <td><?= $client['codePostalClient']; ?></td>
                                 <td><?= $client['villeClient']; ?></td>
                                 <td>
-                                    <a href="index.php?action=voirCommandesClient&idClient=<?=$client['idClient']?>">
+                                    <a href="index.php?action=voirCommandesClient&idClient=<?= $client['idClient'] ?>">
                                         <button class="btn bouton">Voir les commandes</button>
                                     </a>
                                 </td>
@@ -77,7 +77,7 @@
                                         <td><?= $client['prenomClient']; ?></td>
                                         <td><?= $client['codePostalClient']; ?></td>
                                         <td><?= $client['villeClient']; ?></td>
-                                        <td><a href="index.php?action=voirCommandesClient&idClient=<?=$client['idClient']?>"><button class="btn bouton">Voir les commandes</button></a></td>
+                                        <td><a href="index.php?action=voirCommandesClient&idClient=<?= $client['idClient'] ?>"><button class="btn bouton">Voir les commandes</button></a></td>
                                     </tr>
                                 <?php } ?>
                             </tbody>
@@ -154,23 +154,23 @@
 
                         <div class="d-flex justify-content-evenly container">
                             <div class="d-flex align-items-center my-1">
-                                <input type="radio" name="typeSAV" class="me-1" value="npai" id="npai">
+                                <input type="radio" name="typeSAV" class="me-1 btnOption" value="npai" id="npai">
                                 <label for="npai" style="color: white;">NPAI</label>
                             </div>
                             <div class="d-flex align-items-center my-1">
-                                <input type="radio" name="typeSAV" class="me-1" value="np" id="np">
+                                <input type="radio" name="typeSAV" class="me-1 btnOption" value="np" id="np">
                                 <label for="np" style="color: white;">NP</label>
                             </div>
                             <div class="d-flex align-items-center my-1">
-                                <input type="radio" name="typeSAV" class="me-1" value="ec" id="ec">
+                                <input type="radio" name="typeSAV" class="me-1 btnOption" value="ec" id="ec">
                                 <label for="ec" style="color: white;">EC</label>
                             </div>
                             <div class="d-flex align-items-center my-1">
-                                <input type="radio" name="typeSAV" class="me-1" value="ep" id="ep">
+                                <input type="radio" name="typeSAV" class="me-1 btnOption" value="ep" id="ep">
                                 <label for="ep" style="color: white;">EP</label>
                             </div>
                             <div class="d-flex align-items-center my-1">
-                                <input type="radio" name="typeSAV" class="me-1" value="sav" id="sav">
+                                <input type="radio" name="typeSAV" class="me-1 btnOption" value="sav" id="sav" checked>
                                 <label for="sav" style="color: white;">SAV</label>
                             </div>
                         </div>
@@ -255,7 +255,7 @@
                                             $dureeGarantie = $article['garantieArticle'];
                                             $finGarantie = date('d-m-Y', strtotime($article['dateCommande'] . " + $dureeGarantie year")) // $article['dateCommande'] + $article['dateCommande']
                                 ?>
-                                <input type="hidden" name="checkArticle[]" value="<?=$article['codeArticle']?>">
+                                            <input type="hidden" name="checkArticle[]" value="<?= $article['codeArticle'] ?>">
                                             <tr>
                                                 <td scope="row"><?= $codeArticle; ?></td>
                                                 <td><?= $article['libelleArticle']; ?></td>
@@ -279,9 +279,9 @@
                         </div>
 
                         <!-- INFOS POUR LE INSERT -->
-                        <input type="hidden" name="typeDossier" value="<?=$typeDossier?>">
+                        <input type="hidden" name="typeDossier" value="<?= $typeDossier ?>">
                         <input type="hidden" name="numCommande" value="<?= $commande[0]['numCommande']; ?>">
-                        <input type="hidden" name="idUtilisateur" value="<?= $id?>">
+                        <input type="hidden" name="idUtilisateur" value="<?= $id ?>">
 
                         <div class="text-center">
                             <button type="submit" class="btn bouton">Créer un nouveau dossier</button>
@@ -295,8 +295,58 @@
     <?php } ?>
 
     <?php if ($action == "nouveauDossierValide") { ?>
-        <div class="container text-center w-25 maCarte">
-            <h4 class="p-5">Un nouveau dossier a été créé pour la commande numéro <?= $numCom ?></h4>
-        </div>
+        <a style="text-decoration: none;" href="index.php?action=voirDossier&numDossier=<?= $numDossier ?>">
+            <div class="container text-center w-25 maCarte">
+                <h4 class="p-5">Dossier numéro : <?= $numDossier ?><br><br> Commande numéro : <?= $numCom ?></h4>
+                <div class="text-center mb-5">
+                    <button type="submit" class="btn bouton">Voir le dossier</button>
+                </div>
+            </div>
+        </a>
 
     <?php } ?>
+
+    <script>
+        npai = document.getElementById('npai');
+        np = document.getElementById('np');
+        ec = document.getElementById('ec');
+        ep = document.getElementById('ep');
+        sav = document.getElementById('sav');
+
+        npai.onclick = function() {
+            checkbox = document.querySelectorAll('input[type=checkbox]')
+
+            checkbox.forEach(element => {
+                element.checked = true
+            });
+        }
+
+        np.onclick = function() {
+            checkbox = document.querySelectorAll('input[type=checkbox]')
+
+            checkbox.forEach(element => {
+                element.checked = true
+            });
+        }
+        ec.onclick = function() {
+            checkbox = document.querySelectorAll('input[type=checkbox]')
+
+            checkbox.forEach(element => {
+                element.checked = false
+            });
+        }
+        ep.onclick = function() {
+            checkbox = document.querySelectorAll('input[type=checkbox]')
+
+            checkbox.forEach(element => {
+                element.checked = false
+            });
+        }
+        sav.onclick = function() {
+            checkbox = document.querySelectorAll('input[type=checkbox]')
+
+            checkbox.forEach(element => {
+                element.checked = false
+            });
+        }
+    </script>
