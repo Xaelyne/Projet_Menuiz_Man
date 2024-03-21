@@ -7,6 +7,9 @@ $tableau_json2 =json_encode($tableau_role);
 
 $tableau_dossier = getUtilisateurOnDossier();
 $tableau_json3 = json_encode($tableau_dossier);
+
+$tableau_utilisateur = getUtilisateurs();
+$tableau_json4 = json_encode($tableau_utilisateur);
 ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.1.4/sweetalert2.min.css">
@@ -97,7 +100,7 @@ $tableau_json3 = json_encode($tableau_dossier);
     // Partie AJOUT
     const boutons = document.querySelectorAll('.boutonPopup');
     const modalTitle = document.querySelector('#ajoutUtilisateurModalLabel');
-    var tableauJS = <?php print $tableau_json; ?>;
+    const tableauJS = <?php print $tableau_json; ?>;
 
 
     boutons.forEach(bouton => {
@@ -231,7 +234,7 @@ $tableau_json3 = json_encode($tableau_dossier);
     
     
     $('#ajoutUtilisateurModal').on('hide.bs.modal', function (e) {
-        inputPseudo.value = "";
+    inputPseudo.value = "";
     inputNom.value = "";
     inputPrenom.value = "";
     inputMdp.value = "";
@@ -259,9 +262,199 @@ $tableau_json3 = json_encode($tableau_dossier);
             // Lorsque le survol se termine
             $(this).css('background', '#4488C5');
         }
-    );
-         
-});
+    );  
+    });
+
+
+    //Partie Modif
+
+    
+
+        
+    var tableauUtilisateur = <?php print $tableau_json4; ?>;
+
+    const inputModifPseudo = document.getElementById('pseudoModif<?= $utilisateur['idUtilisateur']; ?>');
+    const inputModifNom = document.getElementById('nomModif<?= $utilisateur['idUtilisateur']; ?>');
+    const inputModifPrenom = document.getElementById('prenomModif<?= $utilisateur['idUtilisateur']; ?>');
+    const inputModifMdp = document.getElementById('new_mot_de_passe<?= $utilisateur['idUtilisateur']; ?>');
+    const inputModifConfirmMdp = document.getElementById('confirmer_new_mot_de_passe<?= $utilisateur['idUtilisateur']; ?>');
+
+        $('.modifierBtn').click(function(e) {
+            e.preventDefault();
+
+            var idUtilisateur = $(this).data('id');
+
+            var utilisateur = tableauUtilisateur.find(function(user) {
+                return user.idUtilisateur === idUtilisateur;
+            });
+
+            if (utilisateur) {
+                $('#pseudoModif' + idUtilisateur).val(utilisateur.pseudoUtilisateur);
+                $('#nomModif' + idUtilisateur).val(utilisateur.nomUtilisateur);
+                $('#prenomModif' + idUtilisateur).val(utilisateur.prenomUtilisateur);
+                $('#modifUtilisateurModal' + idUtilisateur).modal('show');
+            } else {
+                console.error('Utilisateur non trouvé.');
+            }
+        });
+
+
+        
+    const modifierBtns = document.querySelectorAll('.modifBtn');
+    
+    modifierBtns.forEach(function(modifierBtn) {
+        modifierBtn.addEventListener('click', function() {
+            var idUtilisateur = $(this).data('id');
+            var modal = document.querySelector('#modifUtilisateurModal' + idUtilisateur);
+            var pseudoModif = modal.querySelector('#pseudoModif' + idUtilisateur).value.trim();
+            var nomModif = modal.querySelector('#nomModif' + idUtilisateur).value.trim();
+            var prenomModif = modal.querySelector('#prenomModif' + idUtilisateur).value.trim();
+            var newMdp = modal.querySelector('#new_mot_de_passe' + idUtilisateur).value.trim();
+            var confirmNewMdp = modal.querySelector('#confirmer_new_mot_de_passe' + idUtilisateur).value.trim();
+
+            // Span d'erreur récupéré
+            const aucunChangement = document.getElementById('alertChangement' + idUtilisateur);
+            const erreurModifPseudo = document.getElementById('pseudoModifErreur' + idUtilisateur);
+            const erreurModifNom = document.getElementById('nomModifErreur' + idUtilisateur);
+            const erreurModifPrenom = document.getElementById('prenomModifErreur' + idUtilisateur);
+            const erreurModifMdp = document.getElementById('newMdpErreur' + idUtilisateur);
+            const erreurModifConfirmMdp = document.getElementById('confirmNewMdpErreur' + idUtilisateur);
+
+            
+
+            var utilisateur = tableauUtilisateur.find(function(user) {
+                return user.idUtilisateur === idUtilisateur;
+            });
+
+            // console.log(utilisateur);
+            var valid = false;
+
+            var pseudoPris = false; 
+
+
+            if (pseudoModif !== utilisateur.pseudoUtilisateur ) {
+                // Le pseudo est différent de celui de l'utilisateur actuel
+                valid = true;
+                aucunChangement.textContent = "";
+                erreurModifPseudo.textContent = "";
+                erreurModifNom.textContent = "";
+                erreurModifPrenom.textContent = "";
+
+                // Vérifier si le pseudo est déjà pris
+                for (var i = 0; i < tableauUtilisateur.length; i++) {
+                    var monPseudoModif = tableauUtilisateur[i].pseudoUtilisateur;
+                    if (monPseudoModif === pseudoModif && utilisateur.pseudoUtilisateur !== pseudoModif) {
+                        pseudoPris = true;
+                    }
+                }
+                if (pseudoPris) {
+                    valid = false;
+                    erreurModifPseudo.textContent = "Pseudo déjà pris ! Veuillez en choisir un autre."; 
+
+                    aucunChangement.textContent = "";
+                } else {
+                    erreurModifPseudo.textContent = ""; 
+                }
+
+            } else if ((nomModif !== utilisateur.nomUtilisateur || prenomModif !== utilisateur.prenomUtilisateur)) {
+                // Vérifier si le nom ou le prénom est modifié, en excluant les chaînes vides
+                valid = true;
+                aucunChangement.textContent = "";
+                erreurModifPseudo.textContent = "";
+                erreurModifNom.textContent = "";
+                erreurModifPrenom.textContent = "";
+            } else if (newMdp !== '' && newMdp !== utilisateur.motDePasse) {
+                // Vérifier si le mot de passe est modifié
+                valid = true;
+                aucunChangement.textContent = "";
+                erreurModifPseudo.textContent = "";
+                erreurModifNom.textContent = "";
+                erreurModifPrenom.textContent = "";
+            } else {
+                // Aucun changement
+                aucunChangement.textContent = "Aucun changement !";
+                erreurModifPseudo.textContent = "";
+            }
+
+            
+            if (pseudoModif === '') {
+                valid = false;
+                erreurModifPseudo.textContent = "Le pseudo ne peut pas être vide !";
+            }
+
+            if (!regex.test(inputModifNom.value) || inputModifNom.value === '') {
+                valid = false;
+                erreurModifNom.textContent = "Le nom n'est pas valide !";
+            } else {
+                erreurModifNom.textContent = "";
+            }
+
+            if (!regex.test(inputModifPrenom.value) || inputModifPrenom.value === '') {
+                valid = false;
+                erreurModifPrenom.textContent = "Le prénom n'est pas valide !";
+            } else {
+                erreurModifPrenom.textContent = "";
+            }
+            
+
+            var mdp1 = inputModifMdp.value;
+            var mdp2 = inputModifConfirmMdp.value;
+            if (mdp1 !== mdp2) {
+                valid = false;
+                erreurModifConfirmMdp.textContent = "Les mots de passe ne correspondent pas !";
+            } else {
+                erreurModifConfirmMdp.textContent = ""; 
+            }
+
+            if (valid) {
+                // Créer un objet FormData pour envoyer uniquement les champs modifiés
+                var formData = new FormData();
+                formData.append('idUtilisateur', idUtilisateur);
+                formData.append('pseudoModif', pseudoModif);
+                formData.append('nomModif', nomModif);
+                formData.append('prenomModif', prenomModif);
+                
+                // Ajouter le nouveau mot de passe seulement s'il est modifié et non vide
+                if (newMdp !== '') {
+                    formData.append('newMdp', newMdp);
+                }
+
+                fetch('index.php?action=accueilAdmin', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erreur lors de la requête');
+                    }
+                    // Traiter la réponse si nécessaire
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                    // Gérer les erreurs de requête
+                });
+
+                var modifForm = document.getElementById('modifUtilisateurForm' + idUtilisateur);
+                modifForm.submit();
+            }
+
+
+        });
+    }); 
+
+    $('#modifUtilisateurModal<?= $utilisateur['idUtilisateur']; ?>').on('hide.bs.modal', function (e) {
+        // Réinitialiser les messages d'erreur
+        $(this).find('#alertChangement<?= $utilisateur['idUtilisateur']; ?>').text("");
+        $(this).find('#pseudoModifErreur<?= $utilisateur['idUtilisateur']; ?>').text("");
+        $(this).find('#nomModifErreur<?= $utilisateur['idUtilisateur']; ?>').text("");
+        $(this).find('#prenomModifErreur<?= $utilisateur['idUtilisateur']; ?>').text("");
+        $(this).find('#newMdpErreur<?= $utilisateur['idUtilisateur']; ?>').text("");
+        $(this).find('#confirmNewMdpErreur<?= $utilisateur['idUtilisateur']; ?>').text("");
+
+        // Réinitialiser les champs de mot de passe
+        $(this).find('#new_mot_de_passe<?= $utilisateur['idUtilisateur']; ?>').val("");
+        $(this).find('#confirmer_new_mot_de_passe<?= $utilisateur['idUtilisateur']; ?>').val("");
+    });
 
 
 </script>

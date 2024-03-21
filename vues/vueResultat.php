@@ -34,7 +34,7 @@
                                 <td><?= $utilisateur['prenomUtilisateur']; ?></td>
                                 <?php $role = $utilisateur['roleUtilisateur']; ?>
                                 <td><?= afficheRoleUtilisateur($role); ?></td>
-                                <td><a href=""><button class="btn bouton">Modifier</button></a><a href=""><button class="btn bouton">Supprimer</button></a></td>
+                                <td><a href="#"><button class="btn bouton modifierBtn" data-id="<?= $utilisateur['idUtilisateur']; ?>">Modifier</button></a><a href="#" onclick="confirmerSuppression(<?= $utilisateur['idUtilisateur']; ?>);"><button class="btn bouton">Supprimer</button></a></td>
                             </tr>
                         <?php } ?>
                     </tbody>

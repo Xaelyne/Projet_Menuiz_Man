@@ -69,6 +69,7 @@
                                     <form id="ajoutUtilisateurForm" method="POST">
                                         <input type="hidden" name="action" value="accueilAdmin">
                                         <input type="hidden" name="id" value="<?=$id?>">
+                                        <input type="hidden" name="crud" value="ajouterUtilisateur">
                                         <div class="mb-3">
                                             <label for="pseudo" class="form-label">Pseudo</label>
                                             <input type="text" class="form-control" id="pseudo" name="pseudo">
