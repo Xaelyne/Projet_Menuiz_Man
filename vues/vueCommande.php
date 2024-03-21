@@ -19,10 +19,12 @@
                 $enCours = true;
                 ?>
             
-                <h4 class="mt-4" style="color: white;">ATTENTION,</h4>
-                <h4 style="color: white;">Dossier créé le <?=$dateDossier?> par <?=$utilisateurDossier['prenomUtilisateur'] . " " .$utilisateurDossier['nomUtilisateur']?></h4>
-                <h4 style="color: white;">Type de dossier : <?=$typeDeDossier?></h4>
-                <h4 style="color: white;">Statut du dossier : <?=$statutDuDossier?></h4>
+            <div class="text-center my-3 affficheAttention container p-3">
+                <h4>ATTENTION</h4>
+                <h4>Un dossier a déjà été créé le <?=$dateDossier?> par <?=$utilisateurDossier['prenomUtilisateur'] . " " .$utilisateurDossier['nomUtilisateur']?></h4>
+                <h4>Type de dossier : <?=$typeDeDossier?></h4>
+                <h4>Statut du dossier : <?=$statutDuDossier?></h4>
+            </div>
                
             <?php
             }
@@ -40,23 +42,38 @@
                             <th scope="col">Nom de l'article</th>
                             <th scope="col">Durée de garantie</th>
                             <th scope="col">Date fin de garantie</th>
+
+                            <th scope="col">Prix Unitaire</th>
                         </tr>
                     </thead>
                     <tbody>
                         <!-- a r articles selectionnés -->
-                        <?php foreach ($commande as $article) {
+                        <?php 
+                        $prixTotal = 0;
+                        foreach ($commande as $article) {
+                            $prixTotal = $prixTotal + $article['prixUnitaire'];
+
                             $codeArticle = $article['codeArticle'];
                             $dureeGarantie = $article['garantieArticle'];
                             $finGarantie = date('d-m-Y', strtotime($article['dateCommande'] . " + $dureeGarantie year")) // $article['dateCommande'] + $article['dateCommande']
                         ?>
                             <tr>
-                                
                                 <td scope="row"><?= $codeArticle; ?></td>
                                 <td><?= $article['libelleArticle']; ?></td>
                                 <td><?= $article['garantieArticle']; ?></td>
                                 <td><?= $finGarantie; ?></td>
+
+                                <td><?= $article['prixUnitaire']; ?> €</td>
                             </tr>
                         <?php } ?>
+                        <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+
+                                <td align="right"><b>TOTAL :</b></td>
+                                <td><b><?=$prixTotal?> €</b></td>
+                            </tr>
                     </tbody>
                 </table>
 

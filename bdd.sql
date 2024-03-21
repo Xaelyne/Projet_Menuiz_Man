@@ -21,6 +21,7 @@ CREATE TABLE ARTICLE(
    codeArticle INT AUTO_INCREMENT,
    libelleArticle VARCHAR(50) ,
    garantieArticle INT,
+   prixUnitaire INT NOT NULL,
    qteStockPrincipal INT,
    qteStockSAV INT,
    qteStockRebus VARCHAR(50) ,
@@ -143,11 +144,11 @@ INSERT INTO `client`(`nomClient`, `prenomClient`, `codePostalClient`, `villeClie
 
 
 -- ARTICLE
-INSERT INTO `article`(`libelleArticle`, `garantieArticle`, `qteStockPrincipal`, `qteStockSAV`, `qteStockRebus`) VALUES 
-('Portail','10','5','0','0'),
-('Portillon','2','5','1','0'),
-('Grillage','1','20','2','2'),
-('Piquet','1','20','1','1');
+INSERT INTO `article`(`libelleArticle`, `garantieArticle`, `prixUnitaire`, `qteStockPrincipal`, `qteStockSAV`, `qteStockRebus`) VALUES 
+('Portail','10','1200','5','0','0'),
+('Portillon','2','250', '5','1','0'),
+('Grillage','1','55', '20','2','2'),
+('Piquet','1','5', '20','1','1');
 
 -- KIT
 INSERT INTO `kit`(`nomKit`) VALUES 

@@ -79,17 +79,13 @@
     }
 
 
-        function modifierStatut(int $statutDossier, int $numDossier){
+        function modifierStatut($statutDossier, $numDossier){
        
         $connexion = getConnexion();
 
-        $sql ="UPDATE `dossier_reclamation` SET`statutDossier`='$statutDossier' WHERE numDossier = $numDossier";
+        $sql ="UPDATE dossier_reclamation SET statutDossier = $statutDossier WHERE numDossier = $numDossier";
 
         $connexion->query($sql);
-
-        // $curseur = $connexion->prepare($sql);
-        // $resultat = $curseur->execute([$statutDossier]);
-        // return $resultat;
 
         }
 
@@ -160,7 +156,6 @@
     function afficherStatutDossier($statutDossier){
         if($statutDossier == 1) return "En cours de diagnostics";
         else if ($statutDossier == 2) return "En cours de réexpedition";
-
         else if($statutDossier == 3) return "Terminer";
 
     }
@@ -323,7 +318,7 @@
         $connexion = getConnexion();
 
         //$sql = "SELECT com.numCommande, DATE_FORMAT(com.dateCommande, '%d/%m/%Y') AS 'dateCommande', cont.codeArticle, libelleArticle, garantieArticle, idDiag, com.idClient, nomClient, prenomClient, codePostalClient, villeClient 
-        $sql = "SELECT com.numCommande, com.dateCommande, cont.codeArticle, libelleArticle, garantieArticle, idDiag, com.idClient, nomClient, prenomClient, codePostalClient, villeClient 
+        $sql = "SELECT com.numCommande, com.dateCommande, cont.codeArticle, libelleArticle, art.prixUnitaire, garantieArticle, idDiag, com.idClient, nomClient, prenomClient, codePostalClient, villeClient 
         FROM commande com 
         JOIN client c ON c.idClient = com.idClient 
         JOIN contenir cont ON cont.numCommande = com.numCommande 

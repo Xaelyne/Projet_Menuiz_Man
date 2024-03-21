@@ -192,7 +192,6 @@ switch ($action) {
             }
 
             $dossiers = getDossier($numDossier);
-            var_dump($dossiers);
             
             require "vues/vueDossier.php";
         } else {
@@ -221,11 +220,14 @@ switch ($action) {
 
             $dossiers = getDossier($numDossier);
 
-            if($_GET["modifDossier"]="Expe"){
+
+            if(isset($_GET["dossierExpe"])) {
                 modifierStatut(2, $numDossier);
-            } else if ($_GET["modifDossier"]="Terminer") {
+                header("Location: index.php?action=voirDossier&numDossier=$numDossier");
+            } 
+            if(isset($_GET["dossierTerm"])) {
                 modifierStatut(3, $numDossier);
-                var_dump($action);
+                header("Location: index.php?action=voirDossier&numDossier=$numDossier");
             }
             
             require "vues/vueDossier.php";
