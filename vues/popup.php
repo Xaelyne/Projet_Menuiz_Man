@@ -273,11 +273,6 @@ $tableau_json4 = json_encode($tableau_utilisateur);
         
     var tableauUtilisateur = <?php print $tableau_json4; ?>;
 
-    const inputModifPseudo = document.getElementById('pseudoModif<?= $utilisateur['idUtilisateur']; ?>');
-    const inputModifNom = document.getElementById('nomModif<?= $utilisateur['idUtilisateur']; ?>');
-    const inputModifPrenom = document.getElementById('prenomModif<?= $utilisateur['idUtilisateur']; ?>');
-    const inputModifMdp = document.getElementById('new_mot_de_passe<?= $utilisateur['idUtilisateur']; ?>');
-    const inputModifConfirmMdp = document.getElementById('confirmer_new_mot_de_passe<?= $utilisateur['idUtilisateur']; ?>');
 
         $('.modifierBtn').click(function(e) {
             e.preventDefault();
@@ -319,6 +314,20 @@ $tableau_json4 = json_encode($tableau_utilisateur);
             const erreurModifPrenom = document.getElementById('prenomModifErreur' + idUtilisateur);
             const erreurModifMdp = document.getElementById('newMdpErreur' + idUtilisateur);
             const erreurModifConfirmMdp = document.getElementById('confirmNewMdpErreur' + idUtilisateur);
+
+            // Effacer les msg d'erreur en fermant et réouvrant le modal
+            modal.addEventListener('hide.bs.modal', function (e) {
+
+                $('#new_mot_de_passe' + idUtilisateur).val("");
+                $('#confirmer_new_mot_de_passe' + idUtilisateur).val("");
+
+                $('#alertChangement' + idUtilisateur).text("");
+                $('#pseudoModifErreur' + idUtilisateur).text("");
+                $('#nomModifErreur' + idUtilisateur).text("");
+                $('#prenomModifErreur' + idUtilisateur).text("");
+                $('#newMdpErreur' + idUtilisateur).text("");
+                $('#confirmNewMdpErreur' + idUtilisateur).text("");
+            });
 
             
 
@@ -382,14 +391,14 @@ $tableau_json4 = json_encode($tableau_utilisateur);
                 erreurModifPseudo.textContent = "Le pseudo ne peut pas être vide !";
             }
 
-            if (!regex.test(inputModifNom.value) || inputModifNom.value === '') {
+            if (!regex.test(nomModif) || nomModif === '') {
                 valid = false;
                 erreurModifNom.textContent = "Le nom n'est pas valide !";
             } else {
                 erreurModifNom.textContent = "";
             }
 
-            if (!regex.test(inputModifPrenom.value) || inputModifPrenom.value === '') {
+            if (!regex.test(prenomModif) || prenomModif === '') {
                 valid = false;
                 erreurModifPrenom.textContent = "Le prénom n'est pas valide !";
             } else {
@@ -397,8 +406,8 @@ $tableau_json4 = json_encode($tableau_utilisateur);
             }
             
 
-            var mdp1 = inputModifMdp.value;
-            var mdp2 = inputModifConfirmMdp.value;
+            var mdp1 = newMdp;
+            var mdp2 = confirmNewMdp;
             if (mdp1 !== mdp2) {
                 valid = false;
                 erreurModifConfirmMdp.textContent = "Les mots de passe ne correspondent pas !";
@@ -441,20 +450,6 @@ $tableau_json4 = json_encode($tableau_utilisateur);
 
         });
     }); 
-
-    $('#modifUtilisateurModal<?= $utilisateur['idUtilisateur']; ?>').on('hide.bs.modal', function (e) {
-        // Réinitialiser les messages d'erreur
-        $(this).find('#alertChangement<?= $utilisateur['idUtilisateur']; ?>').text("");
-        $(this).find('#pseudoModifErreur<?= $utilisateur['idUtilisateur']; ?>').text("");
-        $(this).find('#nomModifErreur<?= $utilisateur['idUtilisateur']; ?>').text("");
-        $(this).find('#prenomModifErreur<?= $utilisateur['idUtilisateur']; ?>').text("");
-        $(this).find('#newMdpErreur<?= $utilisateur['idUtilisateur']; ?>').text("");
-        $(this).find('#confirmNewMdpErreur<?= $utilisateur['idUtilisateur']; ?>').text("");
-
-        // Réinitialiser les champs de mot de passe
-        $(this).find('#new_mot_de_passe<?= $utilisateur['idUtilisateur']; ?>').val("");
-        $(this).find('#confirmer_new_mot_de_passe<?= $utilisateur['idUtilisateur']; ?>').val("");
-    });
 
 
 </script>
