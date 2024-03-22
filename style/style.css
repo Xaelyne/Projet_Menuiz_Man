@@ -7,6 +7,7 @@ body {
     background-size:cover;
     background-repeat: no-repeat;
 }
+
 .affficheAttention {
     background-color: white;
     border: solid 3px var(--bleuClair);
@@ -26,11 +27,11 @@ body {
     width: 80%;
     
 }
+
 .mesBoutonsAjouter{
     display: flex;
     justify-content: center;
-    align-items: stretch;
-    
+    align-items: stretch;   
 }
 
 .formConnexion {
@@ -52,14 +53,12 @@ body {
     outline-color: var(--bleuMoyen);
 }
 
-
 .maCarte{
     background-color: var(--bleuFonce);
     color: white;
     border-radius: 10px;
     border: solid 3px white;
-    text-decoration: none;
-    
+    text-decoration: none;  
 }
 .maCarte:hover{
     background-color: var(--bleuMoyen);
@@ -82,7 +81,7 @@ body {
 .table-striped>tbody>tr:nth-child(even)>th,
 .table-striped>thead>tr:nth-child(odd)>th {
    background-color: var(--bleuClair);
- }
+}
 
 .maRecherche {
     width: 500px;
@@ -98,6 +97,7 @@ body {
     color: white;
     border: solid 3px white;
 }
+
 .bouton:hover {
     background-color: var(--bleuClair);
     border: solid 3px white;
@@ -132,8 +132,5 @@ body {
 @media screen and (max-width: 992px) { /*LARGE*/
     .formConnexion {
         width: 100%;
-    }
-    .btnDeconnexion {
-        margin-top: 1em;
     }
 }
