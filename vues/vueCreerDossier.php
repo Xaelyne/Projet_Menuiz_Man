@@ -1,5 +1,5 @@
 <?php if ($action == "nouveauDossier" || $action == "nouveauDossierRechercheClient") { ?>
-    <div class="contourAdmin container d-flex justify-content-center align-items-center flex-column rounded-3">
+    <div class="contourAdmin container-fluid container-md d-flex justify-content-center align-items-center flex-column rounded-3">
         <div class="container my-3">
             <form class="form-inline" action="index.php">
                 <div class="input-group col-auto maRecherche">
@@ -22,7 +22,7 @@
         ?>
             <div class="table-responsive w-100">
 
-                <table class="container table table-striped border alignTable rounded-3 maTableAdmin overflow-hidden">
+                <table class="container-fluid container-md table table-striped border alignTable rounded-3 maTableAdmin overflow-hidden">
                     <thead>
                         <tr>
                             <th scope="col">Nom</th>
@@ -66,7 +66,7 @@
                 <?php if (!is_null($recherche) && count($recherche) > 0) { ?>
                     <div class="table-responsive w-100">
 
-                        <table class="container table table-striped border alignTable rounded-3 maTableAdmin overflow-hidden">
+                        <table class="container-fluid container-md table table-striped border alignTable rounded-3 maTableAdmin overflow-hidden">
                             <thead>
                                 <tr>
                                     <th scope="col">Nom</th>
@@ -105,7 +105,7 @@
                     <?php $dateCommande = date('d-m-Y', strtotime($recherche[0]['dateCommande'])); ?>
                     <div class="table-responsive w-100">
 
-                        <table class="container table table-striped border alignTable rounded-3 maTableAdmin overflow-hidden">
+                        <table class="container-fluid container-md table table-striped border alignTable rounded-3 maTableAdmin overflow-hidden">
                             <thead>
                                 <tr>
                                     <th scope="col">Numéro</th>
@@ -146,7 +146,7 @@
 
         <?php $dateCommande = date('d-m-Y', strtotime($commande[0]['dateCommande'])); ?>
 
-        <div class="contourAdmin container d-flex justify-content-center align-items-center flex-column rounded-3">
+        <div class="contourAdmin container-fluid container-md d-flex justify-content-center align-items-center flex-column rounded-3">
             <div class="container my-3">
 
                 <h4 style="color: white;">Client : <?= $commande[0]['prenomClient'] . " " . $commande[0]['nomClient']; ?></h4>
@@ -181,7 +181,7 @@
                             </div>
                         </div>
 
-                        <table class="container table table-striped border alignTable rounded-3 maTableAdmin overflow-hidden">
+                        <table class="container-fluid container-md table table-striped border alignTable rounded-3 maTableAdmin overflow-hidden">
                             <thead>
                                 <tr>
                                     <th></th>
@@ -227,7 +227,7 @@
         <?php $dateCommande = date('d-m-Y', strtotime($commande[0]['dateCommande']));
         ?>
 
-        <div class="contourAdmin container d-flex justify-content-center align-items-center flex-column rounded-3">
+        <div class="contourAdmin container-fluid container-md d-flex justify-content-center align-items-center flex-column rounded-3">
             <div class="container my-3">
 
                 <h4 style="color: white;">Client : <?= $commande[0]['prenomClient'] . " " . $commande[0]['nomClient']; ?></h4>
@@ -241,7 +241,7 @@
                         <input type="hidden" name="action" value="nouveauDossierValide">
                         <input type="hidden" name="commande" value="<?= $commande[0]['numCommande']; ?>">
 
-                        <table class="container table table-striped border alignTable rounded-3 maTableAdmin overflow-hidden">
+                        <table class="container-fluid container-md table table-striped border alignTable rounded-3 maTableAdmin overflow-hidden">
                             <thead>
                                 <tr>
                                     <th scope="col">Article</th>

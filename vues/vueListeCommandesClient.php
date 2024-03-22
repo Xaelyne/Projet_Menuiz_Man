@@ -1,9 +1,9 @@
 
-<div class="contourAdmin container d-flex justify-content-center align-items-center flex-column rounded-3">
+<div class="contourAdmin container-fluid container-md d-flex justify-content-center align-items-center flex-column rounded-3">
     <div class="container my-3">
         <div class="table-responsive w-100">
 
-            <table class="container table table-striped border alignTable rounded-3 maTableAdmin overflow-hidden mt-5 mb-3">
+            <table class="container-fluid container-md table table-striped border alignTable rounded-3 maTableAdmin overflow-hidden mt-5 mb-3">
                 <thead>
                     <tr>
                         <th scope="col">Numéro de commande</th>
