@@ -213,18 +213,6 @@ $tableau_json4 = json_encode($tableau_utilisateur);
             erreurConfirmMdp.textContent = "Veuillez confirmer le mot de passe.";
         }
         
-
-        
-
-        // si tout est ok on ferme la popup
-        // if (valid == false) {
-        //     erreurPseudo.textContent = "Pseudo déjà pris ! Veuillez en choisir un autre."
-        // } else {
-            
-        //     myForm = document.getElementById('ajoutUtilisateurForm');
-        //     myForm.submit();
-
-        // }
         if (valid) {
         myForm = document.getElementById('ajoutUtilisateurForm');
         myForm.submit();
@@ -414,6 +402,8 @@ $tableau_json4 = json_encode($tableau_utilisateur);
 
             if (valid) {
                 // Créer un objet FormData pour envoyer uniquement les champs modifiés
+                $('#modifUtilisateurModal' + idUtilisateur).modal('hide');
+
                 var formData = new FormData();
                 formData.append('idUtilisateur', idUtilisateur);
                 formData.append('pseudoModif', pseudoModif);

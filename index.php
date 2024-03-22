@@ -565,6 +565,11 @@ switch ($action) {
             $id = $_SESSION['id'];
             $roleUser = $_SESSION['role'];
 
+            $utilisateur = getUtilisateur($id);
+            $nom = $utilisateur['nomUtilisateur'];
+            $prenom = $utilisateur['prenomUtilisateur'];
+            $role = afficheRoleUtilisateur($utilisateur['roleUtilisateur']);
+
 
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 
@@ -596,13 +601,15 @@ switch ($action) {
                         // Mettre à jour le mot de passe
                         try {
                             modifierUtilisateur($idUtilisateur, $nouveauPseudo, ucfirst(strtolower($nouveauNom)), ucfirst(strtolower($nouveauPrenom)), $nouveauMdp);
+                            header("Location: index.php?action=accueilAdmin");
                         } catch (ModeleException $e) {
                             echo "Erreur : " . $e->getMessage();
                         }
                     } else {
-                        // Ne mettre à jour que les autres champs (pseudo, nom, prénom)
+                        // Mettre à jour que les autres champs (pseudo, nom, prénom)
                         try {
                             modifierUtilisateurSansMdp($idUtilisateur, $nouveauPseudo, ucfirst(strtolower($nouveauNom)), ucfirst(strtolower($nouveauPrenom)));
+                            header("Location: index.php?action=accueilAdmin");
                         } catch (ModeleException $e) {
                             echo "Erreur : " . $e->getMessage();
                         }
@@ -630,11 +637,11 @@ switch ($action) {
             $titre = "Résultat de votre recherche";
             $roleHeader = afficheHeader();
             require "./vues/vueHeader.php";
+            $utilisateurs = getUtilisateurs();
             if (isset ($_GET['search'])) {
                 $recherche = $_GET['search'];
                 $resultats_recherche = rechercheUtilisateur($recherche);
             }
-            $utilisateurs = getUtilisateurs();
             require "./vues/vueResultat.php";
             require "./vues/popup.php";
 
