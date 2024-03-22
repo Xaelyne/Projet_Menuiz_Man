@@ -13,6 +13,14 @@ body {
     border-radius: 10px;
 }
 
+.troisBouton {
+    margin-right: 10%;
+}
+
+.boxBouton {
+    width: 25%;
+}
+
 .alignTable {
     vertical-align: middle;
     text-align: center;
@@ -23,7 +31,7 @@ body {
 }
 
 .logonav {
-    width: 80%;
+    width: 90%;
     
 }
 .mesBoutonsAjouter{
@@ -133,7 +141,5 @@ body {
     .formConnexion {
         width: 100%;
     }
-    .btnDeconnexion {
-        margin-top: 1em;
-    }
+    
 }

@@ -10,7 +10,7 @@ if (!isset ($_GET['action']))
 require ("./modeles/modele.inc.php");
 
 
-var_dump("action -> " . $action);
+//var_dump("action -> " . $action);
 
 // switch sur si pas de connexion trouvé -> formulaire connexion
 switch ($action) {
