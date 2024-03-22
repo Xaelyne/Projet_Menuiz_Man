@@ -1,3 +1,4 @@
+
 <div class="contourAdmin container d-flex justify-content-center align-items-center flex-column rounded-3">
     <?php
     if ($action === "rechercherDossier") {
@@ -21,7 +22,7 @@
             </form>
         </div>
 
-        <table class="container table table-striped border alignTable rounded-3 maTableAdmin overflow-hidden">
+            <table class="container-fluid container-md table table-striped border alignTable rounded-3 maTableAdmin overflow-hidden">
             <thead>
                 <tr>
                     <th scope="col">Numero de dossier</th>

@@ -2,11 +2,11 @@
 
 <?php $dateCommande = date('d-m-Y', strtotime($dossiers [0]['dateCommande'])); ?>
 
-<div class="contourAdmin container d-flex justify-content-center align-items-center flex-column rounded-3">
+<div class="contourAdmin container-fluid container-md d-flex justify-content-center align-items-center flex-column rounded-3">
     <div class="container my-3">
 
     <!-- entête -->
-    <table class="container table table-striped border alignTable rounded-3 maTableAdmin overflow-hidden">
+    <table class="container-fluid container-md table table-striped border alignTable rounded-3 maTableAdmin overflow-hidden">
             <thead>
                 <div class="container d-flex justify-content-center my-3" style="color: white">
                     <h2>Information du dossier du client</h2>
@@ -40,7 +40,7 @@
 
 
         <div class="table-responsive w-100">
-            <table class="container table table-striped border alignTable rounded-3 maTableAdmin overflow-hidden">
+            <table class="container-fluid container-md table table-striped border alignTable rounded-3 maTableAdmin overflow-hidden">
                 <thead>
                 <div class="container d-flex justify-content-center my-3" style="color: white">
                     <h2>Information de la commande du client</h2>

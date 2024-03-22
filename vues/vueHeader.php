@@ -41,19 +41,21 @@
     ?>
 <!-- DEBUG -->
 <!-- <p>HEADER ADMIN</p> -->
-        <nav class="navbar navbar-expand-lg maNav">
-            <div class="container-fluid">
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <nav class="navbar-expand-lg maNav">
+            <div class="">
+                <!-- burger -->
+                <button class="navbar navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <img src="Images/Menuiz Man.png" alt="Logo" class="logonav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
+                <!-- nav standart -->
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <a class="nav-link mx-3" aria-current="page" href="index.php?action=<?=$retourAccueil?>">
+                    <a class="nav-link" aria-current="page" href="index.php?action=<?=$retourAccueil?>">
                         <img src="Images/Menuiz Man.png" alt="Logo" class="logonav d-none d-lg-block">
+                        <h4 class="mt-2 me-1 mb-3 mb-lg-0 d-block d-lg-none btnDeconnexion ms-3 ms-lg-0">Accueil</h4>
                     </a>
-                    <div class="d-flex flex-grow-1 justify-content-center">
+                    <!-- bouton admin -->
+                    <div class="d-flex flex-grow-1 justify-content-center mt-3 mt-lg-0">
                         <button type="button" class="btn btn-primary mx-2 boutonPopup bouton" data-role="1" data-title="Ajouter un nouvel administrateur">Ajouter un nouvel administrateur</button>
                         <button type="button" class="btn btn-primary mx-2 boutonPopup bouton" data-role="3" data-title="Ajouter un nouveau technicien SAV">Ajouter un nouveau technicien SAV</button>
                         <button type="button" class="btn btn-primary mx-2 boutonPopup bouton" data-role="2" data-title="Ajouter un nouveau technicien Hotline">Ajouter un nouveau technicien Hotline</button>
@@ -109,9 +111,9 @@
                     <?php 
                     if (isset($_SESSION['id'])) {
                     ?>
-                        <a href="index.php?action=deconnexion" class="d-flex ms-auto align-items-center btnDeconnexion">
-                            <h4 class="mt-1 me-1 ">Déconnexion</h4>
-                            <img src="Images/se-deconnecter.png" alt="imgDeconnexion" class="imgDeconnexion ">
+                        <a href="index.php?action=deconnexion" class="d-flex ms-auto align-items-center btnDeconnexion mx-2">
+                            <h4 class="mt-1 me-1 mb-3 mb-lg-0 ms-3 ms-lg-0">Déconnexion</h4>
+                            <img src="Images/se-deconnecter.png" alt="imgDeconnexion" class="imgDeconnexion mb-3 mb-lg-0">
                         </a>
                     <?php } ?>
                 </div>
@@ -124,25 +126,26 @@
 <!-- DEBUG -->
 <!-- <p>HEADER AUTRE</p> -->
         <!-- Nav Barre Autre Utilisateurs et Accueil -->
-        <nav class="navbar navbar-expand-lg maNav">
-            <div class="container-fluid">
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <nav class="navbar-expand-lg maNav">
+            <div class="">
+                <!-- burger -->
+                <button class="navbar navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <img src="Images/Menuiz Man.png" alt="Logo" class="logonav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
+                <!-- nav standart -->
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <a class="nav-link mx-3" aria-current="page" href="index.php?action=<?=$retourAccueil?>">
+                    <a class="nav-link" aria-current="page" href="index.php?action=<?=$retourAccueil?>">
                         <img src="Images/Menuiz Man.png" alt="Logo" class="logonav d-none d-lg-block">
+                        <h4 class="mt-2 me-1 mb-3 mb-lg-0 d-block d-lg-none btnDeconnexion ms-3 ms-lg-0">Accueil</h4>
                     </a>
                     <!-- BOUTON DECONNEXION -->
                     <?php 
                     if (isset($_SESSION['id'])) {
                     ?>
-                        <a href="index.php?action=deconnexion" class="d-flex ms-auto align-items-center btnDeconnexion">
-                            <h4 class="mt-1 me-1 ">Déconnexion</h4>
-                            <img src="Images/se-deconnecter.png" alt="imgDeconnexion" class="imgDeconnexion ">
+                        <a href="index.php?action=deconnexion" class="d-flex ms-auto align-items-center btnDeconnexion mx-2">
+                            <h4 class="mt-1 me-1 mb-3 mb-lg-0 ms-3 ms-lg-0">Déconnexion</h4>
+                            <img src="Images/se-deconnecter.png" alt="imgDeconnexion" class="imgDeconnexion mb-3 mb-lg-0">
                         </a>
                     <?php } ?>
                 </div>
