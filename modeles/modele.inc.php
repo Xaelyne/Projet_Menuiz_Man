@@ -115,7 +115,7 @@
    
         $connexion = getConnexion();
 
-        $sql = "SELECT * FROM utilisateurs WHERE nomUtilisateur LIKE :search_term OR prenomUtilisateur LIKE :search_term OR idUtilisateur LIKE :search_term OR roleUtilisateur LIKE :search_term OR pseudoUtilisateur LIKE :search_term";
+        $sql = "SELECT * FROM utilisateurs WHERE nomUtilisateur LIKE :search_term OR prenomUtilisateur LIKE :search_term OR idUtilisateur LIKE :search_term OR pseudoUtilisateur LIKE :search_term";
 
         $curseur = $connexion->prepare($sql);
 

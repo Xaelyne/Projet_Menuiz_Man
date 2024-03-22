@@ -329,8 +329,6 @@ $tableau_json4 = json_encode($tableau_utilisateur);
                 $('#confirmNewMdpErreur' + idUtilisateur).text("");
             });
 
-            
-
             var utilisateur = tableauUtilisateur.find(function(user) {
                 return user.idUtilisateur === idUtilisateur;
             });
@@ -450,6 +448,23 @@ $tableau_json4 = json_encode($tableau_utilisateur);
 
         });
     }); 
+
+    $(document).ready(function() {
+        $('.modifBtn').css('background', '#4488C5');
+        $('.modifBtn').css('color', 'white');
+        $('.modifBtn').css('border', 'solid 3px white');
+
+        $('.modifBtn').hover(
+            function() {
+                // Au survol
+                $(this).css('background', '#8FC1E6');
+            },
+            function() {
+                // Lorsque le survol se termine
+                $(this).css('background', '#4488C5');
+            }
+        );
+    });
 
 
 </script>
