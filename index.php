@@ -596,7 +596,6 @@ switch ($action) {
                         // Mettre à jour le mot de passe
                         try {
                             modifierUtilisateur($idUtilisateur, $nouveauPseudo, ucfirst(strtolower($nouveauNom)), ucfirst(strtolower($nouveauPrenom)), $nouveauMdp);
-                            header("Location: index.php?action=accueilAdmin");
                         } catch (ModeleException $e) {
                             echo "Erreur : " . $e->getMessage();
                         }
@@ -604,7 +603,6 @@ switch ($action) {
                         // Ne mettre à jour que les autres champs (pseudo, nom, prénom)
                         try {
                             modifierUtilisateurSansMdp($idUtilisateur, $nouveauPseudo, ucfirst(strtolower($nouveauNom)), ucfirst(strtolower($nouveauPrenom)));
-                            header("Location: index.php?action=accueilAdmin");
                         } catch (ModeleException $e) {
                             echo "Erreur : " . $e->getMessage();
                         }

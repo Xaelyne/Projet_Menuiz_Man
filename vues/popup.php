@@ -274,27 +274,26 @@ $tableau_json4 = json_encode($tableau_utilisateur);
     var tableauUtilisateur = <?php print $tableau_json4; ?>;
 
 
-        $('.modifierBtn').click(function(e) {
-            e.preventDefault();
+    $('.modifierBtn').click(function(e) {
+        e.preventDefault();
 
-            var idUtilisateur = $(this).data('id');
+        var idUtilisateur = $(this).data('id');
 
-            var utilisateur = tableauUtilisateur.find(function(user) {
-                return user.idUtilisateur === idUtilisateur;
-            });
-
-            if (utilisateur) {
-                $('#pseudoModif' + idUtilisateur).val(utilisateur.pseudoUtilisateur);
-                $('#nomModif' + idUtilisateur).val(utilisateur.nomUtilisateur);
-                $('#prenomModif' + idUtilisateur).val(utilisateur.prenomUtilisateur);
-                $('#modifUtilisateurModal' + idUtilisateur).modal('show');
-            } else {
-                console.error('Utilisateur non trouvé.');
-            }
+        var utilisateur = tableauUtilisateur.find(function(user) {
+            return user.idUtilisateur === idUtilisateur;
         });
 
+        if (utilisateur) {
+            $('#pseudoModif' + idUtilisateur).val(utilisateur.pseudoUtilisateur);
+            $('#nomModif' + idUtilisateur).val(utilisateur.nomUtilisateur);
+            $('#prenomModif' + idUtilisateur).val(utilisateur.prenomUtilisateur);
+            $('#modifUtilisateurModal' + idUtilisateur).modal('show');
+        } else {
+            console.error('Utilisateur non trouvé.');
+        }
+    });
 
-        
+  
     const modifierBtns = document.querySelectorAll('.modifBtn');
     
     modifierBtns.forEach(function(modifierBtn) {
@@ -434,18 +433,30 @@ $tableau_json4 = json_encode($tableau_utilisateur);
                     if (!response.ok) {
                         throw new Error('Erreur lors de la requête');
                     }
-                    // Traiter la réponse si nécessaire
+                    // Afficher l'alerte SweetAlert après le succès de la requête
+                    return Swal.fire({
+                        icon: 'success',
+                        title: 'Succès',
+                        text: 'La modification a été réussie !'
+                    });
+                })
+                .then((result) => {
+                    // Si l'alerte SweetAlert se ferme, soumettre le formulaire
+                    if (result.isConfirmed) {
+                        var modifForm = document.getElementById('modifUtilisateurForm' + idUtilisateur);
+                        modifForm.submit();
+                    }
                 })
                 .catch(error => {
                     console.error('Erreur:', error);
                     // Gérer les erreurs de requête
                 });
 
-                var modifForm = document.getElementById('modifUtilisateurForm' + idUtilisateur);
-                modifForm.submit();
+            //     var modifForm = document.getElementById('modifUtilisateurForm' + idUtilisateur);
+            //     modifForm.submit();   
             }
-
-
+            
+            
         });
     }); 
 
