@@ -132,6 +132,7 @@ if ($action === "accueilTechnicienHOT") {
                                         <input type="hidden" name="action" value="accueilAdmin">
                                         <input type="hidden" name="id" value="<?=$utilisateur['idUtilisateur'];?>">
                                         <input type="hidden" name="crud" value="modifierUtilisateur">
+                                        
                                         <div class="text-center">
                                             <span id="alertChangement<?= $utilisateur['idUtilisateur']; ?>" class="text-center" style="color: #8FC1E6;"></span>
                                         </div>
