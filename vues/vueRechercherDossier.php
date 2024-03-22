@@ -65,12 +65,7 @@
 <?php if (!is_null($recherche) && count($recherche) > 0) {
                 //var_dump($recherche);
             ?>
-                <?php
-                $dateCommande = date('d-m-Y', strtotime($recherche[0]['dateDossier']));
-                $typeDossier = afficherTypeDossier($recherche[0]['typeDossier']);
-                $utilisateur = getUtilisateur($recherche[0]['idUtilisateur']);
-                $statutDossier = afficherStatutDossier($recherche[0]['statutDossier']);
-                ?>
+                
                 <!-- RECHERCHE -->
                 <div class="container my-3">
                     <form class="form-inline" action="index.php">
@@ -104,16 +99,24 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <?php foreach($recherche as $info) {
+                                
+                                $dateCommande = date('d-m-Y', strtotime($info['dateDossier']));
+                                $typeDossier = afficherTypeDossier($info['typeDossier']);
+                                $utilisateur = getUtilisateur($info['idUtilisateur']);
+                                $statutDossier = afficherStatutDossier($info['statutDossier']);
+                                ?>
                             <tr>
-                                <td><?= $recherche[0]['numDossier']; ?></td>
-                                <td><?= $recherche[0]['numCommande']; ?></td>
+                                <td><?= $info['numDossier']; ?></td>
+                                <td><?= $info['numCommande']; ?></td>
                                 <td><?= $dateCommande; ?></td>
-                                <th scope="row"><?= $recherche[0]['nomClient']; ?></th>
+                                <th scope="row"><?= $info['nomClient']; ?></th>
                                 <td><?= $typeDossier; ?></td>
                                 <td><?= $utilisateur['nomUtilisateur']; ?></td>
                                 <td><?= $statutDossier; ?></td>
-                                <td><a href="index.php?action=voirDossier&numDossier=<?= $recherche[0]['numDossier']; ?>"><button class="btn bouton">Voir le dossier</button></a></td>
+                                <td><a href="index.php?action=voirDossier&numDossier=<?= $info['numDossier']; ?>"><button class="btn bouton">Voir le dossier</button></a></td>
                             </tr>
+                            <?php } ?>
                         </tbody>
                     </table>
                     <a href=javascript:history.go(-1)><button class="btn bouton mb-3">Retour</button></a>
