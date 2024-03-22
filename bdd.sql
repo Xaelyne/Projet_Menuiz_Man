@@ -202,7 +202,15 @@ INSERT INTO `diagnostic`(`idDiag`) VALUES
 ('2');
 
 -- CREATION DOSSIERS
-INSERT INTO `dossier_reclamation`(`dateDossier`, `typeDossier`,`statutDossier`, `numCommande`, `idUtilisateur`) VALUES 
+INSERT INTO `dossier_reclamation`(`dateDossier`, `typeDossier`,`statutDossier`,`numCommande`, `idUtilisateur`) VALUES 
 ('2024-03-15','5','2','1', '2'),
 ('2024-02-24','5','1','2', '2'),
 ('2024-03-10','2','3','3', '2');
+
+-- CONCERNER
+
+INSERT INTO `concerner`(`codeArticle`, `numDossier`) VALUES 
+('1','1'),
+('2','1'),
+('3','2'),
+('4','3');
