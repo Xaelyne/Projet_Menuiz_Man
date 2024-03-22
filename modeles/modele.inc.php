@@ -399,18 +399,70 @@
         return $resultats;
 
     }
+    
 
     function rechercheClientCommande($recherche)  {
-
-        //$resultats = [];
-
-        //$recherche = intval($recherche);
         
         $connexion = getConnexion();
 
         $sql = "SELECT * FROM commande com JOIN client c ON c.idClient = com.idClient WHERE com.numCommande = :search_term";
 
-        //$sql = "SELECT * FROM client WHERE commande LIKE :search_term OR prenomClient LIKE :search_term";
+        $curseur = $connexion->prepare($sql);
+
+        $curseur->execute(['search_term' => $recherche]);
+
+        $resultats = $curseur->fetchAll(PDO::FETCH_ASSOC);
+
+        return $resultats;
+
+    }
+
+    function rechercheDossierCommande($recherche)  {
+        
+        $connexion = getConnexion();
+
+        $sql = "SELECT * FROM dossier_reclamation dos 
+        JOIN commande com ON dos.numCommande = com.numCommande
+        JOIN client cli ON cli.idClient = com.idClient 
+        WHERE dos.numCommande = :search_term";
+
+        $curseur = $connexion->prepare($sql);
+
+        $curseur->execute(['search_term' => $recherche]);
+
+        $resultats = $curseur->fetchAll(PDO::FETCH_ASSOC);
+
+        return $resultats;
+
+    }
+
+    function rechercheDossierNom($recherche)  {
+        
+        $connexion = getConnexion();
+
+        $sql = "SELECT * FROM dossier_reclamation dos 
+        JOIN commande com ON dos.numCommande = com.numCommande
+        JOIN client cli ON cli.idClient = com.idClient 
+        WHERE cli.nomClient LIKE :search_term OR cli.prenomClient LIKE :search_term";
+
+        $curseur = $connexion->prepare($sql);
+
+        $curseur->execute(['search_term' => "%$recherche%"]);
+
+        $resultats = $curseur->fetchAll(PDO::FETCH_ASSOC);
+
+        return $resultats;
+
+    }
+
+    function rechercheClientDossier($recherche)  {
+        
+        $connexion = getConnexion();
+
+        $sql = "SELECT * FROM dossier_reclamation dos 
+        JOIN commande com ON dos.numCommande = com.numCommande
+        JOIN client cli ON cli.idClient = com.idClient 
+        WHERE dos.numDossier = :search_term";
 
         $curseur = $connexion->prepare($sql);
 

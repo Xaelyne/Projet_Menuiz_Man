@@ -10,7 +10,7 @@ if (!isset ($_GET['action']))
 require ("./modeles/modele.inc.php");
 
 
-//var_dump("action -> " . $action);
+var_dump("action -> " . $action);
 
 // switch sur si pas de connexion trouvé -> formulaire connexion
 switch ($action) {
@@ -162,11 +162,39 @@ switch ($action) {
             $titre = "Rechercher un dossier";
             $roleHeader = afficheHeader();
             require "./vues/vueHeader.php";
-            if (isset ($_GET['search'])) {
-                $recherche = $_GET['search'];
-                $resultats_recherche = rechercheDossier($recherche);
+
+            if ($_GET['optionRechercheDossier'] == 'nom') {
+                $clients = getClients();
+                if (isset ($_GET['search'])) {
+                    $search = $_GET['search'];
+                    $recherche = rechercheDossierNom($search);
+                }
+            // a modifier
+            } else if ($_GET['optionRechercheDossier'] == 'dos') {
+                $commandes = getCommandes();
+                if (isset ($_GET['search'])) {
+                    $search = $_GET['search'];
+                    //$recherche = rechercheCommande($search);
+                    $recherche = rechercheClientDossier($search);
+                }
+            } else if ($_GET['optionRechercheDossier'] == 'com') {
+                $commandes = getCommandes();
+                //var_dump($commandes);
+                if (isset ($_GET['search'])) {
+                    $search = $_GET['search'];
+                    //var_dump($search);
+                    //$recherche = rechercheCommande($search);
+                    $recherche = rechercheDossierCommande($search);
+                    //var_dump($recherche);
+                }
             }
-            require "./vues/vueResultat.php";
+            
+            require "./vues/vueRechercherDossier.php";
+
+            // if (isset ($_GET['search'])) {
+            //     $recherche = $_GET['search'];
+            //     $resultats_recherche = rechercheDossier($recherche);
+            // }
         } else {
             $roleHeader = 0;
             $titre = "Erreur";
