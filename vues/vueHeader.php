@@ -43,7 +43,7 @@
         <!-- <p>HEADER ADMIN</p> -->
         <nav class="navbar navbar-expand-lg maNav ">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.php">
+                <a class="navbar-brand" href="index.php?action=<?=$retourAccueil?>">
                     <img src="Images/Menuiz Man.png" alt="Logo" class="logonav">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -128,7 +128,7 @@
         <!-- Nav Barre Autre Utilisateurs et Accueil -->
         <nav class="navbar navbar-expand-lg maNav ">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.php">
+                <a class="navbar-brand" href="index.php?action=<?=$retourAccueil?>">
                     <img src="Images/Menuiz Man.png" alt="Logo" class="logonav">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
