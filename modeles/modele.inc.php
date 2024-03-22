@@ -41,15 +41,14 @@
     function getDossier($numDossier) {
         $connexion = getConnexion();
     
-        $sql = "SELECT dr.*, c.nomClient, c.prenomClient, u.nomUtilisateur, cmd.dateCommande, 
-        article.garantieArticle,article.libelleArticle, contenir.codeArticle
-                FROM dossier_reclamation dr 
-                INNER JOIN commande cmd ON dr.numCommande = cmd.numCommande 
-                INNER JOIN client c ON cmd.idClient = c.idClient
-                INNER JOIN utilisateurs u ON dr.idUtilisateur = u.idUtilisateur
-                INNER JOIN contenir ON cmd.numCommande = contenir.numCommande
-                INNER JOIN article ON contenir.codeArticle = article.codeArticle
-                WHERE dr.numDossier = :numDossier";
+        $sql = "SELECT dr.*, cmd.* , c.*, u.*, concerner.* ,article.*
+        FROM dossier_reclamation dr 
+        INNER JOIN commande cmd ON dr.numCommande = cmd.numCommande 
+        INNER JOIN client c ON cmd.idClient = c.idClient
+        INNER JOIN utilisateurs u ON dr.idUtilisateur = u.idUtilisateur
+        INNER JOIN concerner ON dr.numDossier = concerner.numDossier
+        INNER JOIN article ON concerner.codeArticle = article.codeArticle
+        WHERE dr.numDossier = :numDossier";
     
         $stmt = $connexion->prepare($sql);
         $stmt->bindParam(':numDossier', $numDossier, PDO::PARAM_INT);
@@ -115,7 +114,7 @@
    
         $connexion = getConnexion();
 
-        $sql = "SELECT * FROM utilisateurs WHERE nomUtilisateur LIKE :search_term OR prenomUtilisateur LIKE :search_term OR idUtilisateur LIKE :search_term OR pseudoUtilisateur LIKE :search_term";
+        $sql = "SELECT * FROM utilisateurs WHERE nomUtilisateur LIKE :search_term OR prenomUtilisateur LIKE :search_term OR idUtilisateur LIKE :search_term OR roleUtilisateur LIKE :search_term OR pseudoUtilisateur LIKE :search_term";
 
         $curseur = $connexion->prepare($sql);
 
