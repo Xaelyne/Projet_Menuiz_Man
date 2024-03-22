@@ -4,8 +4,9 @@ body {
     --bleuClair : #8FC1E6;
     font-family: 'Calibri';
     background-image: url("../Images/background.png");
-    background-size:cover;
-    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
 }
 
 .affficheAttention {
