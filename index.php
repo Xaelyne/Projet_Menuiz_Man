@@ -565,6 +565,70 @@ switch ($action) {
             $id = $_SESSION['id'];
             $roleUser = $_SESSION['role'];
 
+
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                
+                if ($_POST["crud"] == 'ajouterUtilisateur') {
+                    $pseudo = $_POST["pseudo"];
+                    $nomForm = $_POST["nom"];
+                    $prenomForm = $_POST["prenom"];
+                    $mot_de_passe = $_POST["mot_de_passe"];
+                    $confirmer_mot_de_passe = $_POST["confirmer_mot_de_passe"];
+                    $role_utilisateur = $_POST["role_utilisateur"];
+
+                    try {
+                        $id_utilisateur = ajoutUtilisateur($pseudo, ucfirst(strtolower($nomForm)), ucfirst(strtolower($prenomForm)), $mot_de_passe, $role_utilisateur);
+                        header("Location: index.php?action=accueilAdmin");
+                    } catch (ModeleException $e) {
+                        echo "Erreur : " . $e->getMessage();
+                    }
+
+                } else if ($_POST["crud"] == 'modifierUtilisateur') {
+                    // var_dump($_POST);
+
+                    $idUtilisateur = $_POST['id'];
+                    $nouveauPseudo = $_POST['pseudoModif'];
+                    $nouveauNom = $_POST['nomModif'];
+                    $nouveauPrenom = $_POST['prenomModif'];
+                    $nouveauMdp = $_POST['new_mot_de_passe'];
+
+                    if ($nouveauMdp !== '') {
+                        // Mettre à jour le mot de passe
+                        try {
+                            modifierUtilisateur($idUtilisateur, $nouveauPseudo, ucfirst(strtolower($nouveauNom)), ucfirst(strtolower($nouveauPrenom)), $nouveauMdp);
+                            header("Location: index.php?action=accueilAdmin");
+                        } catch (ModeleException $e) {
+                            echo "Erreur : " . $e->getMessage();
+                        }
+                    } else {
+                        // Ne mettre à jour que les autres champs (pseudo, nom, prénom)
+                        try {
+                            modifierUtilisateurSansMdp($idUtilisateur, $nouveauPseudo, ucfirst(strtolower($nouveauNom)), ucfirst(strtolower($nouveauPrenom)));
+                            header("Location: index.php?action=accueilAdmin");
+                        } catch (ModeleException $e) {
+                            echo "Erreur : " . $e->getMessage();
+                        }
+                    }
+                }
+            };
+
+             
+        
+            if(isset($_GET['id'])) {
+                $id_utilisateur = $_GET['id'];
+                
+                try {
+                    getAdmins();
+                    getRoleUtilisateur();
+                    getUtilisateurOnDossier();
+                    supprimerUtilisateur($id_utilisateur); // Supprimer l'utilisateur
+                } 
+
+                 catch (ModeleException $e) {
+                    echo "Erreur : " . $e->getMessage();
+                }
+            }
+
             $titre = "Résultat de votre recherche";
             $roleHeader = afficheHeader();
             require "./vues/vueHeader.php";
@@ -572,7 +636,12 @@ switch ($action) {
                 $recherche = $_GET['search'];
                 $resultats_recherche = rechercheUtilisateur($recherche);
             }
+            $utilisateurs = getUtilisateurs();
             require "./vues/vueResultat.php";
+            require "./vues/popup.php";
+
+
+
         } else {
             $roleHeader = 0;
             $titre = "Erreur";
