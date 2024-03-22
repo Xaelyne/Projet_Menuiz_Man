@@ -1,6 +1,6 @@
 <?php if($action === 'accueilAdminMAJ')  { ?>
 
-        <div class="contourAdmin container d-flex justify-content-center align-items-center flex-column rounded-3">
+        <div class="contourAdmin container-fluid container-md d-flex justify-content-center align-items-center flex-column rounded-3">
             <div class="container my-3">
                 <form class="form-inline" action="index.php">
                     <div class="input-group col-auto maRecherche">
@@ -14,7 +14,7 @@
                 </form>
             </div>
                 <?php if (!is_null($resultats_recherche) && count($resultats_recherche) > 0) { ?>
-                <table class="container table table-striped border maTableAdmin rounded-3 overflow-hidden alignTable">
+                <table class="container-fluid container-md table table-striped border maTableAdmin rounded-3 overflow-hidden alignTable">
                     <thead>
                         <tr>
                             <th scope="col">Identifiant</th>
@@ -49,7 +49,7 @@
 
 <?php   } else if ($action === 'rechercherDossierMAJ')  {?>
 
-    <div class="contourAdmin container d-flex justify-content-center align-items-center flex-column rounded-3">
+    <div class="contourAdmin container-fluid container-md d-flex justify-content-center align-items-center flex-column rounded-3">
             <div class="container my-3">
                 <form class="form-inline" action="index.php">
                     <div class="input-group col-auto maRecherche">
@@ -63,7 +63,7 @@
                 </form>
             </div>
         <?php if (!is_null($resultats_recherche) && count($resultats_recherche) > 0) { ?>    
-            <table class="container table table-striped border alignTable rounded-3 maTableAdmin overflow-hidden">
+            <table class="container-fluid container-md table table-striped border alignTable rounded-3 maTableAdmin overflow-hidden">
             <thead>
                 <tr>
                 <th scope="col">Numero de dossier</th>
@@ -102,7 +102,7 @@
 
 <?php   } else if ($action === 'diagnosticsMAJ')  {?>
 
-    <div class="contourAdmin container d-flex justify-content-center align-items-center flex-column rounded-3">
+    <div class="contourAdmin container-fluid container-md d-flex justify-content-center align-items-center flex-column rounded-3">
             <div class="container my-3">
                 <form class="form-inline" action="index.php">
                     <div class="input-group col-auto maRecherche">
@@ -116,7 +116,7 @@
                 </form>
             </div>
         <?php if (!is_null($resultats_recherche) && count($resultats_recherche) > 0) { ?>    
-            <table class="container table table-striped border alignTable rounded-3 maTableAdmin overflow-hidden">
+            <table class="container-fluid container-md table table-striped border alignTable rounded-3 maTableAdmin overflow-hidden">
             <thead>
                 <tr>
                 <th scope="col">Numero de dossier</th>
@@ -153,7 +153,7 @@
 
 <?php   } else if ($action === 'dossierTermineMAJ')  {?>
 
-<div class="contourAdmin container d-flex justify-content-center align-items-center flex-column rounded-3">
+<div class="contourAdmin container-fluid container-md d-flex justify-content-center align-items-center flex-column rounded-3">
         <div class="container my-3">
             <form class="form-inline" action="index.php">
                 <div class="input-group col-auto maRecherche">
@@ -167,7 +167,7 @@
             </form>
         </div>
     <?php if (!is_null($resultats_recherche) && count($resultats_recherche) > 0) { ?>    
-        <table class="container table table-striped border alignTable rounded-3 maTableAdmin overflow-hidden">
+        <table class="container-fluid container-md table table-striped border alignTable rounded-3 maTableAdmin overflow-hidden">
         <thead>
             <tr>
             <th scope="col">Numéro de dossier</th>
@@ -206,7 +206,7 @@
 
 <?php   } else if ($action === 'expeditionMAJ')  {?>
 
-<div class="contourAdmin container d-flex justify-content-center align-items-center flex-column rounded-3">
+<div class="contourAdmin container-fluid container-md d-flex justify-content-center align-items-center flex-column rounded-3">
         <div class="container my-3">
             <form class="form-inline" action="index.php">
                 <div class="input-group col-auto maRecherche">
@@ -220,7 +220,7 @@
             </form>
         </div>
     <?php if (!is_null($resultats_recherche) && count($resultats_recherche) > 0) { ?>    
-        <table class="container table table-striped border alignTable rounded-3 maTableAdmin overflow-hidden">
+        <table class="container-fluid container-md table table-striped border alignTable rounded-3 maTableAdmin overflow-hidden">
         <thead>
         <tr>
             <th scope="col">Numéro de dossier</th>

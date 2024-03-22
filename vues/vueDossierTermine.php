@@ -1,7 +1,7 @@
 <?php
 if ($action === "dossierTermine") {
 ?>
-<div class="contourAdmin container d-flex justify-content-center align-items-center flex-column rounded-3">
+<div class="contourAdmin container-fluid container-md d-flex justify-content-center align-items-center flex-column rounded-3">
             <div class="container my-3">
                 <form class="form-inline" action="index.php">
                     <div class="input-group col-auto maRecherche">
@@ -14,7 +14,7 @@ if ($action === "dossierTermine") {
                 </form>
             </div>
                 
-                <table class="container table table-striped border alignTable rounded-3 maTableAdmin overflow-hidden">
+                <table class="container-fluid container-md table table-striped border alignTable rounded-3 maTableAdmin overflow-hidden">
                     <thead>
                         <tr>
                         <th scope="col">Numéro de dossier</th>

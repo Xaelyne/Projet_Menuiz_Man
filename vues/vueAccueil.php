@@ -2,7 +2,7 @@
 <?php
 if ($action === "accueilTechnicienSAV") {
     ?>
-    <div class="container">
+    <div class="container-fluid container-md">
         <div class="d-flex flex-lg-row flex-column justify-content-center align-items-center flex-wrap">
             <a href="index.php?action=nouveauDossier" class="lienCarte">
                 <div class='card m-2 maCarte' style='width: 18rem;'>
@@ -30,7 +30,7 @@ if ($action === "accueilTechnicienSAV") {
             </a>
         </div>
     </div>
-    <div class="container">
+    <div class="container-fluid container-md">
         <div class="d-flex flex-lg-row flex-column justify-content-center align-items-center flex-wrap">
             <a href="index.php?action=diagnostics" class="lienCarte">
                 <div class='card m-2 maCarte' style='width: 18rem;'>
@@ -56,7 +56,7 @@ if ($action === "accueilTechnicienSAV") {
 <?php
 if ($action === "accueilTechnicienHOT") {
     ?>
-    <div class="container">
+    <div class="container-fluid container-md">
         <div class="d-flex flex-lg-row flex-column justify-content-center align-items-center flex-wrap">
             <a href="index.php?action=nouveauDossier" class="lienCarte">
                 <div class='card m-2 maCarte' style='width: 18rem;'>
@@ -83,7 +83,7 @@ if ($action === "accueilTechnicienHOT") {
 <?php if($action === 'accueilAdmin')  { ?>
 
     
-    <div class="contourAdmin container d-flex justify-content-center align-items-center flex-column rounded-3">
+    <div class="contourAdmin container-fluid container-md d-flex justify-content-center align-items-center flex-column rounded-3">
         <div class="container my-3">
             <form class="form-inline" action="index.php">
                 <div class="input-group col-auto maRecherche">
@@ -96,7 +96,7 @@ if ($action === "accueilTechnicienHOT") {
             </form>
         </div>
             
-        <table class="container table table-striped border rounded-3 maTableAdmin rounded-3 overflow-hidden alignTable">
+        <table class="container-fluid container-md table table-striped border rounded-3 maTableAdmin rounded-3 overflow-hidden alignTable">
             <thead>
                 <tr>
                     <th scope="col">Identifiant</th>
