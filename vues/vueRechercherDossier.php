@@ -23,33 +23,33 @@
         </div>
 
             <table class="container-fluid container-md table table-striped border alignTable rounded-3 maTableAdmin overflow-hidden">
-            <thead>
-                <tr>
-                    <th scope="col">Numero de dossier</th>
-                    <th scope="col">Numéro de commande</th>
-                    <th scope="col">Date de création du dossier</th>
-                    <th scope="col">Nom du client</th>
-                    <th scope="col">Type de dossier</th>
-                    <th scope="col">Dossier géré par</th>
-                    <th scope="col">Statut du dossier</th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($dossiers as $dossier) { ?>
+                <thead>
                     <tr>
-                        <th scope="row"><?= $dossier['numDossier']; ?></th>
-                        <td><?= $dossier['numCommande']; ?></td>
-                        <td><?= $dossier['dateDossier']; ?></td>
-                        <td><?= $dossier['nomClient']; ?></td>
-                        <td><?= afficherTypeDossier($dossier['typeDossier']); ?></td>
-                        <td><?= $dossier['nomUtilisateur']; ?></td>
-                        <td><?= afficherStatutDossier($dossier['statutDossier']); ?></td>
-                        <td><a href="index.php?action=voirDossier&numDossier=<?= $dossier['numDossier']; ?>"><button class="btn bouton">Voir le dossier</button></a></td>
+                        <th scope="col">Numero de dossier</th>
+                        <th scope="col">Numéro de commande</th>
+                        <th scope="col">Date de création du dossier</th>
+                        <th scope="col">Nom du client</th>
+                        <th scope="col">Type de dossier</th>
+                        <th scope="col">Dossier géré par</th>
+                        <th scope="col">Statut du dossier</th>
+                        <th scope="col"></th>
                     </tr>
-                <?php } ?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <?php foreach ($dossiers as $dossier) { ?>
+                        <tr>
+                            <th scope="row"><?= $dossier['numDossier']; ?></th>
+                            <td><?= $dossier['numCommande']; ?></td>
+                            <td><?= $dossier['dateDossier']; ?></td>
+                            <td><?= $dossier['nomClient']; ?></td>
+                            <td><?= afficherTypeDossier($dossier['typeDossier']); ?></td>
+                            <td><?= $dossier['nomUtilisateur']; ?></td>
+                            <td><?= afficherStatutDossier($dossier['statutDossier']); ?></td>
+                            <td><a href="index.php?action=voirDossier&numDossier=<?= $dossier['numDossier']; ?>"><button class="btn bouton">Voir le dossier</button></a></td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
 
         <p class="d-flex justify-content-center text-white">Nombre de dossiers trouvés : <?= count($dossiers); ?></p>
 

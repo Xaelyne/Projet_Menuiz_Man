@@ -37,6 +37,7 @@ body {
     width: 90%;
     
 }
+
 .mesBoutonsAjouter{
     display: flex;
     justify-content: center;
@@ -59,6 +60,7 @@ body {
     color: var(--bleuMoyen);
     font-weight: 600;
 }
+
 .inputText:focus {
     outline-color: var(--bleuMoyen);
 }
@@ -72,10 +74,12 @@ body {
     text-decoration: none;
     
 }
+
 .maCarte:hover{
     background-color: var(--bleuMoyen);
     text-decoration: none;
 }
+
 .lienCarte{
     text-decoration: none;
 }
@@ -109,6 +113,7 @@ body {
     color: white;
     border: solid 3px white;
 }
+
 .bouton:hover {
     background-color: var(--bleuClair);
     border: solid 3px white;
@@ -133,9 +138,11 @@ body {
     color: white;
     text-decoration: none;
 }
+
 .btnDeconnexion:hover {
     color: var(--bleuMoyen);
 }
+
 .imgDeconnexion {
     width: 40px;
 }

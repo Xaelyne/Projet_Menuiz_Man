@@ -7,43 +7,43 @@
 
     <!-- entête -->
     <table class="container-fluid container-md table table-striped border alignTable rounded-3 maTableAdmin overflow-hidden">
-            <thead>
-                <div class="container d-flex justify-content-center my-3" style="color: white">
-                    <h2>Information du dossier du client</h2>
-                </div>    
-                <tr>
-                <th scope="col">Numero de dossier</th>
-                <th scope="col">Numéro de commande</th>
-                <th scope="col">Date de création du dossier</th>
-                <th scope="col">Nom du client</th>
-                <th scope="col">Type de dossier</th>
-                <th scope="col">Dossier géré par</th>
-                <th scope="col">Statut du dossier</th>
+        <thead>
+            <div class="container d-flex justify-content-center my-3" style="color: white">
+                <h2>Information du dossier du client</h2>
+            </div>    
+            <tr>
+            <th scope="col">Numero de dossier</th>
+            <th scope="col">Numéro de commande</th>
+            <th scope="col">Date de création du dossier</th>
+            <th scope="col">Nom du client</th>
+            <th scope="col">Type de dossier</th>
+            <th scope="col">Dossier géré par</th>
+            <th scope="col">Statut du dossier</th>
 
+            </tr>
+        </thead>
+        <tbody>
+            
+                <tr>
+                    <th scope="row"><?= $dossiers[0]['numDossier']; ?></th>
+                    <td><?= $dossiers[0]['numCommande']; ?></td>
+                    <td><?= $dossiers[0]['dateDossier']; ?></td>
+                    <td><?= $dossiers[0]['nomClient']; ?></td>
+                    <td><?= afficherTypeDossier ($dossiers[0]['typeDossier']); ?></td>
+                    <td><?= $dossiers[0]['nomUtilisateur']; ?></td>
+                    <td><?= afficherStatutDossier($dossiers[0]['statutDossier']); ?></td>
+                    
                 </tr>
-            </thead>
-            <tbody>
-               
-                    <tr>
-                        <th scope="row"><?= $dossiers[0]['numDossier']; ?></th>
-                        <td><?= $dossiers[0]['numCommande']; ?></td>
-                        <td><?= $dossiers[0]['dateDossier']; ?></td>
-                        <td><?= $dossiers[0]['nomClient']; ?></td>
-                        <td><?= afficherTypeDossier ($dossiers[0]['typeDossier']); ?></td>
-                        <td><?= $dossiers[0]['nomUtilisateur']; ?></td>
-                        <td><?= afficherStatutDossier($dossiers[0]['statutDossier']); ?></td>
-                        
-                    </tr>
-                
-            </tbody>
-        </table>
+            
+        </tbody>
+    </table>
 
 
         <div class="table-responsive w-100">
             <table class="container-fluid container-md table table-striped border alignTable rounded-3 maTableAdmin overflow-hidden">
                 <thead>
                 <div class="container d-flex justify-content-center my-3" style="color: white">
-                    <h2>Information de la commande du client</h2>
+                    <h2>Information de l'article posant problème</h2>
                 </div> 
                     <tr>
                         <th scope="col">Article</th>

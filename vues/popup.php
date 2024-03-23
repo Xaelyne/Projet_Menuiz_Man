@@ -1,3 +1,4 @@
+<!-- Passer les tableaux php en JSON -->
 <?php
 $tableau = getPseudos(); 
 $tableau_json = json_encode($tableau);
@@ -98,6 +99,8 @@ $tableau_json4 = json_encode($tableau_utilisateur);
 
 
     // Partie AJOUT
+
+    // Récupérer les boutons les titre et les roles pour lier à chaque bouton
     const boutons = document.querySelectorAll('.boutonPopup');
     const modalTitle = document.querySelector('#ajoutUtilisateurModalLabel');
     const tableauJS = <?php print $tableau_json; ?>;
@@ -142,7 +145,7 @@ $tableau_json4 = json_encode($tableau_utilisateur);
         var confirmMdp = inputConfirmMdp.value.trim();
         
         var valid = false;
-
+        // Trouvé dans le tableau de données si le pseudo est déja existant
         for (i = 0; i < tableauJS.length; i++) {
             var maValue = tableauJS[i].pseudoUtilisateur;
 
@@ -155,14 +158,14 @@ $tableau_json4 = json_encode($tableau_utilisateur);
                 valid = true; 
             }
         }
-
+        // Regex Nom Vérif
         if (!regex.test(inputNom.value)) {
             valid = false;
             erreurNom.textContent = "Le nom n'est pas valide !";
         } else {
             erreurNom.textContent = "";
         }
-
+        // Regex Prénom Vérif
         if (!regex.test(inputPrenom.value)) {
             valid = false;
             erreurPrenom.textContent = "Le prénom n'est pas valide !";
@@ -170,7 +173,7 @@ $tableau_json4 = json_encode($tableau_utilisateur);
             erreurPrenom.textContent = "";
         }
         
-
+        // Egalité du MDP
         var mdp1 = inputMdp.value;
         var mdp2 = inputConfirmMdp.value;
         if (mdp1 !== mdp2) {
@@ -220,7 +223,7 @@ $tableau_json4 = json_encode($tableau_utilisateur);
 
     });   
     
-    
+    // Vidé les champs si on quitte le popup
     $('#ajoutUtilisateurModal').on('hide.bs.modal', function (e) {
     inputPseudo.value = "";
     inputNom.value = "";
@@ -233,7 +236,7 @@ $tableau_json4 = json_encode($tableau_utilisateur);
     erreurMdp.textContent = "";
     erreurConfirmMdp.textContent = "";
     })
-
+    // CSS du modal Popup
     $(document).ready(function() {
         $('.modal-content').css('background', '#3C4FA0');
         $('.modal-content').css('color', 'white');
@@ -261,7 +264,7 @@ $tableau_json4 = json_encode($tableau_utilisateur);
         
     var tableauUtilisateur = <?php print $tableau_json4; ?>;
 
-
+    // Préremplir les champs et afficher les modals qui sont générés en fonction des ids pour chacun des utilisateurs
     $('.modifierBtn').click(function(e) {
         e.preventDefault();
 
@@ -370,7 +373,7 @@ $tableau_json4 = json_encode($tableau_utilisateur);
                 erreurModifPseudo.textContent = "";
             }
 
-            
+            // Champs vide ou non valide
             if (pseudoModif === '') {
                 valid = false;
                 erreurModifPseudo.textContent = "Le pseudo ne peut pas être vide !";
@@ -390,7 +393,7 @@ $tableau_json4 = json_encode($tableau_utilisateur);
                 erreurModifPrenom.textContent = "";
             }
             
-
+            // Egalité MDP
             var mdp1 = newMdp;
             var mdp2 = confirmNewMdp;
             if (mdp1 !== mdp2) {
@@ -449,7 +452,7 @@ $tableau_json4 = json_encode($tableau_utilisateur);
             
         });
     }); 
-
+    // CSS Pop up
     $(document).ready(function() {
         $('.modifBtn').css('background', '#4488C5');
         $('.modifBtn').css('color', 'white');

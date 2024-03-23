@@ -1,6 +1,7 @@
 <?php
     require("ModeleException.php");
 
+    // Sert a établir une connexion avec la base de données avec un fichier .ini et PDO
     function getConnexion() {
         if(file_exists("param.ini")) {
             $tParam = parse_ini_file("param.ini", true);
@@ -13,6 +14,7 @@
         return new PDO($dsn, $login, $password,array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
     }
 
+    // Récupère les informations des utilisateurs et retourne un tableau associatif
     function getUtilisateurs() : array {
 
         $connexion = getConnexion();
@@ -24,6 +26,7 @@
         return $resultat->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    // Récupère des informations sur les dossiers de réclamation 
     function getRechercherDossier() : array{
 
         $connexion = getConnexion();
@@ -38,6 +41,8 @@
 
         return $resultat->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    // Sert à récupérer les informations d'un dossier de réclamation en fonction de son numéro de dossier
     function getDossier($numDossier) {
         $connexion = getConnexion();
     
@@ -58,7 +63,7 @@
     }
 
 
-
+    // Récupére les utilisateurs associé à des dossiers 
     function getUtilisateurOnDossier() {
 
         $connexion = getConnexion();
@@ -77,39 +82,40 @@
 
     }
 
-
-        function modifierStatut($statutDossier, $numDossier){
-       
+    // Modifie le statut d'un dossier en cours
+    function modifierStatut($statutDossier, $numDossier){
+    
         $connexion = getConnexion();
 
         $sql ="UPDATE dossier_reclamation SET statutDossier = $statutDossier WHERE numDossier = $numDossier";
 
         $connexion->query($sql);
 
-        }
+    }
 
+    // Recherche des dossiers en fonction d'un terme de recherche dans plusieurs colonnes
     function rechercheDossier($recherche)  {
         
-            $connexion = getConnexion();
+        $connexion = getConnexion();
 
-            $sql = "SELECT *
-            FROM dossier_reclamation dr 
-            INNER JOIN commande cmd ON dr.numCommande = cmd.numCommande 
-            INNER JOIN client c ON cmd.idClient = c.idClient
-            INNER JOIN utilisateurs u ON dr.idUtilisateur = u.idUtilisateur
-            WHERE dr.numDossier LIKE :search_term OR dr.dateDossier LIKE :search_term OR dr.typeDossier LIKE :search_term OR dr.dateClotureDossier LIKE :search_term
-            OR c.nomClient LIKE :search_term OR dr.idUtilisateur LIKE :search_term OR dr.statutDossier LIKE :search_term";
+        $sql = "SELECT *
+        FROM dossier_reclamation dr 
+        INNER JOIN commande cmd ON dr.numCommande = cmd.numCommande 
+        INNER JOIN client c ON cmd.idClient = c.idClient
+        INNER JOIN utilisateurs u ON dr.idUtilisateur = u.idUtilisateur
+        WHERE dr.numDossier LIKE :search_term OR dr.dateDossier LIKE :search_term OR dr.typeDossier LIKE :search_term OR dr.dateClotureDossier LIKE :search_term
+        OR c.nomClient LIKE :search_term OR dr.idUtilisateur LIKE :search_term OR dr.statutDossier LIKE :search_term";
 
-            $curseur = $connexion->prepare($sql);
+        $curseur = $connexion->prepare($sql);
 
-            $curseur->execute(['search_term' => "%$recherche%"]);
+        $curseur->execute(['search_term' => "%$recherche%"]);
 
-            $resultats = $curseur->fetchAll(PDO::FETCH_ASSOC);
+        $resultats = $curseur->fetchAll(PDO::FETCH_ASSOC);
 
-            return $resultats;
+        return $resultats;
     }
     
-
+    // Recherche des utilisateurs en fonction d'un terme de recherche dans plusieurs colonnes
     function rechercheUtilisateur($recherche)  {
    
         $connexion = getConnexion();
@@ -126,13 +132,14 @@
         
     }
 
+    // Permet de retourner le role (int) en chaine de caractères
     function afficheRoleUtilisateur($role) {
         if ($role == 1) return "Administrateur";
         else if ($role == 2)  return "Technicien Hotline";
         else return "Technicien SAV";
     }
     
-
+    // Affiche le header en fonction du role donc admin ou technicien
     function afficheHeader () {
         $role = 0;
         if (isset($_SESSION['id'])) {
@@ -144,6 +151,7 @@
         return $role;
     }
 
+    // Permet de retourner le type de dossier (int) en chaine de caractères
     function afficherTypeDossier($typeDossier){
         if($typeDossier == 1)return "NPAI";
         else if($typeDossier == 2)return "NP";
@@ -152,6 +160,7 @@
         else if ($typeDossier == 5)return "SAV";
     }
 
+    // Permet de retourner le statut du dossier (int) en chaine de caractères
     function afficherStatutDossier($statutDossier){
         if($statutDossier == 1) return "En cours de diagnostics";
         else if ($statutDossier == 2) return "En cours de réexpedition";
@@ -159,7 +168,7 @@
 
     }
     
-
+    // Sert à vérifier les informations de connexion d'un utilisateur 
     function controleConnexion($pseudoUtilisateur, $mdpUtilisateur, $users) {
         $idUser = 0;
 
@@ -177,19 +186,20 @@
         return $idUser; //idUser = 0 -> Utilisateur introuvable
     }
 
+    // Récupère les informations d'un utilisateur à partir de son ID
     function getUtilisateur($id) {
         $bdd = getConnexion();
 
-        // requête SQL
+
         $sql = "SELECT * FROM utilisateurs WHERE idUtilisateur = :id";
 
-        // Préparation de la requête SQL
+
         $requete = $bdd->prepare($sql);
 
-        // Liaison des paramètres
+
         $requete->bindParam(':id', $id);
 
-        // Exécution de la requête
+
         $requete->execute();
 
         $result = $requete->fetch(PDO::FETCH_ASSOC);
@@ -198,7 +208,7 @@
     }
 
 
-
+    // Permet d'ajouter un utilisateur à la base de données avec les informations en paramètres
     function ajoutUtilisateur(string $pseudoUtilisateur, string $nom, string $prenom, string $mdpUtilisateur, int $role) {
         try {
             
@@ -228,6 +238,7 @@
         }
     }
 
+    // Récupère le nombre d'administrateur dans la BDD
     function getAdmins() {
 
         $connexion = getConnexion();
@@ -244,6 +255,7 @@
     
     }
 
+    // Récupère le rôle de tous les utilisateurs dans la BDD
     function getRoleUtilisateur() {
 
         $connexion = getConnexion();
@@ -259,7 +271,7 @@
         return $resultat;
     }
 
-
+    // Supprime un utilisateur en fonction de son ID
     function supprimerUtilisateur(int $id_utilisateur) {
 
         $connexion = getConnexion();
@@ -275,6 +287,7 @@
         return $nbSuppr;
     }
 
+    // Permet de mettre à jour les infos d'un utilisateur
     function modifierUtilisateur(int $idUtilisateur,string $pseudo ,string $nom, string $prenom, string $mdp) {
 
         $connexion = getConnexion();
@@ -290,6 +303,7 @@
         return $nbContacts;
     }
 
+    // Mettre à jour les infos d'un utilisateur sans le mot de passe
     function modifierUtilisateurSansMdp(int $idUtilisateur,string $pseudo ,string $nom, string $prenom) {
 
         $connexion = getConnexion();
@@ -305,7 +319,7 @@
         return $nbContacts;
     }
 
-    
+    // Récupère tous les clients dans la BDD
     function getClients() : array {
 
         $connexion = getConnexion();
@@ -317,6 +331,7 @@
         return $resultat->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    // Récupère les infos d'un client en fonction de son ID
     function getClient($idClient) {
 
         $connexion = getConnexion();
@@ -332,6 +347,7 @@
         return $resultats;
     }
 
+    // Récupère toutes les commandes dans la BDD
     function getCommandes() {
         $connexion = getConnexion();
 
@@ -343,6 +359,7 @@
     }
 
 
+    // Récupère les infos d'une commande en fonction de son numéro de commande
     function getCommande($recherche) {
         $connexion = getConnexion();
 
@@ -363,6 +380,7 @@
         return $resultats;
     }
 
+    // Rechercher des clients dans la BDD en fonction de leur nom et prénom
     function rechercheClient($recherche)  {
 
         $resultats = [];
@@ -381,6 +399,7 @@
 
     }
 
+    // Rechercher des commandes en fonction de leur numéro de commande
     function rechercheCommande($recherche)  {
 
         $resultats = [];
@@ -400,6 +419,7 @@
     }
     
 
+    // Rechercher des commandes en fonction de leur numéro de commande mais en incluant les info du client associé à chaque commande
     function rechercheClientCommande($recherche)  {
         
         $connexion = getConnexion();
@@ -416,6 +436,7 @@
 
     }
 
+    // Permet de rechercher des dossiers de réclamation dans la BDD en fonction du numéro de commande en incluant les infos de la commande et du client associé à chaque dossier.
     function rechercheDossierCommande($recherche)  {
         
         $connexion = getConnexion();
@@ -435,6 +456,7 @@
 
     }
 
+    // Rechercher des dossiers dans la BDD en fonction du nom ou prénom du client associé à chaque dossier
     function rechercheDossierNom($recherche)  {
         
         $connexion = getConnexion();
@@ -473,6 +495,7 @@
 
     }
 
+    // Permet de rechercher les commandes dans la BDD en fonction de l'id du client associé à la commande
     function rechercheCommandesClient($idClient) {
         $connexion = getConnexion();
 
@@ -488,6 +511,7 @@
     }
 
 
+    // Récupère tous les pseudos des utilisateurs dans la BDD
     function getPseudos() {
         $connexion = getConnexion();
 
@@ -502,6 +526,7 @@
         return $resultat;
     }
 
+    // Permet de récupérer tous les dossiers qui sont terminés dans la BDD
     function dossierTermine() {
 
         $connexion = getConnexion();
@@ -517,6 +542,8 @@
 
         return $resultat->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    // Rechercher de rechercher les dossiers terminés en fonction de plusieurs critères de recherche
     function rechercheDossierTerm($recherche)  {
                 
         $connexion = getConnexion();
@@ -536,8 +563,9 @@
         $resultats = $curseur->fetchAll(PDO::FETCH_ASSOC);
 
         return $resultats;
-}
+    }
 
+    // Permet de récupérer tous les dossiers qui sont en cours de diagnostics dans la BDD
     function dossierDiagnostic() {
 
         $connexion = getConnexion();
@@ -554,6 +582,7 @@
         return $resultat->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    // Rechercher de rechercher les dossiers en cours de diagnostics en fonction de plusieurs critères de recherche
     function rechercheDossierDiag($recherche)  {
                 
         $connexion = getConnexion();
@@ -573,9 +602,9 @@
         $resultats = $curseur->fetchAll(PDO::FETCH_ASSOC);
 
         return $resultats;
-        }
+    }
 
-
+    // Permet de récupérer tous les dossiers qui sont en cours d'expédition dans la BDD
     function dossierExpedition() {
         $connexion = getConnexion();
 
@@ -590,6 +619,8 @@
 
         return $resultat->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    // Rechercher de rechercher les dossiers en cours d'expédition en fonction de plusieurs critères de recherche
     function rechercheDossierExpe($recherche)  {
                 
         $connexion = getConnexion();
@@ -609,68 +640,71 @@
         $resultats = $curseur->fetchAll(PDO::FETCH_ASSOC);
 
         return $resultats;
-        }
+    }
 
-        function ajoutDossier($typeDossier, $statutDossier, $numCom, $idUtilisateur, $commentaire) {
+    // Permet d'ajouter un nouveau dossier dans la BDD avec les paramètres fournis
+    function ajoutDossier($typeDossier, $statutDossier, $numCom, $idUtilisateur, $commentaire) {
 
-            try {
-                $connexion = getConnexion();
-
-                $sql = "INSERT INTO dossier_reclamation
-                (dateDossier, typeDossier, statutDossier, numCommande, idUtilisateur, commentaireDossier) 
-                VALUES (CURRENT_DATE(), :typeDossier, :statutDossier, :numCommande, :idUtilisateur, :commentaireDossier)";
-
-                $requete = $connexion->prepare($sql);
-
-
-                $requete->bindParam(':statutDossier', $statutDossier);
-                $requete->bindParam(':typeDossier', $typeDossier);
-                $requete->bindParam(':numCommande', $numCom);
-                $requete->bindParam(':idUtilisateur', $idUtilisateur);
-                $requete->bindParam(':commentaireDossier', $commentaire);
-    
-                $requete->execute();
-             
-            } catch (PDOException $e) {
-                throw new ModeleException("Erreur lors de l'insertion de l'utilisateur : " . $e->getMessage());
-            }
-
-            return $connexion->lastInsertId();
-        }   
-        
-        function ajoutDossierArticle($codeArticle, $numDossier) {
-
-            try {
-                $connexion = getConnexion();
-
-                $sql = "INSERT INTO concerner(codeArticle, numDossier) 
-                VALUES (:codeArticle, :numDossier)";
-
-                $requete = $connexion->prepare($sql);
-
-
-                $requete->bindParam(':codeArticle', $codeArticle);
-                $requete->bindParam(':numDossier', $numDossier);
-    
-                $requete->execute();
-             
-            } catch (PDOException $e) {
-                throw new ModeleException("Erreur lors de l'insertion de l'utilisateur : " . $e->getMessage());
-            }
-        }
-
-        function getCommandeReclamation($idCommande) {
+        try {
             $connexion = getConnexion();
 
-            $sql = "SELECT * FROM dossier_reclamation WHERE numCommande = :search_term";
+            $sql = "INSERT INTO dossier_reclamation
+            (dateDossier, typeDossier, statutDossier, numCommande, idUtilisateur, commentaireDossier) 
+            VALUES (CURRENT_DATE(), :typeDossier, :statutDossier, :numCommande, :idUtilisateur, :commentaireDossier)";
 
-            $curseur = $connexion->prepare($sql);
+            $requete = $connexion->prepare($sql);
 
-            $curseur->execute(['search_term' => $idCommande]);
 
-            $resultats = $curseur->fetchAll(PDO::FETCH_ASSOC);
+            $requete->bindParam(':statutDossier', $statutDossier);
+            $requete->bindParam(':typeDossier', $typeDossier);
+            $requete->bindParam(':numCommande', $numCom);
+            $requete->bindParam(':idUtilisateur', $idUtilisateur);
+            $requete->bindParam(':commentaireDossier', $commentaire);
 
-            return $resultats;
+            $requete->execute();
+            
+        } catch (PDOException $e) {
+            throw new ModeleException("Erreur lors de l'insertion de l'utilisateur : " . $e->getMessage());
         }
+
+        return $connexion->lastInsertId();
+    }   
+        
+    // Permet d'associer un article à un dossier dans la BDD en insérant une nouvelle ligne dans la table "Concerner"
+    function ajoutDossierArticle($codeArticle, $numDossier) {
+
+        try {
+            $connexion = getConnexion();
+
+            $sql = "INSERT INTO concerner(codeArticle, numDossier) 
+            VALUES (:codeArticle, :numDossier)";
+
+            $requete = $connexion->prepare($sql);
+
+
+            $requete->bindParam(':codeArticle', $codeArticle);
+            $requete->bindParam(':numDossier', $numDossier);
+
+            $requete->execute();
+            
+        } catch (PDOException $e) {
+            throw new ModeleException("Erreur lors de l'insertion de l'utilisateur : " . $e->getMessage());
+        }
+    }
+
+    // Récupére les dossiers associés à une commande spécifique dans la BDD
+    function getCommandeReclamation($idCommande) {
+        $connexion = getConnexion();
+
+        $sql = "SELECT * FROM dossier_reclamation WHERE numCommande = :search_term";
+
+        $curseur = $connexion->prepare($sql);
+
+        $curseur->execute(['search_term' => $idCommande]);
+
+        $resultats = $curseur->fetchAll(PDO::FETCH_ASSOC);
+
+        return $resultats;
+    }
 
 ?>
