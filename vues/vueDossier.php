@@ -9,7 +9,7 @@
     <table class="container-fluid container-md table table-striped border alignTable rounded-3 maTableAdmin overflow-hidden">
         <thead>
             <div class="container d-flex justify-content-center my-3" style="color: white">
-                <h2>Information du dossier du client</h2>
+                <h2>Informations du dossier du client</h2>
             </div>    
             <tr>
             <th scope="col">Numero de dossier</th>
@@ -43,7 +43,7 @@
             <table class="container-fluid container-md table table-striped border alignTable rounded-3 maTableAdmin overflow-hidden">
                 <thead>
                 <div class="container d-flex justify-content-center my-3" style="color: white">
-                    <h2>Information de l'article posant problème</h2>
+                    <h2>Informations des articles posant problème</h2>
                 </div> 
                     <tr>
                         <th scope="col">Article</th>
