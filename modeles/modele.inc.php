@@ -543,7 +543,7 @@
         return $resultat->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Rechercher de rechercher les dossiers terminés en fonction de plusieurs critères de recherche
+    // Permet de rechercher les dossiers terminés en fonction de plusieurs critères de recherche
     function rechercheDossierTerm($recherche)  {
                 
         $connexion = getConnexion();
@@ -582,7 +582,7 @@
         return $resultat->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Rechercher de rechercher les dossiers en cours de diagnostics en fonction de plusieurs critères de recherche
+    // Permet de rechercher les dossiers en cours de diagnostics en fonction de plusieurs critères de recherche
     function rechercheDossierDiag($recherche)  {
                 
         $connexion = getConnexion();
@@ -620,7 +620,7 @@
         return $resultat->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Rechercher de rechercher les dossiers en cours d'expédition en fonction de plusieurs critères de recherche
+    // permet de rechercher les dossiers en cours d'expédition en fonction de plusieurs critères de recherche
     function rechercheDossierExpe($recherche)  {
                 
         $connexion = getConnexion();
